@@ -11,7 +11,7 @@ public class loginServiceimpl implements loginService {
     public static loginDAO lg = new loginDAO();
 
     @Override
-    public int login(String uid, String password) throws Exception {
+    public int login(String uid, String password) {
         loginDTO user;
         user = lg.login(uid);
         if (user == null || !user.getuId().equals(uid) || !user.getPassword().equals(password)) {
@@ -25,7 +25,6 @@ public class loginServiceimpl implements loginService {
 
     @Override
     public void register(String userID, String userPassword, String gender) throws Exception {
-        var register = lg.register(userID,userPassword,gender);
-        System.out.println(register.toString());
+        lg.register(userID, userPassword, gender);
     }
 }

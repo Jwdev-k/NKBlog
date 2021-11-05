@@ -11,12 +11,13 @@ import java.io.InputStream;
 
 public class loginDAO implements loginMapper {
 
+
     private static SqlSession getSqlSession() throws Exception {
         String resource = "java-mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         sqlSessionFactory.getConfiguration().addMapper(loginMapper.class);
-        return sqlSessionFactory.openSession();
+        return sqlSessionFactory.openSession(true); // true 자동 커밋
     }
 
     @Override
@@ -25,6 +26,7 @@ public class loginDAO implements loginMapper {
         try {
             var mapper = getSqlSession().getMapper(loginMapper.class);
             dto = mapper.getAllAccountData();
+            getSqlSession().getConnection().close();
         } catch (Exception e) {
             System.out.println("데이터를 찾을수없음");
             e.printStackTrace();
@@ -38,6 +40,7 @@ public class loginDAO implements loginMapper {
         try {
             var mapper = getSqlSession().getMapper(loginMapper.class);
             dto = mapper.login(userID);
+            getSqlSession().getConnection().close();
             return dto;
         } catch (Exception e) {
             System.out.println("데이터를 찾을수없음");
@@ -47,9 +50,11 @@ public class loginDAO implements loginMapper {
     }
 
     @Override
-    public loginDTO register(String userID, String userPassword, String gender) throws Exception {
+    public void register(String uid, String password, String gender) throws Exception {
         var mapper = getSqlSession().getMapper(loginMapper.class);
-        return mapper.register(userID,userPassword,gender);
+        mapper.register(uid,password,gender);
+        var user = new loginDTO(0, uid, password, gender);
+        System.out.println(user.toString());
     }
 
 

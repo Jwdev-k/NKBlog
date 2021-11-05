@@ -3,14 +3,12 @@ package com.blog.controller;
 import com.blog.service.impl.loginServiceimpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.SQLException;
 
 @Controller
 public class LoginController {
@@ -49,6 +47,11 @@ public class LoginController {
         String userPassword = request.getParameter("userPassword");
         String userGender = request.getParameter("userGender");
         ls.register(userID,userPassword,userGender);
+        log.debug("user register request....");
+        if (userID == null || userPassword == null || userGender == null) {
+            System.out.println("값이 없습니다.");
+            return "redirect:join";
+        }
         return "redirect:login";
     }
 }
