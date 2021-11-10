@@ -31,8 +31,8 @@
                    data-toggle="dropdown" role="button" aria-haspopup="true"
                    aria-expanded="false">메뉴<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li class="active"><a href="/NKBlog/login">로그인</a></li>
-                    <li><a href="/NKBlog/register">회원가입</a></li>
+                    <li><a href="/NKBlog/login">로그인</a></li>
+                    <li class="active"><a href="/NKBlog/register">회원가입</a></li>
                 </ul>
             </li>
         </ul>
@@ -56,7 +56,7 @@
                            <input type="radio" name="userGender" autocomplete="off" value="남자" checked> 남자
                        </label>
                        <label class="btn btn-primary " >
-                           <input type="radio" name="userGender" autocomplete="off" value=" 여자" checked> 여자
+                           <input type="radio" name="userGender" autocomplete="off" value="여자" checked> 여자
                        </label>
                    </div>
                 </div>
