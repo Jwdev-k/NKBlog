@@ -25,7 +25,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(HttpServletRequest request, HttpSession session) throws Exception {
+    public String login(HttpServletRequest request, HttpSession session, HttpServletResponse respone) throws Exception {
         request.setCharacterEncoding("utf-8");
         String userID = request.getParameter("userID");
         String userPassword = request.getParameter("userPassword");
@@ -35,6 +35,7 @@ public class LoginController {
         }
         if (u == 0) {
             session.invalidate();
+            respone.getWriter().println("아이디 또는 패스워드 틀림.");
             return "redirect:login";
         } else {
             return "redirect:main";
