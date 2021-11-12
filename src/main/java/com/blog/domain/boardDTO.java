@@ -1,16 +1,16 @@
 package com.blog.domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class boardDTO {
     private int bno;
     private String title;
     private String uid;
-    private Date created;
+    private LocalDateTime created;
     private String content;
     private int available;
 
-    public boardDTO(int bno, String title, String uid, Date created, String content, int available) {
+    public boardDTO(int bno, String title, String uid, LocalDateTime created, String content, int available) {
         this.bno = bno;
         this.title = title;
         this.uid = uid;
@@ -55,11 +55,11 @@ public class boardDTO {
         this.uid = uid;
     }
 
-    public Date getCreated() {
+    public LocalDateTime getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(LocalDateTime created) {
         this.created = created;
     }
 

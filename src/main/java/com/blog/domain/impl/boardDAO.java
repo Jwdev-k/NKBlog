@@ -1,5 +1,6 @@
 package com.blog.domain.impl;
 
+import com.blog.domain.boardDTO;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -13,9 +14,14 @@ public class boardDAO implements boardMapper {
         String resource = "java-mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-        sqlSessionFactory.getConfiguration().addMapper(loginMapper.class);
+        sqlSessionFactory.getConfiguration().addMapper(boardMapper.class);
         return sqlSessionFactory.openSession(true); // true 자동 커밋
     }
 
 
+    @Override
+    public void addboard(boardDTO bbs) throws Exception {
+        var mapper = getSqlSession().getMapper(boardMapper.class);
+        mapper.addboard(bbs);
+    }
 }

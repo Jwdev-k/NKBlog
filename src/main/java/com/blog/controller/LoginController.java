@@ -36,7 +36,7 @@ public class LoginController {
         if (u == 0) {
             session.invalidate();
             respone.getWriter().println("아이디 또는 패스워드 틀림.");
-            return "redirect:login";
+            return "login";
         } else {
             return "redirect:main";
         }

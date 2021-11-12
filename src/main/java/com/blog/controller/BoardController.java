@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.PrintStream;
 
 @Controller
 public class BoardController {
@@ -28,12 +29,13 @@ public class BoardController {
     public String boardwrite(HttpServletRequest request, HttpSession session){
         String title = request.getParameter("title");
         String content = request.getParameter("content");
+        System.out.println(title + "\n" + content + "\n" + "add board.");
         String uid = (String) session.getAttribute("userID");
         if (title != null && content != null) {
-            bbs.addboard(title, content, uid);
+            bbs.addboard(title, content, "admin");
+            return "bbs";
         } else {
             return "write";
         }
-        return "bbs";
     }
 }

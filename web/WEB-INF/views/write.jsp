@@ -77,14 +77,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td><input type="text" class="form-control" placeholder="글 제목" name="title" maxlength="50"> </td>
-                    <td><textarea type="text" class="form-control" placeholder="글 내용" name="content" maxlength="2048" style="height: 350px;"> </textarea></td>
-                </tr>
+                    <tr>
+                        <td><input type="text" class="form-control" placeholder="글 제목" name="title" maxlength="50"> </td>
+                    </tr>
+                    <tr>
+                        <td><textarea class="form-control" placeholder="글 내용" name="content" maxlength="2048" style="height: 350px;"> </textarea></td>
+                    </tr>
                 </tbody>
             </table>
+            <input type="submit" class="btn btn-primary pull-right" value="글쓰기">
         </form>
-        <input type="submit" class="btn btn-primary pull-right">글쓰기</input>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

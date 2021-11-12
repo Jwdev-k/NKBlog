@@ -85,15 +85,9 @@
                     <td>naka</td>
                     <td>2021-00-00</td>
                 </tr>
-            </tbody>
+            </tbody>d
         </table>
-        <%
-        if (userID != null) {
-        %>
-        <a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a>
-        <%
-        }
-        %>
+        <a href="/NKBlog/bbs/write" class="btn btn-primary pull-right">글쓰기</a>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
