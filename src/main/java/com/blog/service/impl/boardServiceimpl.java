@@ -5,8 +5,8 @@ import com.blog.domain.impl.boardDAO;
 import com.blog.service.boardService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @Service
 public class boardServiceimpl implements boardService {
@@ -24,7 +24,7 @@ public class boardServiceimpl implements boardService {
     }
 
     @Override
-    public void getboardlist() {
-
+    public ArrayList<boardDTO> getboardlist() throws Exception {
+        return bbs.boardList();
     }
 }

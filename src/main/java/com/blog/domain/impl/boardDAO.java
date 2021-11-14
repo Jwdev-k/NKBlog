@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class boardDAO implements boardMapper {
 
@@ -18,6 +19,11 @@ public class boardDAO implements boardMapper {
         return sqlSessionFactory.openSession(true); // true 자동 커밋
     }
 
+    @Override
+    public ArrayList<boardDTO> boardList() throws Exception {
+        var mapper = getSqlSession().getMapper(boardMapper.class);
+        return mapper.boardList();
+    }
 
     @Override
     public void addboard(boardDTO bbs) throws Exception {

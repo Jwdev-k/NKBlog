@@ -21,7 +21,7 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/bbs/write", method = RequestMethod.GET)
-    public String boardwrite(){
+    public String boardwrite(HttpSession session){
         return "write";
     }
 

@@ -1,3 +1,7 @@
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.blog.domain.boardDTO" %>
+<%@ page import="com.blog.service.boardService" %>
+<%@ page import="com.blog.service.impl.boardServiceimpl" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"
          pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -79,13 +83,21 @@
             </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>hi</td>
-                    <td>naka</td>
-                    <td>2021-00-00</td>
-                </tr>
-            </tbody>d
+            <%
+                boardServiceimpl bbs = new boardServiceimpl();
+                ArrayList<boardDTO> list = bbs.getboardlist();
+                for (int i = 0; i < list.size(); i++) {
+            %>
+            <tr>
+                <td><%= list.get(i).getBno()%></td>
+                <td><a href="NKBlog/bbs/view?bno=<%= list.get(i).getBno()%>"><%= list.get(i).getTitle()%></a></td>
+                <td><%= list.get(i).getUid()%></td>
+                <td><%= list.get(i).getCreated()%></td>
+            </tr>
+            <%
+                }
+            %>
+            </tbody>
         </table>
         <a href="/NKBlog/bbs/write" class="btn btn-primary pull-right">글쓰기</a>
     </div>
