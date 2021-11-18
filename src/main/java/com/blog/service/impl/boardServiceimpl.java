@@ -27,4 +27,9 @@ public class boardServiceimpl implements boardService {
     public ArrayList<boardDTO> getboardlist() throws Exception {
         return bbs.boardList();
     }
+
+    @Override
+    public void delteboard(int bno) throws Exception {
+        bbs.deleteboard(bno);
+    }
 }

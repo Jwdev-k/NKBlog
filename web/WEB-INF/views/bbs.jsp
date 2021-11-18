@@ -86,19 +86,32 @@
             <%
                 boardServiceimpl bbs = new boardServiceimpl();
                 ArrayList<boardDTO> list = bbs.getboardlist();
+                int pageNumber = 1;
                 for (int i = 0; i < list.size(); i++) {
             %>
             <tr>
                 <td><%= list.get(i).getBno()%></td>
-                <td><a href="NKBlog/bbs/view?bno=<%= list.get(i).getBno()%>"><%= list.get(i).getTitle()%></a></td>
+                <td><a href="/NKBlog/bbs/view?bno=<%= list.get(i).getBno()%>"><%= list.get(i).getTitle()%></a></td>
                 <td><%= list.get(i).getUid()%></td>
                 <td><%= list.get(i).getCreated()%></td>
             </tr>
             <%
+                    if (i == 10) {
+                        pageNumber += 1;
+                    }
                 }
             %>
             </tbody>
         </table>
+        <%
+            if (pageNumber != 1) {
+        %>
+         <a href="/NKBlog/bbs?pageNumber=<%=pageNumber - 1%>" class="btn btn-success btn-arraw-left">이전</a>
+             <%
+                } if (list.size() > 10) {
+             %>
+        <a href="/NKBlog/bbs?pageNumber=<%=pageNumber%>" class="btn btn-success btn-arraw-left">다음</a>
+        <%}%>
         <a href="/NKBlog/bbs/write" class="btn btn-primary pull-right">글쓰기</a>
     </div>
 </div>

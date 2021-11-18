@@ -30,4 +30,10 @@ public class boardDAO implements boardMapper {
         var mapper = getSqlSession().getMapper(boardMapper.class);
         mapper.addboard(bbs);
     }
+
+    @Override
+    public void deleteboard(int bno) throws Exception {
+        var mapper = getSqlSession().getMapper(boardMapper.class);
+        mapper.deleteboard(bno);
+    }
 }
