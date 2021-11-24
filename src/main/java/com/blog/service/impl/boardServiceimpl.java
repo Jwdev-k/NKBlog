@@ -24,8 +24,8 @@ public class boardServiceimpl implements boardService {
     }
 
     @Override
-    public ArrayList<boardDTO> getboardlist() throws Exception {
-        return bbs.boardList();
+    public ArrayList<boardDTO> getboardlist(int pagenumber) throws Exception {
+        return bbs.boardList(pagenumber);
     }
 
     @Override

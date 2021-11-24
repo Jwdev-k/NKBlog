@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public interface boardMapper {
 
-    @Select("SELECT * FROM boardlist WHERE Available = 1 LIMIT 10")
-    ArrayList<boardDTO> boardList() throws Exception;
+    @Select("SELECT * FROM boardlist WHERE bno <= #{pagenumber} AND Available = 1")
+    ArrayList<boardDTO> boardList(int pagenumber) throws Exception;
 
     @Insert("INSERT INTO boardlist VALUES(null, #{title}, #{uid}, #{created}, #{content}, #{available})")
     void addboard(boardDTO bbs) throws Exception;

@@ -29,6 +29,10 @@
         if (session.getAttribute("userID") != null) {
             userID = (String) session.getAttribute("userID");
         }
+        int pageNumber = 1;
+        if (request.getParameter("pageNumber") != null) {
+            pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+        }
     %>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
@@ -85,8 +89,8 @@
             <tbody>
             <%
                 boardServiceimpl bbs = new boardServiceimpl();
-                ArrayList<boardDTO> list = bbs.getboardlist();
-                int pageNumber = 1;
+                ArrayList<boardDTO> list = bbs.getboardlist(pageNumber);
+                boolean next = false;
                 for (int i = 0; i < list.size(); i++) {
             %>
             <tr>
@@ -96,9 +100,14 @@
                 <td><%= list.get(i).getCreated()%></td>
             </tr>
             <%
-                    if (i == 10) {
+                    if (i == 9) {
                         pageNumber += 1;
+                        if (list.size() > 0) {
+                            next = true;
+                        }
+                        continue;
                     }
+                    next = false;
                 }
             %>
             </tbody>
@@ -106,10 +115,10 @@
         <%
             if (pageNumber != 1) {
         %>
-         <a href="/NKBlog/bbs?pageNumber=<%=pageNumber - 1%>" class="btn btn-success btn-arraw-left">이전</a>
-             <%
-                } if (list.size() > 10) {
-             %>
+        <a href="/NKBlog/bbs?pageNumber=<%=pageNumber - 1%>" class="btn btn-success btn-arraw-left">이전</a>
+        <%}
+            if (next) {
+        %>
         <a href="/NKBlog/bbs?pageNumber=<%=pageNumber%>" class="btn btn-success btn-arraw-left">다음</a>
         <%}%>
         <a href="/NKBlog/bbs/write" class="btn btn-primary pull-right">글쓰기</a>

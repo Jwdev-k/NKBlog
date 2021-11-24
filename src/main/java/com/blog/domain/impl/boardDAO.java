@@ -20,9 +20,9 @@ public class boardDAO implements boardMapper {
     }
 
     @Override
-    public ArrayList<boardDTO> boardList() throws Exception {
+    public ArrayList<boardDTO> boardList(int pagenumber) throws Exception {
         var mapper = getSqlSession().getMapper(boardMapper.class);
-        return mapper.boardList();
+        return mapper.boardList(pagenumber * 10);
     }
 
     @Override
