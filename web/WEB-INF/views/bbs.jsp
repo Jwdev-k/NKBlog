@@ -90,7 +90,6 @@
             <%
                 boardServiceimpl bbs = new boardServiceimpl();
                 ArrayList<boardDTO> list = bbs.getboardlist(pageNumber);
-                boolean next = false;
                 for (int i = 0; i < list.size(); i++) {
             %>
             <tr>
@@ -100,26 +99,20 @@
                 <td><%= list.get(i).getCreated()%></td>
             </tr>
             <%
-                    if (i == 9) {
-                        pageNumber += 1;
-                        if (list.size() > 0) {
-                            next = true;
-                        }
-                        continue;
-                    }
-                    next = false;
                 }
             %>
             </tbody>
         </table>
         <%
             if (pageNumber != 1) {
+                int n = pageNumber - 1;
         %>
-        <a href="/NKBlog/bbs?pageNumber=<%=pageNumber - 1%>" class="btn btn-success btn-arraw-left">이전</a>
+        <a href="/NKBlog/bbs?pageNumber=<%=n%>" class="btn btn-success btn-arraw-left">이전</a>
         <%}
-            if (next) {
+            if (bbs.nextpage(pageNumber)) {
+                int n = pageNumber + 1;
         %>
-        <a href="/NKBlog/bbs?pageNumber=<%=pageNumber%>" class="btn btn-success btn-arraw-left">다음</a>
+        <a href="/NKBlog/bbs?pageNumber=<%=n%>" class="btn btn-success btn-arraw-left">다음</a>
         <%}%>
         <a href="/NKBlog/bbs/write" class="btn btn-primary pull-right">글쓰기</a>
     </div>

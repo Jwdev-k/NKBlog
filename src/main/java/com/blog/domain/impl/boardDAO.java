@@ -22,7 +22,18 @@ public class boardDAO implements boardMapper {
     @Override
     public ArrayList<boardDTO> boardList(int pagenumber) throws Exception {
         var mapper = getSqlSession().getMapper(boardMapper.class);
-        return mapper.boardList(pagenumber * 10);
+        if (pagenumber != 1) {
+            int n = (pagenumber - 1) * 20;
+            System.out.println(n + "/Page level");
+            return mapper.boardList(n);
+        }
+        return mapper.boardList(0);
+    }
+
+    @Override
+    public ArrayList<boardDTO> nextpage(int pagenumber) throws Exception {
+        var mapper = getSqlSession().getMapper(boardMapper.class);
+        return mapper.nextpage(pagenumber);
     }
 
     @Override
