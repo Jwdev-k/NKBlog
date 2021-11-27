@@ -20,4 +20,7 @@ public interface boardMapper {
 
     @Delete("DELETE FROM boardlist WHERE bno = #{bno}")
     void deleteboard(int bno) throws Exception;
+
+    @Select("SELECT * FROM boardlist WHERE bno = #{bno}")
+    boardDTO getBbs (int bno) throws Exception;
 }

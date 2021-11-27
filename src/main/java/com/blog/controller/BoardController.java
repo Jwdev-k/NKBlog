@@ -3,6 +3,8 @@ package com.blog.controller;
 import com.blog.domain.boardDTO;
 import com.blog.service.impl.boardServiceimpl;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,4 +42,11 @@ public class BoardController {
             return "write";
         }
     }
+
+    @RequestMapping(value = "/bbs/view", method = RequestMethod.GET)
+    public String boardview(@RequestParam("bno") int param1, ModelMap model){
+        model.addAttribute("bno", param1);
+        return "view";
+    }
+
 }

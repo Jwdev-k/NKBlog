@@ -47,4 +47,10 @@ public class boardDAO implements boardMapper {
         var mapper = getSqlSession().getMapper(boardMapper.class);
         mapper.deleteboard(bno);
     }
+
+    @Override
+    public boardDTO getBbs(int bno) throws Exception {
+        var mapper = getSqlSession().getMapper(boardMapper.class);
+        return mapper.getBbs(bno);
+    }
 }

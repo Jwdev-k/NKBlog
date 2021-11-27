@@ -4,7 +4,6 @@ import com.blog.service.impl.loginServiceimpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -25,7 +24,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(HttpServletRequest request, HttpSession session, HttpServletResponse respone) throws Exception {
+    public String login(HttpServletRequest request, HttpSession session) throws Exception {
         request.setCharacterEncoding("utf-8");
         String userID = request.getParameter("userID");
         String userPassword = request.getParameter("userPassword");
@@ -35,11 +34,9 @@ public class LoginController {
         }
         if (u == 0) {
             session.invalidate();
-            respone.getWriter().println("아이디 또는 패스워드 틀림.");
-            return "login";
-        } else {
-            return "redirect:main";
+            return "redirect:login";
         }
+        return "redirect:main";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
