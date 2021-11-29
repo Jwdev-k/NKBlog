@@ -1,6 +1,7 @@
 package com.blog.controller;
 
 import com.blog.service.impl.loginServiceimpl;
+import com.blog.utils.ScriptUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 @Controller
 public class LoginController {
@@ -17,9 +20,14 @@ public class LoginController {
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
     public static loginServiceimpl ls = new loginServiceimpl();
+    private boolean check = false;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
+    public String login(HttpServletResponse response) throws IOException {
+        if (check){
+            ScriptUtils.alert(response, "패스워드 또는 아이디가 틀렸습니다.");
+            check = false;
+        }
         return "login";
     }
 
@@ -29,14 +37,15 @@ public class LoginController {
         String userID = request.getParameter("userID");
         String userPassword = request.getParameter("userPassword");
         var u = ls.login(userID, userPassword);
-        if (userID != null && userPassword != null) {
+        if (userID != null && userPassword != null && u == 1) {
             session.setAttribute("userID", userID);
-        }
-        if (u == 0) {
+            check = false;
+            return "redirect:main";
+        } else {
+            check = true;
             session.invalidate();
             return "redirect:login";
         }
-        return "redirect:main";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
