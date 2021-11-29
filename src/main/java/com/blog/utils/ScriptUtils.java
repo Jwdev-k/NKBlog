@@ -7,8 +7,8 @@ import java.io.PrintWriter;
 public class ScriptUtils {
 
     public static void init(HttpServletResponse response) {
-        response.setContentType("text/html; charset=euc-kr");
-        response.setCharacterEncoding("euc-kr");
+        response.setContentType("text/html; charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
     }
 
     public static void alert(HttpServletResponse response, String alertText) throws IOException {
