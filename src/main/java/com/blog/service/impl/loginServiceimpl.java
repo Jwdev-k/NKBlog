@@ -15,7 +15,6 @@ public class loginServiceimpl implements loginService {
         loginDTO user;
         user = lg.login(uid);
         if (user == null || !user.getuId().equals(uid) || !user.getPassword().equals(password)) {
-            System.out.println("아이디또는 패스워드 틀림.");
             return 0;
         } else {
             System.out.println(user.getuId() + " login.");

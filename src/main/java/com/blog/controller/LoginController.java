@@ -5,6 +5,8 @@ import com.blog.utils.ScriptUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -12,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @Controller
 public class LoginController {
@@ -22,24 +23,19 @@ public class LoginController {
     public static loginServiceimpl ls = new loginServiceimpl();
     private boolean check = false;
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(HttpServletResponse response) throws IOException {
-        if (check){
-            ScriptUtils.alert(response, "패스워드 또는 아이디가 틀렸습니다.");
-            check = false;
-        }
+    @RequestMapping(value = "/login")
+    public String login() {
         return "login";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(HttpServletRequest request, HttpSession session) throws Exception {
+    public String login(HttpServletRequest request, HttpSession session, ModelMap model) throws Exception {
         request.setCharacterEncoding("utf-8");
         String userID = request.getParameter("userID");
         String userPassword = request.getParameter("userPassword");
         var u = ls.login(userID, userPassword);
-        if (userID != null && userPassword != null && u == 1) {
+        if (u == 1) {
             session.setAttribute("userID", userID);
-            check = false;
             return "redirect:main";
         } else {
             check = true;
