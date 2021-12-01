@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 
 @Controller
 public class BoardController {
@@ -47,6 +48,14 @@ public class BoardController {
     public String boardview(@RequestParam("bno") int param1, ModelMap model){
         model.addAttribute("bno", param1);
         return "view";
+    }
+
+    @RequestMapping(value = "/bbs/view/deleteAction", method = RequestMethod.GET)
+    public String deleteboard(@RequestParam("bno") int param1) throws Exception {
+        if (param1 != 0) {
+            bbs.delteboard(param1);
+        }
+        return "redirect:/bbs";
     }
 
 }

@@ -1,19 +1,15 @@
 package com.blog.controller;
 
 import com.blog.service.impl.loginServiceimpl;
-import com.blog.utils.ScriptUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
 @Controller
 public class LoginController {
@@ -29,7 +25,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(HttpServletRequest request, HttpSession session, ModelMap model) throws Exception {
+    public String login(HttpServletRequest request, HttpSession session) throws Exception {
         request.setCharacterEncoding("utf-8");
         String userID = request.getParameter("userID");
         String userPassword = request.getParameter("userPassword");

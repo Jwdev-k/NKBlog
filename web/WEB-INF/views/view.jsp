@@ -105,19 +105,19 @@
                 </tr>
                 <tr>
                     <td>글 내용</td>
-                    <td colspan="2" style="min-height: 200px; text-align: left;"><%= bbs.getContent()%></td>
+                    <td colspan="2" style="min-height: 200px; text-align: left;"><%= bbs.getContent().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")%></td>
                 </tr>
             </tbody>
         </table>
         <a href="/NKBlog/bbs" class="btn btn-primary">목록</a>
-        <%
+<%--        <%
         if (userID != null && userID.equals(bbs.getUid())) {
-        %>
+        %>--%>
             <a href="update.jsp?bno=<%= bbsID %>" class="btn btn-primary">수정</a>
-            <a href="deleteAction.jsp?bno=<%= bbsID %>" class="btn btn-primary">삭제</a>
-        <%
+            <a href="/NKBlog/bbs/view/deleteAction?bno=<%= bbsID %>" class="btn btn-primary">삭제</a>
+<%--        <%
         }
-        %>
+        %>--%>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

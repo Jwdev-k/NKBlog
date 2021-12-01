@@ -14,12 +14,11 @@ public class ScriptUtils {
     public static void alert(HttpServletResponse response, String alertText) throws IOException {
         init(response);
         PrintWriter out = response.getWriter();
-        out.println("<script>alert('" + alertText + "');</script> ");
+        out.println("<script>alert('" + alertText + "');</script>");
         out.flush();
     }
 
-    public static void alertAndMovePage(HttpServletResponse response, String alertText, String nextPage)
-            throws IOException {
+    public static void alertAndMovePage(HttpServletResponse response, String alertText, String nextPage) throws IOException {
         init(response);
         PrintWriter out = response.getWriter();
         out.println("<script>alert('" + alertText + "'); location.href='" + nextPage + "';</script> ");
