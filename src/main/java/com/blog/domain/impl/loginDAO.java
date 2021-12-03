@@ -35,11 +35,11 @@ public class loginDAO implements loginMapper {
     }
 
     @Override
-    public loginDTO login(String userID) {
+    public loginDTO login(String userID, String password) {
         loginDTO dto = null;
         try {
             var mapper = getSqlSession().getMapper(loginMapper.class);
-            dto = mapper.login(userID);
+            dto = mapper.login(userID, password);
             getSqlSession().getConnection().close();
             return dto;
         } catch (Exception e) {

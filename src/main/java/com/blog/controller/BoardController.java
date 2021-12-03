@@ -38,7 +38,7 @@ public class BoardController {
         String uid = (String) session.getAttribute("userID");
         if (title != null && content != null) {
             bbs.addboard(title, content, "admin");
-            return "bbs";
+            return "redirect:bbs";
         } else {
             return "write";
         }

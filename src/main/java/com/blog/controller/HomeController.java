@@ -25,8 +25,8 @@ public class HomeController {
         return "index";
     }
 
-    @RequestMapping(value = "/main", method = RequestMethod.GET)
-    public String main (HttpServletResponse respone) {
+    @RequestMapping(value = "/main", method = {RequestMethod.GET, RequestMethod.POST} )
+    public String main () {
         return "main";
     }
 }

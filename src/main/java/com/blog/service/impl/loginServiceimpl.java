@@ -13,7 +13,7 @@ public class loginServiceimpl implements loginService {
     @Override
     public int login(String uid, String password) {
         loginDTO user;
-        user = lg.login(uid);
+        user = lg.login(uid, password);
         if (user == null || !user.getuId().equals(uid) || !user.getPassword().equals(password)) {
             return 0;
         } else {

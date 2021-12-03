@@ -11,8 +11,8 @@ public interface loginMapper {
     @Select("SELECT * FROM account")
     loginDTO getAllAccountData() throws Exception;
 
-    @Select("SELECT * FROM account WHERE uid = #{userID}")
-    loginDTO login(String userID) throws Exception;
+    @Select("SELECT * FROM account WHERE uid = #{userID} AND password = #{password}")
+    loginDTO login(@Param("userID") String userID, @Param("password") String password) throws Exception;
 
     @Insert("INSERT INTO account VALUES(null, #{uid}, #{password}, #{gender})")
     void register(@Param("uid") String uid, @Param("password") String password, @Param("gender") String gender) throws Exception;

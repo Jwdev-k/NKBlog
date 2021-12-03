@@ -66,6 +66,19 @@
             }
         %>
     </div>
+    <div class="container">
+        <div class="jumbotron">
+            <div class="container">
+                <h1>INFO</h1>
+                <p>부트스트랩을 이용하여 만든 자바 스프링 웹 사이트 입니다.</p>
+                <p>마이바티스를 이용하여 블로그에필요한 간단한 DB 로직만 구현하였습니다.</p>
+                <a class="btn btn-primary btn-pull" role="button">NEXT</a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <img src="${pageContext.request.contextPath}/resources/image/main1.png">
+    </div>
 </nav>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>

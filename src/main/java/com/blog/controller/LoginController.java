@@ -24,7 +24,7 @@ public class LoginController {
         return "login";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
     public String login(HttpServletRequest request, HttpSession session) throws Exception {
         request.setCharacterEncoding("utf-8");
         String userID = request.getParameter("userID");
@@ -33,11 +33,9 @@ public class LoginController {
         if (u == 1) {
             session.setAttribute("userID", userID);
             return "redirect:main";
-        } else {
-            check = true;
-            session.invalidate();
-            return "redirect:login";
         }
+        check = true;
+        return "login";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -53,7 +51,7 @@ public class LoginController {
         String userGender = request.getParameter("userGender");
         ls.register(userID, userPassword, userGender);
         log.debug("user register request....");
-        if (userID == null || userPassword == null || userGender == null) {
+        if (userID == null && userPassword == null && userGender == null) {
             System.out.println("값이 없습니다.");
             return "redirect:join";
         } else {
