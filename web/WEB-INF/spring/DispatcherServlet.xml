@@ -25,4 +25,7 @@
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
+    <!-- 인터셉터 객체 생성 -->
+    <beans:bean id="AuthLoginInterceptor" class="com.blog.interceptor.AuthLoginInterceptor">
+    </beans:bean>
 </beans:beans>
