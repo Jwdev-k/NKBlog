@@ -94,7 +94,7 @@
             %>
             <tr>
                 <td><%= list.get(i).getBno()%></td>
-                <td><a href="/NKBlog/bbs/view?bno=<%= list.get(i).getBno()%>"><%= list.get(i).getTitle()%></a></td>
+                <td><a href="/NKBlog/bbs/view?bno=<%= list.get(i).getBno()%>"><%= list.get(i).getTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")%></a></td>
                 <td><%= list.get(i).getUid()%></td>
                 <td><%= list.get(i).getCreated()%></td>
             </tr>
