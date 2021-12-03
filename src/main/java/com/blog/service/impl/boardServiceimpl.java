@@ -37,4 +37,9 @@ public class boardServiceimpl implements boardService {
     public void delteboard(int bno) throws Exception {
         bbs.deleteboard(bno);
     }
+
+    @Override
+    public void updateboard(boardDTO dto) throws Exception {
+        bbs.updateboard(dto);
+    }
 }

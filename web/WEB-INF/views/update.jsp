@@ -1,8 +1,7 @@
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="com.blog.domain.impl.boardDAO" %>
 <%@ page import="com.blog.domain.boardDTO" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java"
-         pageEncoding="UTF-8" %>
+<%@ page import="com.blog.domain.impl.boardDAO" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,8 +42,8 @@
     %>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="/NKBlog/main">메인</a></li>
-            <li><a href="/NKBlog/bbs">게시판</a></li>
+            <li><a href="/NKBlog/main">메인</a></li>
+            <li class="active"><a href="/NKBlog/bbs">게시판</a></li>
         </ul>
         <%
             if(userID == null) {
@@ -84,40 +83,24 @@
 </nav>
 <div class="container">
     <div class="row">
-        <table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
-            <thead>
-            <tr>
-                <th colspan="3" style="background-color: #eeeeee; text-align: center;">게시판 글 보기</th>
-            </tr>
-            </thead>
-            <tbody>
+        <form method="post">
+            <table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+                <thead>
                 <tr>
-                    <td style="width: 20%;">글 제목</td>
-                    <td colspan="2"><%= bbs.getTitle()%></td>
+                    <th colspan="2" style="background-color: #eeeeee; text-align: center;">Edit Board</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><input type="text" class="form-control" placeholder="글 제목" name="title" maxlength="50" value="<%= bbs.getTitle() %>"> </td>
                 </tr>
                 <tr>
-                    <td>작성자</td>
-                    <td colspan="2"><%= bbs.getUid()%></td>
+                    <td><textarea class="form-control" placeholder="글 내용" name="content"  maxlength="2048" style="height: 350px; resize: none;"><%= bbs.getContent() %></textarea></td>
                 </tr>
-                <tr>
-                    <td>작성일자</td>
-                    <td colspan="2"><%= bbs.getCreated()%></td>
-                </tr>
-                <tr>
-                    <td>글 내용</td>
-                    <td colspan="2" style="min-height: 200px; text-align: left;"><%= bbs.getContent().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")%></td>
-                </tr>
-            </tbody>
-        </table>
-        <a href="/NKBlog/bbs" class="btn btn-primary">목록</a>
-<%--        <%
-        if (userID != null && userID.equals(bbs.getUid())) {
-        %>--%>
-            <a href="/NKBlog/bbs/view/update?bno=<%= bbsID %>" class="btn btn-primary">수정</a>
-            <a href="/NKBlog/bbs/view/deleteAction?bno=<%= bbsID %>" class="btn btn-primary">삭제</a>
-<%--        <%
-        }
-        %>--%>
+                </tbody>
+            </table>
+            <input type="submit" class="btn btn-primary pull-right" value="글수정">
+        </form>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

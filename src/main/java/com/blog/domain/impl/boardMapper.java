@@ -4,6 +4,7 @@ import com.blog.domain.boardDTO;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.ArrayList;
 
@@ -21,6 +22,10 @@ public interface boardMapper {
     @Delete("DELETE FROM boardlist WHERE bno = #{bno}")
     void deleteboard(int bno) throws Exception;
 
+    @Update("UPDATE boardlist SET title = #{title}, content = #{content} WHERE bno = #{bno}")
+    void updateboard(boardDTO bbs) throws Exception;
+
     @Select("SELECT * FROM boardlist WHERE bno = #{bno}")
     boardDTO getBbs (int bno) throws Exception;
+
 }

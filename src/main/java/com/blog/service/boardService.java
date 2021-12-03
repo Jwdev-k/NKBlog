@@ -9,4 +9,5 @@ public interface boardService {
     ArrayList<boardDTO> getboardlist(int pageNumber) throws Exception;
     boolean nextpage(int pageNumber) throws Exception;
     void delteboard(int bno) throws Exception;
+    void updateboard(boardDTO dto) throws Exception;
 }

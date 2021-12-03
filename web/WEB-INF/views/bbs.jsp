@@ -109,7 +109,7 @@
         %>
         <a href="/NKBlog/bbs?pageNumber=<%=n%>" class="btn btn-success btn-arraw-left">이전</a>
         <%}
-            if (bbs.nextpage(pageNumber)) {
+            if (bbs.nextpage(pageNumber + 1)) {
                 int n = pageNumber + 1;
         %>
         <a href="/NKBlog/bbs?pageNumber=<%=n%>" class="btn btn-success btn-arraw-left">다음</a>
