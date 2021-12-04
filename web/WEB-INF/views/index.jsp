@@ -42,5 +42,6 @@
     <script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
     <h1>현재 서버 시간${serverTime}</h1>
     <p><a href="/NKBlog/main">메인 페이지 이동</a></p>
+    <p><a href="/NKBlog/error">에러 페이지 이동</a></p>
 </body>
 </html>

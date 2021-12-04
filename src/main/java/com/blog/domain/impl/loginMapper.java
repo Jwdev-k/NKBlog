@@ -6,10 +6,15 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.ArrayList;
+
 public interface loginMapper {
 
     @Select("SELECT * FROM account")
-    loginDTO getAllAccountData() throws Exception;
+    ArrayList<loginDTO> getAllAccountData() throws Exception;
+
+    @Select("SELECT * FROM account WHERE uid = #{userID}")
+    ArrayList<loginDTO> getAccountData(String uid) throws Exception;
 
     @Select("SELECT * FROM account WHERE uid = #{userID} AND password = #{password}")
     loginDTO login(@Param("userID") String userID, @Param("password") String password) throws Exception;

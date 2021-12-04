@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 
 public class loginDAO implements loginMapper {
@@ -21,8 +22,8 @@ public class loginDAO implements loginMapper {
     }
 
     @Override
-    public loginDTO getAllAccountData() {
-        loginDTO dto = null;
+    public ArrayList<loginDTO> getAllAccountData() {
+        ArrayList<loginDTO> dto = null;
         try {
             var mapper = getSqlSession().getMapper(loginMapper.class);
             dto = mapper.getAllAccountData();
@@ -32,6 +33,12 @@ public class loginDAO implements loginMapper {
             e.printStackTrace();
         }
         return dto;
+    }
+
+    @Override
+    public ArrayList<loginDTO> getAccountData(String uid) throws Exception {
+        var mapper = getSqlSession().getMapper(loginMapper.class);
+        return mapper.getAccountData(uid);
     }
 
     @Override

@@ -17,7 +17,7 @@ public class LoginController {
 
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
-    public static loginServiceimpl ls = new loginServiceimpl();
+    private static loginServiceimpl ls = new loginServiceimpl();
     private boolean check = false;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
