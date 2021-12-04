@@ -303,7 +303,6 @@
             </g>
         </g>
     </svg>
-
     <h1 class="error-title">
         Woops! <br>Something went wrong :(
     </h1>
