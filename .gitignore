@@ -13,10 +13,9 @@ hs_err_pid*
 
 /target/
 /bin/
+/out/
 .settings
 .project
 .classpath
 .idea
 =======
-/bin/
-/target/
