@@ -1,6 +1,7 @@
 package com.blog.controller;
 
 import com.blog.service.impl.loginServiceimpl;
+import com.blog.utils.SHA256;
 import com.blog.utils.ScriptUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,7 @@ public class LoginController {
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
     private static loginServiceimpl ls = new loginServiceimpl();
-    private boolean check = false;
+    SHA256 sha256 = new SHA256();
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
@@ -31,7 +32,7 @@ public class LoginController {
     public String login(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
         request.setCharacterEncoding("utf-8");
         String userID = request.getParameter("userID");
-        String userPassword = request.getParameter("userPassword");
+        String userPassword = sha256.encrypt(request.getParameter("userPassword"));
         if (session.getAttribute("userID") != null ){
             session.removeAttribute("userID");
         }
@@ -61,7 +62,7 @@ public class LoginController {
     public String register(HttpServletRequest request, HttpSession session) throws Exception {
         request.setCharacterEncoding("utf-8");
         String userID = request.getParameter("userID");
-        String userPassword = request.getParameter("userPassword");
+        String userPassword = sha256.encrypt(request.getParameter("userPassword"));
         String userGender = request.getParameter("userGender");
         ls.register(userID, userPassword, userGender);
         log.debug("user register request....");
