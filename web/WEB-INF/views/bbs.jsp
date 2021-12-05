@@ -63,10 +63,7 @@
                    data-toggle="dropdown" role="button" aria-haspopup="true"
                    aria-expanded="false">메뉴<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/NKBlog/main">로그아웃</a></li>
-                    <%
-                        session.invalidate();
-                    %>
+                    <li><a href="/NKBlog/logout">로그아웃</a></li>
                 </ul>
             </li>
         </ul>
@@ -114,7 +111,13 @@
         %>
         <a href="/NKBlog/bbs?pageNumber=<%=n%>" class="btn btn-success btn-arraw-left">다음</a>
         <%}%>
+        <%
+            if (userID != null) {
+        %>
         <a href="/NKBlog/bbs/write" class="btn btn-primary pull-right">글쓰기</a>
+        <%
+            }
+        %>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

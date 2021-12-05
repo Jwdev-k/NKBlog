@@ -55,10 +55,7 @@
                    data-toggle="dropdown" role="button" aria-haspopup="true"
                    aria-expanded="false">메뉴<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/NKBlog/main">로그아웃</a></li>
-                    <%
-                    session.invalidate();
-                    %>
+                    <li><a href="/NKBlog/logout">로그아웃</a></li>
                 </ul>
             </li>
         </ul>

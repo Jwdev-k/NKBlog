@@ -49,4 +49,8 @@
         <error-code>500</error-code>
         <location>/WEB-INF/views/error/500error.jsp</location>
     </error-page>
+
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
 </web-app>

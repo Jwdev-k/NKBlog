@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,6 +43,13 @@ public class LoginController {
             ScriptUtils.alertAndBackPage(response, "아이디또는 패스워드가 틀렸습니다.");
         }
         return null;
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @ResponseBody
+    public void logout(HttpServletResponse response, HttpSession session) throws Exception {
+        session.invalidate();
+        ScriptUtils.alertAndMovePage(response, "로그아웃 되었습니다.", "/NKBlog/main");
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)

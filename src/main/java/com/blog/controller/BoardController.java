@@ -7,6 +7,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -37,8 +38,8 @@ public class BoardController {
         System.out.println(title + "\n" + content + "\n" + "add board.");
         String uid = (String) session.getAttribute("userID");
         if (title != null && content != null) {
-            bbs.addboard(title, content, "admin");
-            return "redirect:bbs";
+            bbs.addboard(title, content, uid);
+            return "redirect:/bbs";
         } else {
             return "write";
         }
@@ -65,11 +66,12 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/bbs/view/update", method = RequestMethod.POST)
-    public String editBoard(HttpServletRequest request) throws Exception {
+    public String editBoard(HttpServletRequest request, HttpSession session) throws Exception {
         String title = request.getParameter("title");
         String content = request.getParameter("content");
+        String uid = (String) session.getAttribute("userID");
         LocalDateTime now = LocalDateTime.now();
-        boardDTO dto = new boardDTO(bno, title,"admin", now, content, 1);
+        boardDTO dto = new boardDTO(bno, title, uid, now, content, 1);
         if (bno != 0) {
             bbs.updateboard(dto);
         }
