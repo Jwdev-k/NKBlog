@@ -21,4 +21,7 @@ public interface loginMapper {
 
     @Insert("INSERT INTO account VALUES(null, #{uid}, #{password}, #{gender})")
     void register(@Param("uid") String uid, @Param("password") String password, @Param("gender") String gender) throws Exception;
+
+    @Update("UPDATE account SET password = #{password2} WHERE uid = #{uid} AND password = #{password}")
+    boolean setPassword(@Param("uid") String id, @Param("password") String password, @Param("password2") String password2) throws Exception;
 }

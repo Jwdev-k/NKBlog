@@ -64,5 +64,11 @@ public class loginDAO implements loginMapper {
         System.out.println(user.toString());
     }
 
+    @Override
+    public boolean setPassword(String id, String password, String password2) throws Exception {
+        var mapper = getSqlSession().getMapper(loginMapper.class);
+        return mapper.setPassword(id,password,password2);
+    }
+
 
 }
