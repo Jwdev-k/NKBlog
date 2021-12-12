@@ -16,6 +16,7 @@ Clone 받은 소스를 실행하기 전에 `/sql/NKBlogDDL.sql` 파일을 Import
 #### output = `{"id":2,"uid":"1234","password":"12345","gender":"null"}`
 ### 유저 패스워드 변경 예시
 #### `/NKBlog/api/user/{uid}/{Password}/{newPassword}`
+### 현 프로젝트와 분리예정 
 #
 ## 4. Simple Security Guide
 ### 4-1. 유저 정보 패스워드 저장방식
