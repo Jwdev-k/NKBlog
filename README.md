@@ -20,10 +20,3 @@ Clone 받은 소스를 실행하기 전에 `/sql/NKBlogDDL.sql` 파일을 Import
 ![1234](https://user-images.githubusercontent.com/82058641/144734289-cbbcec81-ef44-4236-ac3f-5b48153e460d.png)
 ### SHA256를 사용하여 암호화 후 DB에 저장.
 #
-### 1. main screen
-
-![main](https://user-images.githubusercontent.com/82058641/144664260-22c3a87b-9728-4937-940f-2d4c52b1cc61.png)
-
-### 2. bbs
-
-![bbs](https://user-images.githubusercontent.com/82058641/144664436-d9f7c420-931a-4096-8b8b-a09319997ecc.png)
