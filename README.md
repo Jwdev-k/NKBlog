@@ -19,4 +19,5 @@ Clone 받은 소스를 실행하기 전에 `/sql/NKBlogDDL.sql` 파일을 Import
 ### 4-1. 유저 정보 패스워드 저장방식
 ![1234](https://user-images.githubusercontent.com/82058641/144734289-cbbcec81-ef44-4236-ac3f-5b48153e460d.png)
 ### SHA256를 사용하여 암호화 후 DB에 저장.
+#### 4-X 추후 업데이트 예정
 #
