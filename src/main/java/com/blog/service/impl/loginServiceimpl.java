@@ -3,21 +3,23 @@ package com.blog.service.impl;
 import com.blog.domain.impl.loginDAO;
 import com.blog.domain.loginDTO;
 import com.blog.service.loginService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 public class loginServiceimpl implements loginService {
 
     public static loginDAO lg = new loginDAO();
+    public final static Logger log = LoggerFactory.getLogger(loginServiceimpl.class);
 
     @Override
-    public int login(String uid, String password) {
-        loginDTO user;
-        user = lg.login(uid, password);
-        if (user == null || !user.getuId().equals(uid) || !user.getPassword().equals(password)) {
+    public int login(String uid, String password) throws Exception {
+        loginDTO user = lg.login(uid, password);
+        if (user == null || lg.getAccountData(uid).equals(user)) {
             return 0;
         } else {
-            System.out.println(user.getuId() + " login.");
+            log.debug(user.getUid() + " login.");
             return 1;
         }
     }

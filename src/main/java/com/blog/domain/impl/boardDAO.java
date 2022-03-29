@@ -5,11 +5,15 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 
 public class boardDAO implements boardMapper {
+
+    private static final Logger log = LoggerFactory.getLogger(boardDAO.class);
 
     private static SqlSession getSqlSession() throws Exception {
         String resource = "java-mybatis-config.xml";
@@ -24,7 +28,7 @@ public class boardDAO implements boardMapper {
         var mapper = getSqlSession().getMapper(boardMapper.class);
         if (pagenumber != 1) {
             int n = (pagenumber - 1) * 20;
-            System.out.println(n + "/Page level");
+            log.debug(n + "/Page level");
             return mapper.boardList(n);
         }
         return mapper.boardList(0);

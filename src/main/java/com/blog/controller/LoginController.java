@@ -67,7 +67,7 @@ public class LoginController {
         ls.register(userID, userPassword, userGender);
         log.debug("user register request....");
         if (userID == null && userPassword == null && userGender == null) {
-            System.out.println("값이 없습니다.");
+            log.debug("값이 없습니다.");
             return "redirect:join";
         } else {
             return "redirect:login";

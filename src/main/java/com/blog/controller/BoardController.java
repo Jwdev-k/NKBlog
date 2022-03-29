@@ -2,20 +2,25 @@ package com.blog.controller;
 
 import com.blog.domain.boardDTO;
 import com.blog.service.impl.boardServiceimpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
-import java.time.LocalDateTime;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Controller
 public class BoardController {
+
+    private static final Logger log = LoggerFactory.getLogger(BoardController.class);
 
     public static boardServiceimpl bbs = new boardServiceimpl();
     private int bno = 0;
@@ -35,10 +40,11 @@ public class BoardController {
         request.setCharacterEncoding("utf-8");
         String title = request.getParameter("title");
         String content = request.getParameter("content");
-        System.out.println(title + "\n" + content + "\n" + "add board.");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        log.debug(title + "\n" + content + "\n" + "add board.");
         String uid = (String) session.getAttribute("userID");
         if (title != null && content != null) {
-            bbs.addboard(title, content, uid);
+            bbs.addboard(title, content, uid, LocalDate.parse(formatter.format(LocalDate.now())));
             return "redirect:/bbs";
         } else {
             return "write";
@@ -70,8 +76,8 @@ public class BoardController {
         String title = request.getParameter("title");
         String content = request.getParameter("content");
         String uid = (String) session.getAttribute("userID");
-        LocalDateTime now = LocalDateTime.now();
-        boardDTO dto = new boardDTO(bno, title, uid, now, content, 1);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        boardDTO dto = new boardDTO(bno, title, uid, LocalDate.parse(formatter.format(LocalDate.now())), content, 1);
         if (bno != 0) {
             bbs.updateboard(dto);
         }

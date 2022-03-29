@@ -1,10 +1,13 @@
 package com.blog.domain.impl;
 
+import com.blog.controller.LoginController;
 import com.blog.domain.loginDTO;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -12,6 +15,7 @@ import java.util.ArrayList;
 
 public class loginDAO implements loginMapper {
 
+    private static final Logger log = LoggerFactory.getLogger(loginDAO.class);
 
     private static SqlSession getSqlSession() throws Exception {
         String resource = "java-mybatis-config.xml";
@@ -29,14 +33,14 @@ public class loginDAO implements loginMapper {
             dto = mapper.getAllAccountData();
             getSqlSession().getConnection().close();
         } catch (Exception e) {
-            System.out.println("데이터를 찾을수없음");
+            log.debug("데이터를 찾을수없음");
             e.printStackTrace();
         }
         return dto;
     }
 
     @Override
-    public ArrayList<loginDTO> getAccountData(String uid) throws Exception {
+    public loginDTO getAccountData(String uid) throws Exception {
         var mapper = getSqlSession().getMapper(loginMapper.class);
         return mapper.getAccountData(uid);
     }
@@ -50,7 +54,7 @@ public class loginDAO implements loginMapper {
             getSqlSession().getConnection().close();
             return dto;
         } catch (Exception e) {
-            System.out.println("데이터를 찾을수없음");
+            log.debug("데이터를 찾을수없음");
             e.printStackTrace();
         }
         return null;
@@ -61,7 +65,7 @@ public class loginDAO implements loginMapper {
         var mapper = getSqlSession().getMapper(loginMapper.class);
         mapper.register(uid,password,gender);
         var user = new loginDTO(0, uid, password, gender);
-        System.out.println(user.toString());
+        log.debug(user.toString());
     }
 
     @Override

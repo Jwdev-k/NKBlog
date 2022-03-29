@@ -14,7 +14,7 @@ public interface loginMapper {
     ArrayList<loginDTO> getAllAccountData() throws Exception;
 
     @Select("SELECT * FROM account WHERE uid = #{userID}")
-    ArrayList<loginDTO> getAccountData(String uid) throws Exception;
+    loginDTO getAccountData(String uid) throws Exception;
 
     @Select("SELECT * FROM account WHERE uid = #{userID} AND password = #{password}")
     loginDTO login(@Param("userID") String userID, @Param("password") String password) throws Exception;

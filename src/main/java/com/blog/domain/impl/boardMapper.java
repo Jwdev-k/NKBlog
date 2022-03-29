@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public interface boardMapper {
 
-    @Select("SELECT * FROM boardlist WHERE bno > #{pagenumber}  AND Available = 1 LIMIT 20")
+    @Select("SELECT * FROM boardlist WHERE bno > #{pagenumber}  AND Available = 1 ORDER BY bno DESC LIMIT 20 ")
     ArrayList<boardDTO> boardList(int pagenumber) throws Exception;
 
     @Select("SELECT * FROM boardlist WHERE bno > #{pagenumber}  AND Available = 1")

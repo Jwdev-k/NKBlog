@@ -19,11 +19,13 @@ public class APIController {
     private static Gson gs = new Gson();
 
     @GetMapping(value = "user/{id}", produces="text/plain;charset=UTF-8")
-    public String getUser(@PathVariable("id") String uid) throws Exception {
+    public ResponseEntity<String> getUser(@PathVariable("id") String uid) throws Exception {
         if (uid.equals("all")) {
-            return gs.toJson(ld.getAllAccountData());
+            return ResponseEntity.ok().body(gs.toJson(ld.getAllAccountData()));
+        } else if (ld.getAccountData(uid) != null) {
+            return ResponseEntity.ok().body(gs.toJson(ld.getAccountData(uid)));
         } else {
-            return gs.toJson(ld.getAccountData(uid));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("");
         }
     }
 

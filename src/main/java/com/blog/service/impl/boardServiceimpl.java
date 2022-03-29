@@ -5,6 +5,7 @@ import com.blog.domain.impl.boardDAO;
 import com.blog.service.boardService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -14,10 +15,9 @@ public class boardServiceimpl implements boardService {
     public static boardDAO bbs = new boardDAO();
 
     @Override
-    public void addboard(String title, String content, String uid) {
+    public void addboard(String title, String content, String uid, LocalDate create) {
         try {
-            LocalDateTime now = LocalDateTime.now();
-            bbs.addboard(new boardDTO(0, title, uid, now, content, 1));
+            bbs.addboard(new boardDTO(0, title, uid, create, content, 1));
         } catch (Exception e) {
             e.printStackTrace();
         }
