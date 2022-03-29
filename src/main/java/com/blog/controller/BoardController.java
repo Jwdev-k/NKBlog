@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -41,7 +40,7 @@ public class BoardController {
         String title = request.getParameter("title");
         String content = request.getParameter("content");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        log.debug(title + "\n" + content + "\n" + "add board.");
+        log.debug("Title: " + title + "\n" + "content: " + content + "add board.");
         String uid = (String) session.getAttribute("userID");
         if (title != null && content != null) {
             bbs.addboard(title, content, uid, LocalDate.parse(formatter.format(LocalDate.now())));

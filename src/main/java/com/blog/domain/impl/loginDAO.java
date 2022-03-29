@@ -1,6 +1,5 @@
 package com.blog.domain.impl;
 
-import com.blog.controller.LoginController;
 import com.blog.domain.loginDTO;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -47,10 +46,9 @@ public class loginDAO implements loginMapper {
 
     @Override
     public loginDTO login(String userID, String password) {
-        loginDTO dto = null;
         try {
             var mapper = getSqlSession().getMapper(loginMapper.class);
-            dto = mapper.login(userID, password);
+            loginDTO dto = mapper.login(userID, password);
             getSqlSession().getConnection().close();
             return dto;
         } catch (Exception e) {
