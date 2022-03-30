@@ -5,8 +5,6 @@ import com.blog.service.impl.loginServiceimpl;
 import com.blog.utils.SHA256;
 import com.blog.utils.ScriptUtils;
 import com.github.scribejava.core.model.OAuth2AccessToken;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.slf4j.Logger;

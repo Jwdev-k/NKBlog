@@ -25,12 +25,12 @@ public class boardServiceimpl implements boardService {
 
     @Override
     public ArrayList<boardDTO> getboardlist(int pageNumber) throws Exception {
-        return bbs.boardList(pageNumber);
+        return bbs.boardList(pageNumber, 0);
     }
 
     @Override
     public boolean nextpage(int pageNumber) throws Exception {
-        return bbs.nextpage(pageNumber).size() > (pageNumber - 1) * 20;
+        return bbs.nextpage((pageNumber * 20) - 1).size() != 0;
     }
 
     @Override
