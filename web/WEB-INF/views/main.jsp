@@ -59,6 +59,9 @@
                 </ul>
             </li>
         </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <p>${userID}</p>
+        </ul>
         <%
             }
         %>

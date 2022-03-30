@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.blog.utils.ScriptUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"
          pageEncoding="UTF-8" %>
@@ -43,7 +44,7 @@
     <div class="col-lg-4"></div>
     <div class="col-lg-4">
         <div class="jumbotron" style="padding-top: 20px;">
-            <form method="post" action="/NKBlog/loginCheck">
+            <form method="post" action="/NKBlog/logincheck">
                 <h3 style="text-align: center;">로그인 화면</h3>
                 <div class="form-group">
                     <input type="id" class="form-control" placeholder="아이디" name="userID" maxlength="20">
@@ -52,6 +53,10 @@
                     <input type="password" class="form-control" placeholder="비밀번호" name="userPassword" maxlength="20">
                 </div>
                 <input type="submit" class="btn btn-primary form-control" value="로그인">
+
+                <div id="naver_id_login"> <a href="${url}">
+                    <img width="230" src="<c:url value="/resources/btnD_official.png"/>"/></a>
+                </div>
             </form>
         </div>
     </div>
