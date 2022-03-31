@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class boardDAO implements boardMapper {
 
     private static final Logger log = LoggerFactory.getLogger(boardDAO.class);
+    private int limit = 20;
 
     private static SqlSession getSqlSession() throws Exception {
         String resource = "java-mybatis-config.xml";
@@ -27,17 +28,17 @@ public class boardDAO implements boardMapper {
     public ArrayList<boardDTO> boardList(int pagenumber, int start) throws Exception {
         var mapper = getSqlSession().getMapper(boardMapper.class);
         if (pagenumber != 1) {
-            int n = pagenumber * 20; // limit 20
-            start = n - 20;
-            return mapper.boardList((n + 1), start);
+            int n = pagenumber * limit; // limit 20
+            start = n - limit;
+            return mapper.boardList(n, start);
         }
-        return mapper.boardList(21, 0);
+        return mapper.boardList(20, 0);
     }
 
     @Override
     public ArrayList<boardDTO> nextpage(int pagenumber) throws Exception {
         var mapper = getSqlSession().getMapper(boardMapper.class);
-        return mapper.nextpage(pagenumber);
+        return mapper.nextpage((pagenumber - 1) * limit);
     }
 
     @Override
