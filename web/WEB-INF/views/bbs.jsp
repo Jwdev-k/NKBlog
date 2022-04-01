@@ -101,17 +101,17 @@
             </tbody>
         </table>
         <%
+            if (bbs.nextpage(pageNumber + 1)) {
+            int n = pageNumber + 1;
+        %>
+        <a href="/NKBlog/bbs?pageNumber=<%=n%>" class="btn btn-success btn-arraw-left"><-다음</a>
+        <%}%>
+        <%
             if (pageNumber != 1) {
                 int n = pageNumber - 1;
         %>
-        <a href="/NKBlog/bbs?pageNumber=<%=n%>" class="btn btn-success btn-arraw-left">이전</a>
+        <a href="/NKBlog/bbs?pageNumber=<%=n%>" class="btn btn-success btn-arraw-left">이전-></a>
         <%}
-            if (bbs.nextpage(pageNumber + 1)) {
-                int n = pageNumber + 1;
-        %>
-        <a href="/NKBlog/bbs?pageNumber=<%=n%>" class="btn btn-success btn-arraw-left">다음</a>
-        <%}%>
-        <%
             if (userID != null) {
         %>
         <a href="/NKBlog/bbs/write" class="btn btn-primary pull-right">글쓰기</a>

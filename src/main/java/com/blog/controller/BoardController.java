@@ -1,7 +1,9 @@
 package com.blog.controller;
 
 import com.blog.domain.boardDTO;
+import com.blog.domain.commentDTO;
 import com.blog.service.impl.boardServiceimpl;
+import com.blog.service.impl.commentServiceimpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ public class BoardController {
 
     @Autowired
     boardServiceimpl bbs;
+    @Autowired
+    commentServiceimpl cm;
 
     private int bno = 0;
 
@@ -85,5 +89,16 @@ public class BoardController {
         }
         return "redirect:/bbs";
     }
+
+    @RequestMapping(value = "/comment/add", method = RequestMethod.POST)
+    public String addcomment(HttpServletRequest request, HttpSession session, @RequestParam("bno") int param1) throws Exception {
+        commentDTO comment = new commentDTO(param1
+                , (String) session.getAttribute("userID")
+                , request.getParameter("comment"));
+        log.debug(comment.toString());
+        cm.addcomment(comment);
+        return "redirect:" + request.getHeader("Referer");
+    }
+
 
 }

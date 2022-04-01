@@ -16,7 +16,7 @@ public class loginServiceimpl implements loginService {
     @Override
     public int login(String uid, String password) throws Exception {
         loginDTO user = lg.login(uid, password);
-        if (user == null || lg.getAccountData(uid).equals(user)) {
+        if (user == null || lg.getAccountData(uid).getPassword().equals(password)) {
             return 0;
         } else {
             log.debug(user.getUid() + " login.");

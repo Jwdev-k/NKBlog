@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="com.blog.domain.impl.boardDAO" %>
 <%@ page import="com.blog.domain.boardDTO" %>
@@ -44,12 +45,13 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
             <li class="active"><a href="/NKBlog/main">메인</a></li>
-            <li><a href="/NKBlog/bbs">게시판</a></li>
+            <li><a href="/NKBlog/bbs?pageNumber=1">게시판</a></li>
         </ul>
         <%
             if(userID == null) {
 
         %>
+
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle"
@@ -115,6 +117,23 @@
        <%
         }
         %>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <form method="post" action="/NKBlog/comment/add?bno=<%= bbsID %>">
+            <table class= "table table-striped" style="text-align: center; border: 1px solid #dddddd">
+                <tbody>
+                <tr>
+                    <td style="width: 20%;">댓글</td>
+                </tr>
+                <tr>
+                    <td><textarea class="form-control" placeholder="내용" name="comment" maxlength="100" style="height: 40px; resize: none;"> </textarea></td>
+                </tr>
+                </tbody>
+            </table>
+            <input type="submit" class="btn btn-primary pull-right" value="댓글 등록">
+        </form>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
