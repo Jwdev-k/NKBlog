@@ -62,7 +62,7 @@ public class loginDAO implements loginMapper {
     public void register(String uid, String password, String gender) throws Exception {
         var mapper = getSqlSession().getMapper(loginMapper.class);
         mapper.register(uid,password,gender);
-        var user = new loginDTO(0, uid, password, gender);
+        var user = new loginDTO(uid, password, gender);
         log.debug(user.toString());
     }
 

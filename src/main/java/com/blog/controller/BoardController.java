@@ -95,7 +95,7 @@ public class BoardController {
         commentDTO comment = new commentDTO(param1
                 , (String) session.getAttribute("userID")
                 , request.getParameter("comment"));
-        log.debug(comment.toString());
+        log.debug("댓글등록: " + comment.toString());
         cm.addcomment(comment);
         return "redirect:" + request.getHeader("Referer");
     }
