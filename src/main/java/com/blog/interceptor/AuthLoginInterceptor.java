@@ -1,7 +1,9 @@
 package com.blog.interceptor;
 
+import com.blog.config.SessionConfig;
 import com.blog.utils.ScriptUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.plugin.Intercepts;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,6 +23,7 @@ public class AuthLoginInterceptor implements HandlerInterceptor {
         if (loginLock) {
             log.debug("false login");
             ScriptUtils.alertAndBackPage(response, "로그인 서비스 점검 중 입니다.");
+            return false;
         }
         return true;
     }
@@ -29,7 +32,6 @@ public class AuthLoginInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
             ModelAndView modelAndView) throws Exception {
-
     }
 
     @Override

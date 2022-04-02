@@ -1,6 +1,7 @@
 package com.blog.controller;
 
 import com.blog.api.NaverLoginBO;
+import com.blog.config.SessionConfig;
 import com.blog.service.impl.loginServiceimpl;
 import com.blog.utils.SHA256;
 import com.blog.utils.ScriptUtils;
@@ -49,15 +50,18 @@ public class LoginController {
         request.setCharacterEncoding("utf-8");
         String userID = request.getParameter("userID");
         String userPassword = sha256.encrypt(request.getParameter("userPassword"));
-        if (session.getAttribute("userID") != null) {
-            session.removeAttribute("userID");
-        }
         var u = ls.login(userID, userPassword);
-        if (u == 1) {
-            session.setAttribute("userID", userID);
-            return "redirect:main";
+        if (SessionConfig.getSessionCheck("userID", userID) == null) {
+            if (u == 1) {
+                session.setAttribute("userID", userID);
+                return "redirect:main";
+            } else if (u == 0) {
+                ScriptUtils.alertAndBackPage(response, "패스워드가 틀렸습니다.");
+            } else {
+                ScriptUtils.alertAndBackPage(response, "존재하지 않는 아이디 입니다.");
+            }
         } else {
-            ScriptUtils.alertAndBackPage(response, "아이디또는 패스워드가 틀렸습니다.");
+            ScriptUtils.alertAndBackPage(response, "이미 로그인중 입니다.(중복로그인 감지)");
         }
         return null;
     }
@@ -95,18 +99,21 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(HttpServletRequest request, HttpSession session) throws Exception {
+    public String register(HttpServletResponse response, HttpServletRequest request) throws Exception {
         request.setCharacterEncoding("utf-8");
         String userID = request.getParameter("userID");
         String userPassword = sha256.encrypt(request.getParameter("userPassword"));
         String userGender = request.getParameter("userGender");
-        ls.register(userID, userPassword, userGender);
         log.debug("user register request....");
         if (userID == null && userPassword == null && userGender == null) {
             log.debug("값이 없습니다.");
             return "redirect:join";
+        } else if(ls.register(userID, userPassword, userGender)) {
+            ScriptUtils.alertAndMovePage(response, "회원가입 완료.", "/NKBlog/login");
+            return null;
         } else {
-            return "redirect:login";
+            ScriptUtils.alertAndBackPage(response, "이미 등록된 아이디 입니다.");
+            return null;
         }
     }
 }

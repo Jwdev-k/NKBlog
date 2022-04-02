@@ -104,13 +104,13 @@
             if (bbs.nextpage(pageNumber + 1)) {
             int n = pageNumber + 1;
         %>
-        <a href="/NKBlog/bbs?pageNumber=<%=n%>" class="btn btn-success btn-arraw-left"><-다음</a>
+        <a href="/NKBlog/bbs?pageNumber=<%=n%>" class="btn btn-success btn-arraw-left">◀</a>
         <%}%>
         <%
             if (pageNumber != 1) {
                 int n = pageNumber - 1;
         %>
-        <a href="/NKBlog/bbs?pageNumber=<%=n%>" class="btn btn-success btn-arraw-left">이전-></a>
+        <a href="/NKBlog/bbs?pageNumber=<%=n%>" class="btn btn-success btn-arraw-left">▶</a>
         <%}
             if (userID != null) {
         %>

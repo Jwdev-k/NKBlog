@@ -108,7 +108,6 @@
                 </tr>
             </tbody>
         </table>
-        <a href="/NKBlog/bbs" class="btn btn-primary">목록</a>
         <%
         if (userID != null && userID.equals(bbs.getUid())) {
         %>
@@ -135,6 +134,7 @@
             <input type="submit" class="btn btn-primary pull-right" value="댓글 등록">
         </form>
     </div>
+    <a href="/NKBlog/bbs" class="btn btn-primary">목록</a>
 </div>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
