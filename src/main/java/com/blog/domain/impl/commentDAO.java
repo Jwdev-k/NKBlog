@@ -18,10 +18,27 @@ public class commentDAO implements commentMapper {
         return sqlSessionFactory.openSession(true); // true 자동 커밋
     }
 
+    @Override
+    public commentDTO getComment(commentDTO comment) throws Exception {
+        var mapper = getSqlSession().getMapper(commentMapper.class);
+        return mapper.getComment(comment);
+    }
 
     @Override
-    public void addcomment(commentDTO comment) throws Exception {
+    public void addComment(commentDTO comment) throws Exception {
         var mapper = getSqlSession().getMapper(commentMapper.class);
-        mapper.addcomment(comment);
+        mapper.addComment(comment);
+    }
+
+    @Override
+    public void setComment(commentDTO comment) throws Exception {
+        var mapper = getSqlSession().getMapper(commentMapper.class);
+        mapper.setComment(comment);
+    }
+
+    @Override
+    public void deleteComment(int bno) throws Exception {
+        var mapper = getSqlSession().getMapper(commentMapper.class);
+        mapper.deleteComment(bno);
     }
 }

@@ -17,7 +17,7 @@ public class SessionConfig implements HttpSessionListener {
 
     public synchronized static String getSessionCheck(String type, String compareID){
         String result = null;
-        for(String key : sessions.keySet()) {
+        for(String key : sessions.keySet()) { // 세션에 값이 있는지 확인
             HttpSession hs = sessions.get(key);
             if (hs != null && hs.getAttribute(type) != null && hs.getAttribute(type).toString().equals(compareID)) {
                 result = key;

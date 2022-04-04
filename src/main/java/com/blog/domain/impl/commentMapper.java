@@ -1,11 +1,22 @@
 package com.blog.domain.impl;
 
 import com.blog.domain.commentDTO;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 public interface commentMapper {
 
+    @Select("SELECT * FROM comment WHERE bno = #{bno}")
+    commentDTO getComment(commentDTO comment) throws Exception;
+
     @Insert("INSERT INTO comment VALUES(#{bno}, #{uid}, #{comment})")
-    void addcomment(commentDTO comment) throws Exception;
+    void addComment(commentDTO comment) throws Exception;
+
+    @Update("UPDATE boardlist SET bno = #{bno}, uid = #{uid} WHERE comment = #{comment}")
+    void setComment(commentDTO comment) throws Exception;
+
+    @Delete("DELETE FROM comment WHERE bno = #{bno}")
+    void deleteComment(int bno) throws Exception;
 }
