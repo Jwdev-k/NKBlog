@@ -1,7 +1,4 @@
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.blog.domain.boardDTO" %>
-<%@ page import="com.blog.service.boardService" %>
-<%@ page import="com.blog.service.impl.boardServiceimpl" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"
          pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -24,25 +21,13 @@
         </button>
         <a class="navbar-brand" href="/NKBlog">NKBlog</a>
     </div>
-    <%
-        String userID = null;
-        if (session.getAttribute("userID") != null) {
-            userID = (String) session.getAttribute("userID");
-        }
-        int pageNumber = 1;
-        if (request.getParameter("pageNumber") != null) {
-            pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-        }
-    %>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
             <li><a href="/NKBlog/main">메인</a></li>
-            <li class="active"><a href="/NKBlog/bbs">게시판</a></li>
+            <li class="active"><a href="/NKBlog/bbs?pageNumber=1">게시판</a></li>
         </ul>
-        <%
-            if(userID == null) {
-
-        %>
+        <c:set var="userID" value="${userID}" />
+        <c:if test= "${userID == null}">
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle"
@@ -54,9 +39,8 @@
                 </ul>
             </li>
         </ul>
-        <%
-        } else {
-        %>
+        </c:if>
+        <c:if test= "${userID != null}">
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle"
@@ -67,9 +51,7 @@
                 </ul>
             </li>
         </ul>
-        <%
-            }
-        %>
+        </c:if>
     </div>
 </nav>
 <div class="container">
@@ -84,45 +66,28 @@
             </tr>
             </thead>
             <tbody>
-            <%
-                boardServiceimpl bbs = new boardServiceimpl();
-                ArrayList<boardDTO> list = null;
-                try {
-                    list = bbs.boardList(pageNumber);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                for (int i = 0; i < list.size(); i++) {
-            %>
-            <tr>
-                <td><%= list.get(i).getBno()%></td>
-                <td><a href="/NKBlog/bbs/view?bno=<%= list.get(i).getBno()%>"><%= list.get(i).getTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")%></a></td>
-                <td><%= list.get(i).getUid()%></td>
-                <td><%= list.get(i).getCreated()%></td>
-            </tr>
-            <%
-                }
-            %>
+            <c:forEach items="${boardList}" var="list">
+                <tr>
+                    <td>${list.bno}</td>
+                    <td><a href="/NKBlog/bbs/view?bno=${list.bno}"/>${list.title}</td></a>
+                    <td>${list.uid}</td>
+                    <td>${list.created}</td>
+                </tr>
+            </c:forEach>
             </tbody>
         </table>
-        <%
-            if (bbs.nextpage(pageNumber + 1)) {
-            int n = pageNumber + 1;
-        %>
-        <a href="/NKBlog/bbs?pageNumber=<%=n%>" class="btn btn-success btn-arraw-left">◀</a>
-        <%}%>
-        <%
-            if (pageNumber != 1) {
-                int n = pageNumber - 1;
-        %>
-        <a href="/NKBlog/bbs?pageNumber=<%=n%>" class="btn btn-success btn-arraw-left">▶</a>
-        <%}
-            if (userID != null) {
-        %>
-        <a href="/NKBlog/bbs/write" class="btn btn-primary pull-right">글쓰기</a>
-        <%
-            }
-        %>
+        <c:set var="pageNumber" value="${pageNumber}" />
+        <c:set var="nextPageNumber" value="${nextPageNumber}" />
+        <c:set var="userID" value="${userID}" />
+        <c:if test= "${nextPageNumber != null}">
+            <a href="/NKBlog/bbs?pageNumber=${nextPageNumber}" class="btn btn-success btn-arraw-left">◀</a>
+        </c:if>
+        <c:if test= "${pageNumber > 1}">
+            <a href="/NKBlog/bbs?pageNumber=${pageNumber - 1}" class="btn btn-success btn-arraw-left">▶</a>
+        </c:if>
+        <c:if test= "${userID != null}">
+            <a href="/NKBlog/bbs/write" class="btn btn-primary pull-right">글쓰기</a>
+        </c:if>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

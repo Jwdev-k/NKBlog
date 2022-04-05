@@ -4,20 +4,25 @@ import com.blog.domain.boardDTO;
 import com.blog.domain.commentDTO;
 import com.blog.service.impl.boardServiceimpl;
 import com.blog.service.impl.commentServiceimpl;
+import com.blog.utils.ScriptUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 @Controller
 public class BoardController {
@@ -29,15 +34,22 @@ public class BoardController {
     @Autowired
     commentServiceimpl cm;
 
-    private int bno = 0;
+    private int bbsID = 0;
 
     @RequestMapping(value = "/bbs", method = RequestMethod.GET)
-    public String boardlist(){
+    public String boardlist(Model model, @RequestParam("pageNumber") int pn) throws Exception {
+        if (bbs.nextpage(pn + 1)) {
+            model.addAttribute("nextPageNumber", pn + 1);
+        }
+        model.addAttribute("pageNumber", pn);
+
+        ArrayList<boardDTO> list = bbs.boardList(pn);
+        model.addAttribute("boardList", list);
         return "bbs";
     }
 
     @RequestMapping(value = "/bbs/write", method = RequestMethod.GET)
-    public String boardwrite(HttpSession session){
+    public String boardwrite() {
         return "write";
     }
 
@@ -45,7 +57,7 @@ public class BoardController {
     public String boardwrite(HttpServletRequest request, HttpSession session) throws UnsupportedEncodingException {
         request.setCharacterEncoding("utf-8");
         String title = request.getParameter("title");
-        String content = request.getParameter("content");
+        String content = request.getParameter("content").replaceAll("\n", "<br>");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         log.debug("Title: " + title + "\n" + "content: " + content + "add board.");
         String uid = (String) session.getAttribute("userID");
@@ -58,8 +70,11 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/bbs/view", method = RequestMethod.GET)
-    public String boardview(@RequestParam("bno") int param1, ModelMap model){
-        model.addAttribute("bno", param1);
+    public String boardview(HttpServletResponse response, @RequestParam("bno") int bno) throws IOException {
+        bbsID = bno;
+        if (bno == 0) {
+            ScriptUtils.alertAndBackPage(response, "유효하지 않는 글입니다.");
+        }
         return "view";
     }
 
@@ -72,8 +87,11 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/bbs/view/update", method = RequestMethod.GET)
-    public String boardUpdate(@RequestParam("bno") int param1){
-        bno = param1;
+    public String boardUpdate(HttpServletResponse response, @RequestParam("bno") int bno) throws IOException {
+        bbsID = bno;
+        if (bno == 0) {
+            ScriptUtils.alertAndBackPage(response, "유효하지 않는 글입니다.");
+        }
         return "update";
     }
 
@@ -83,8 +101,8 @@ public class BoardController {
         String content = request.getParameter("content");
         String uid = (String) session.getAttribute("userID");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        boardDTO dto = new boardDTO(bno, title, uid, LocalDate.parse(formatter.format(LocalDate.now())), content, 1);
-        if (bno != 0) {
+        boardDTO dto = new boardDTO(bbsID, title, uid, LocalDate.parse(formatter.format(LocalDate.now())), content, 1);
+        if (bbsID != 0) {
             bbs.updateboard(dto);
         }
         return "redirect:/bbs";

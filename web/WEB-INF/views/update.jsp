@@ -27,18 +27,6 @@
         if (session.getAttribute("userID") != null) {
             userID = (String) session.getAttribute("userID");
         }
-        int bbsID = 0;
-        if (request.getParameter("bno") != null) {
-            bbsID = Integer.parseInt(request.getParameter("bno"));
-        }
-        if (bbsID == 0) {
-            PrintWriter script = response.getWriter();
-            script.println("<script>");
-            script.println("alert('유효하지 않은 글입니다.')");
-            script.println("location.href = '/NKBlog/bbs'");
-            script.println("</script>");
-        }
-        boardDTO bbs = new boardDAO().getBbs(bbsID);
     %>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
@@ -78,6 +66,13 @@
         %>
     </div>
 </nav>
+<%
+    int bbsID = 0;
+    if (request.getParameter("bno") != null) {
+        bbsID = Integer.parseInt(request.getParameter("bno"));
+    }
+    boardDTO bbs = new boardDAO().getBbs(bbsID);
+%>
 <div class="container">
     <div class="row">
         <form method="post">

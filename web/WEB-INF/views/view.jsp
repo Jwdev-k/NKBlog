@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.io.PrintWriter" %>
 <%@ page import="com.blog.domain.impl.boardDAO" %>
 <%@ page import="com.blog.domain.boardDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"
@@ -32,13 +31,6 @@
         int bbsID = 0;
         if (request.getParameter("bno") != null) {
             bbsID = Integer.parseInt(request.getParameter("bno"));
-        }
-        if (bbsID == 0) {
-            PrintWriter script = response.getWriter();
-            script.println("<script>");
-            script.println("alert('유효하지 않은 글입니다.')");
-            script.println("location.href = '/NKBlog/bbs'");
-            script.println("</script>");
         }
         boardDTO bbs = new boardDAO().getBbs(bbsID);
     %>
