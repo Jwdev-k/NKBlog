@@ -86,7 +86,12 @@
             <tbody>
             <%
                 boardServiceimpl bbs = new boardServiceimpl();
-                ArrayList<boardDTO> list = bbs.getboardlist(pageNumber);
+                ArrayList<boardDTO> list = null;
+                try {
+                    list = bbs.boardList(pageNumber);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 for (int i = 0; i < list.size(); i++) {
             %>
             <tr>

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class loginServiceimpl implements loginService {
 
-    public static loginDAO lg = new loginDAO();
+    private static loginDAO lg = new loginDAO();
 
     @Override
     public int login(String uid, String password) throws Exception {

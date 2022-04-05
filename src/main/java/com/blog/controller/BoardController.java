@@ -72,7 +72,7 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/bbs/view/update", method = RequestMethod.GET)
-    public String boardlist(@RequestParam("bno") int param1){
+    public String boardUpdate(@RequestParam("bno") int param1){
         bno = param1;
         return "update";
     }

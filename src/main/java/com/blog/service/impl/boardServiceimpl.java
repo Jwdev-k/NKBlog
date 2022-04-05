@@ -4,6 +4,7 @@ import com.blog.domain.boardDTO;
 import com.blog.domain.impl.boardDAO;
 import com.blog.service.boardService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 @Service
 public class boardServiceimpl implements boardService {
 
-    public static boardDAO bbs;
+    private static boardDAO bbs = new boardDAO();
 
     @Override
     public void addboard(String title, String content, String uid, LocalDate create) {
@@ -26,7 +27,7 @@ public class boardServiceimpl implements boardService {
     }
 
     @Override
-    public ArrayList<boardDTO> getboardlist(int pageNumber) throws Exception {
+    public ArrayList<boardDTO>boardList(int pageNumber) throws Exception {
         return bbs.boardList(pageNumber, 0);
     }
 

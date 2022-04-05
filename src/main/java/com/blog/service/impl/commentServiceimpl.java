@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class commentServiceimpl implements commentService {
 
-    public static commentDAO comment = new commentDAO();
+    private static commentDAO comment = new commentDAO();
 
     @Override
     public commentDTO getComment(commentDTO cm) throws Exception {
