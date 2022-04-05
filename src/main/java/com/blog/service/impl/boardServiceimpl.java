@@ -14,7 +14,7 @@ import java.util.ArrayList;
 @Service
 public class boardServiceimpl implements boardService {
 
-    public static boardDAO bbs = new boardDAO();
+    public static boardDAO bbs;
 
     @Override
     public void addboard(String title, String content, String uid, LocalDate create) {

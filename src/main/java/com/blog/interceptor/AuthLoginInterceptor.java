@@ -1,9 +1,7 @@
 package com.blog.interceptor;
 
-import com.blog.config.SessionConfig;
 import com.blog.utils.ScriptUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.plugin.Intercepts;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;

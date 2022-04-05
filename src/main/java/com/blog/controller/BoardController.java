@@ -96,7 +96,7 @@ public class BoardController {
                 , (String) session.getAttribute("userID")
                 , request.getParameter("comment"));
         log.debug("댓글등록: " + comment.toString());
-        cm.addcomment(comment);
+        cm.addComment(comment);
         return "redirect:" + request.getHeader("Referer");
     }
 

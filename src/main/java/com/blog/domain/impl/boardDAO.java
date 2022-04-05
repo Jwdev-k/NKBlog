@@ -13,7 +13,6 @@ import java.util.ArrayList;
 
 public class boardDAO implements boardMapper {
 
-    private static final Logger log = LoggerFactory.getLogger(boardDAO.class);
     private int limit = 20;
 
     private static SqlSession getSqlSession() throws Exception {

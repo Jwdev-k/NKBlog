@@ -2,7 +2,6 @@ package com.blog.controller;
 
 import com.blog.domain.impl.loginDAO;
 import com.google.gson.Gson;
-import com.google.gson.JsonParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -16,18 +15,17 @@ import javax.servlet.http.HttpServletResponse;
 public class APIController {
 
     private static final Logger log = LoggerFactory.getLogger(APIController.class);
-    private static loginDAO ld = new loginDAO();
+    loginDAO ld = new loginDAO();
     private static Gson gs = new Gson();
 
     @GetMapping(value = "user/{id}", produces="text/plain;charset=UTF-8")
     public ResponseEntity<String> getUser(@PathVariable("id") String uid) throws Exception {
         if (uid.equals("all")) {
-            JsonParser jp = new JsonParser();
-            return ResponseEntity.ok().body(gs.toJson(ld.getAllAccountData()));
+            return new ResponseEntity<>(gs.toJson(ld.getAllAccountData()), HttpStatus.OK);
         } else if (ld.getAccountData(uid) != null) {
-            return ResponseEntity.ok().body(gs.toJson(ld.getAccountData(uid)));
+            return new ResponseEntity<>(gs.toJson(ld.getAccountData(uid)), HttpStatus.OK);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("");
+            return new ResponseEntity<>("", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -39,10 +37,9 @@ public class APIController {
             sb.append(id + "님의 패스워드를 ");
             sb.append(password2 + "으로 변경 하였습니다.");
             log.debug(sb.toString());
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(sb.toString());
+            return new ResponseEntity<>(sb.toString(), HttpStatus.ACCEPTED);
         } else {
-            response.setStatus(500);
-            return null;
+            return new ResponseEntity<>("", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
