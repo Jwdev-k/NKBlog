@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,9 +29,9 @@ public class BoardController {
     private static final Logger log = LoggerFactory.getLogger(BoardController.class);
 
     @Autowired
-    boardServiceimpl bbs;
+    private boardServiceimpl bbs;
     @Autowired
-    commentServiceimpl cm;
+    private commentServiceimpl cm;
 
     private int bbsID = 0;
 
@@ -63,7 +62,7 @@ public class BoardController {
         String uid = (String) session.getAttribute("userID");
         if (title != null && content != null) {
             bbs.addboard(title, content, uid, LocalDate.parse(formatter.format(LocalDate.now())));
-            return "redirect:/bbs";
+            return "redirect:" + request.getHeader("Referer");
         } else {
             return "write";
         }
@@ -73,7 +72,7 @@ public class BoardController {
     public String boardview(HttpServletResponse response, @RequestParam("bno") int bno) throws IOException {
         bbsID = bno;
         if (bno == 0) {
-            ScriptUtils.alertAndBackPage(response, "유효하지 않는 글입니다.");
+            ScriptUtils.alertAndBackPage(response, "유효하지 않은 글입니다.");
         }
         return "view";
     }

@@ -30,9 +30,9 @@ public class LoginController {
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
-    loginServiceimpl ls;
+    private loginServiceimpl ls;
     @Autowired
-    NaverLoginBO NaverLoginBO;
+    private NaverLoginBO NaverLoginBO;
     private String apiResult = null;
 
     SHA256 sha256 = new SHA256();
