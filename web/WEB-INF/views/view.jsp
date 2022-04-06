@@ -96,7 +96,7 @@
                 </tr>
                 <tr>
                     <td>글 내용</td>
-                    <td colspan="2" style="min-height: 200px; text-align: left;"><%= bbs.getContent().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")%></td>
+                    <td colspan="2" style="min-height: 200px; text-align: left;"><%= bbs.getContent()%></td>
                 </tr>
             </tbody>
         </table>

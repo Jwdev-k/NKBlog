@@ -40,8 +40,9 @@ public class BoardController {
         if (bbs.nextpage(pn + 1)) {
             model.addAttribute("nextPageNumber", pn + 1);
         }
-        model.addAttribute("pageNumber", pn);
-
+        if (pn != 0) {
+            model.addAttribute("pageNumber", pn);
+        }
         ArrayList<boardDTO> list = bbs.boardList(pn);
         model.addAttribute("boardList", list);
         return "bbs";
@@ -62,7 +63,7 @@ public class BoardController {
         String uid = (String) session.getAttribute("userID");
         if (title != null && content != null) {
             bbs.addboard(title, content, uid, LocalDate.parse(formatter.format(LocalDate.now())));
-            return "redirect:" + request.getHeader("Referer");
+            return "redirect:/bbs";
         } else {
             return "write";
         }

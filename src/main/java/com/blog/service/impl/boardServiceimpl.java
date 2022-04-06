@@ -33,7 +33,6 @@ public class boardServiceimpl implements boardService {
 
     @Override
     public boolean nextpage(int pageNumber) throws Exception {
-        log.debug(bbs.nextpage(pageNumber).size() + ": 테이블 크기" + " 페이지 넘버: " + pageNumber);
         return bbs.nextpage(pageNumber).size() > 0;
     }
 
