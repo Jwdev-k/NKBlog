@@ -51,10 +51,20 @@
                 </ul>
             </li>
         </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>${userID}</li>
+            </ul>
         </c:if>
     </div>
 </nav>
+
 <div class="container">
+    <form method="post" class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        <div class="input-group pull-right">
+            <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" name="Search" />
+        </div>
+        <input type="submit" class="btn btn-primary pull-right" value="검색">
+    </form>
     <div class="row">
         <table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
             <thead>
@@ -79,11 +89,22 @@
         <c:set var="pageNumber" value="${pageNumber}" />
         <c:set var="nextPageNumber" value="${nextPageNumber}" />
         <c:set var="userID" value="${userID}" />
-        <c:if test= "${nextPageNumber != null}">
-            <a href="/NKBlog/bbs?pageNumber=${nextPageNumber}" class="btn btn-success btn-arraw-left">◀</a>
-        </c:if>
+
         <c:if test= "${pageNumber > 1}">
-            <a href="/NKBlog/bbs?pageNumber=${pageNumber - 1}" class="btn btn-success btn-arraw-left">▶</a>
+            <a href="/NKBlog/bbs?pageNumber=${pageNumber - 1}" class="btn btn-success btn-arraw-left">◀</a>
+        </c:if>
+        <c:if test= "${nextPageNumber != null}">
+            <a href="/NKBlog/bbs?pageNumber=${nextPageNumber}" class="btn btn-success btn-arraw-left">▶</a>
+        </c:if>
+
+        <c:if test="${pageMaker.prev}">
+            <a href="/NKBlog/bbs?pageNumber=${pageMaker.startPage - 1}" class="btn btn-info-left"><<</a>
+        </c:if>
+        <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="pageNum">
+            <a href="/NKBlog/bbs?pageNumber=${pageNum}" class="btn">${pageNum}</a>
+        </c:forEach>
+        <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+            <a href="/NKBlog/bbs?pageNumber=${pageMaker.endPage + 1}" class="btn btn-info-right">>></a>
         </c:if>
         <c:if test= "${userID != null}">
             <a href="/NKBlog/bbs/write" class="btn btn-primary pull-right">글쓰기</a>

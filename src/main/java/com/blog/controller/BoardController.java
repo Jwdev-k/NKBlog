@@ -4,6 +4,8 @@ import com.blog.domain.boardDTO;
 import com.blog.domain.commentDTO;
 import com.blog.service.impl.boardServiceimpl;
 import com.blog.service.impl.commentServiceimpl;
+import com.blog.utils.PageMaker;
+import com.blog.utils.PagingCheck;
 import com.blog.utils.ScriptUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -32,29 +33,37 @@ public class BoardController {
     private boardServiceimpl bbs;
     @Autowired
     private commentServiceimpl cm;
-
     private int bbsID = 0;
 
-    @RequestMapping(value = "/bbs", method = RequestMethod.GET)
-    public String boardlist(Model model, @RequestParam("pageNumber") int pn) throws Exception {
-        if (bbs.nextpage(pn + 1)) {
+    @RequestMapping(value = "/bbs", method = {RequestMethod.GET, RequestMethod.POST})
+    public String boardlist(HttpServletRequest request, Model model
+            , @RequestParam(value = "pageNumber", defaultValue = "1") int pn) throws Exception {
+        PagingCheck paging = new PagingCheck();
+        ArrayList<boardDTO> list = bbs.boardList(pn);
+        if (!list.isEmpty()) {
+            model.addAttribute("boardList", list);
+        }
+        model.addAttribute("pageNumber", pn);
+        if (paging.nextPageCheck(list.get(0).getBno())) {
             model.addAttribute("nextPageNumber", pn + 1);
         }
-        if (pn != 0) {
-            model.addAttribute("pageNumber", pn);
-        }
-        ArrayList<boardDTO> list = bbs.boardList(pn);
-        model.addAttribute("boardList", list);
+
+        PageMaker pageMaker = new PageMaker(); // 페이징 목록
+        pageMaker.setPage(pn);
+        pageMaker.setTotalCount(bbs.countBoardList());
+        model.addAttribute("pageMaker", pageMaker);
+
+        log.debug(request.getParameter("Search"));
         return "bbs";
     }
 
     @RequestMapping(value = "/bbs/write", method = RequestMethod.GET)
-    public String boardwrite() {
+    public String boardWrite() {
         return "write";
     }
 
     @RequestMapping(value = "/bbs/write", method = RequestMethod.POST)
-    public String boardwrite(HttpServletRequest request, HttpSession session) throws UnsupportedEncodingException {
+    public String boardWrite(HttpServletRequest request, HttpSession session) throws Exception {
         request.setCharacterEncoding("utf-8");
         String title = request.getParameter("title");
         String content = request.getParameter("content").replaceAll("\n", "<br>");
@@ -70,7 +79,7 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/bbs/view", method = RequestMethod.GET)
-    public String boardview(HttpServletResponse response, @RequestParam("bno") int bno) throws IOException {
+    public String boardView(HttpServletResponse response, @RequestParam("bno") int bno) throws IOException {
         bbsID = bno;
         if (bno == 0) {
             ScriptUtils.alertAndBackPage(response, "유효하지 않은 글입니다.");
@@ -79,7 +88,7 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/bbs/view/deleteAction", method = RequestMethod.GET)
-    public String deleteboard(@RequestParam("bno") int param1) throws Exception {
+    public String deleteBoard(@RequestParam("bno") int param1) throws Exception {
         if (param1 != 0) {
             bbs.delteboard(param1);
         }
@@ -109,7 +118,7 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/comment/add", method = RequestMethod.POST)
-    public String addcomment(HttpServletRequest request, HttpSession session, @RequestParam("bno") int param1) throws Exception {
+    public String addComment(HttpServletRequest request, HttpSession session, @RequestParam("bno") int param1) throws Exception {
         commentDTO comment = new commentDTO(param1
                 , (String) session.getAttribute("userID")
                 , request.getParameter("comment"));

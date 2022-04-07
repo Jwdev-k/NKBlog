@@ -7,11 +7,11 @@ import java.util.ArrayList;
 
 public interface boardMapper {
 
-    @Select("SELECT * FROM boardlist WHERE bno <= #{pagenumber} AND bno > #{start} AND Available = 1 ORDER BY bno DESC LIMIT 20")
-    ArrayList<boardDTO> boardList(@Param("pagenumber")int pagenumber, @Param("start")int start) throws Exception;
+    @Select("SELECT * FROM ( SELECT * FROM boardlist WHERE Available = 1 LIMIT #{start}, 10 ) sub ORDER BY bno DESC")
+    ArrayList<boardDTO> boardList(int start) throws Exception;
 
-    @Select("SELECT * FROM boardlist WHERE bno > #{pagenumber} AND Available = 1")
-    ArrayList<boardDTO> nextpage(int pagenumber) throws Exception;
+    @Select("SELECT * FROM boardlist WHERE bno > #{start} AND Available = 1")
+    ArrayList<boardDTO> nextpage(int start) throws Exception;
 
     @Insert("INSERT INTO boardlist VALUES(null, #{title}, #{uid}, #{created}, #{content}, #{available})")
     void addboard(boardDTO bbs) throws Exception;
@@ -23,6 +23,9 @@ public interface boardMapper {
     void updateboard(boardDTO bbs) throws Exception;
 
     @Select("SELECT * FROM boardlist WHERE bno = #{bno}")
-    boardDTO getBbs (int bno) throws Exception;
+    boardDTO getBoard (int bno) throws Exception;
+
+    @Select("SELECT COUNT(*) FROM boardlist WHERE Available = 1")
+    int countBoardList() throws Exception;
 
 }

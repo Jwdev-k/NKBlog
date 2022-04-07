@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"
     pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -20,21 +21,13 @@
         </button>
         <a class="navbar-brand" href="/NKBlog">NKBlog</a>
     </div>
-    <%
-        String userID = null;
-        if (session.getAttribute("userID") != null) {
-            userID = (String) session.getAttribute("userID");
-        }
-    %>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
             <li><a href="/NKBlog/main">메인</a></li>
             <li><a href="/NKBlog/bbs?pageNumber=1">게시판</a></li>
         </ul>
-        <%
-            if(userID == null) {
-
-        %>
+        <c:set var="userID" value="${userID}" />
+        <c:if test= "${userID == null}">
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle"
@@ -46,9 +39,8 @@
                 </ul>
             </li>
         </ul>
-        <%
-        } else {
-        %>
+        </c:if>
+        <c:if test= "${userID != null}">
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle"
@@ -59,9 +51,10 @@
                 </ul>
             </li>
         </ul>
-        <%
-            }
-        %>
+            <ul class="nav navbar-nav navbar-right">
+                <li>${userID}</li>
+            </ul>
+        </c:if>
     </div>
 </nav>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

@@ -5,15 +5,12 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.io.InputStream;
 import java.util.ArrayList;
 
 public class boardDAO implements boardMapper {
-
-    private int limit = 20;
 
     private static SqlSession getSqlSession() throws Exception {
         String resource = "java-mybatis-config.xml";
@@ -24,20 +21,15 @@ public class boardDAO implements boardMapper {
     }
 
     @Override
-    public ArrayList<boardDTO> boardList(int pagenumber, int start) throws Exception {
+    public ArrayList<boardDTO> boardList(int start) throws Exception {
         var mapper = getSqlSession().getMapper(boardMapper.class);
-        if (pagenumber != 1) {
-            int n = pagenumber * limit; // limit 20
-            start = n - limit;
-            return mapper.boardList(n, start);
-        }
-        return mapper.boardList(20, 0);
+        return mapper.boardList(start);
     }
 
     @Override
-    public ArrayList<boardDTO> nextpage(int pagenumber) throws Exception {
+    public ArrayList<boardDTO> nextpage(int start) throws Exception {
         var mapper = getSqlSession().getMapper(boardMapper.class);
-        return mapper.nextpage((pagenumber - 1) * limit);
+        return mapper.nextpage(start);
     }
 
     @Override
@@ -59,8 +51,14 @@ public class boardDAO implements boardMapper {
     }
 
     @Override
-    public boardDTO getBbs(int bno) throws Exception {
+    public boardDTO getBoard(int bno) throws Exception {
         var mapper = getSqlSession().getMapper(boardMapper.class);
-        return mapper.getBbs(bno);
+        return mapper.getBoard(bno);
+    }
+
+    @Override
+    public int countBoardList() throws Exception {
+        var mapper = getSqlSession().getMapper(boardMapper.class);
+        return mapper.countBoardList();
     }
 }

@@ -67,7 +67,7 @@ public class LoginController {
     }
 
     @RequestMapping(value="/loginchecknaver", method=RequestMethod.GET)
-    public String loginnaver(HttpSession session, @RequestParam("code") String code, @RequestParam("state") String state) throws IOException {
+    public String loginNaver(HttpSession session, @RequestParam("code") String code, @RequestParam("state") String state) throws IOException {
         OAuth2AccessToken oauthToken;
         oauthToken = NaverLoginBO.getAccessToken(session, code, state);
         apiResult = NaverLoginBO.getUserProfile(oauthToken);

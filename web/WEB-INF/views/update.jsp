@@ -1,6 +1,4 @@
-<%@ page import="java.io.PrintWriter" %>
-<%@ page import="com.blog.domain.boardDTO" %>
-<%@ page import="com.blog.domain.impl.boardDAO" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -22,21 +20,13 @@
         </button>
         <a class="navbar-brand" href="/NKBlog">NKBlog</a>
     </div>
-    <%
-        String userID = null;
-        if (session.getAttribute("userID") != null) {
-            userID = (String) session.getAttribute("userID");
-        }
-    %>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
             <li><a href="/NKBlog/main">메인</a></li>
             <li class="active"><a href="/NKBlog/bbs?pageNumber=1">게시판</a></li>
         </ul>
-        <%
-            if(userID == null) {
-
-        %>
+        <c:set var="userID" value="${userID}" />
+        <c:if test= "${userID == null}">
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle"
@@ -48,9 +38,8 @@
                 </ul>
             </li>
         </ul>
-        <%
-        } else {
-        %>
+        </c:if>
+        <c:if test= "${userID != null}">
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle"
@@ -61,18 +50,12 @@
                 </ul>
             </li>
         </ul>
-        <%
-            }
-        %>
+            <ul class="nav navbar-nav navbar-right">
+                <li>${userID}</li>
+            </ul>
+        </c:if>
     </div>
 </nav>
-<%
-    int bbsID = 0;
-    if (request.getParameter("bno") != null) {
-        bbsID = Integer.parseInt(request.getParameter("bno"));
-    }
-    boardDTO bbs = new boardDAO().getBbs(bbsID);
-%>
 <div class="container">
     <div class="row">
         <form method="post">

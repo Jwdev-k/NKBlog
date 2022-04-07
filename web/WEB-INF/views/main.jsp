@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"
          pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -20,21 +21,13 @@
         </button>
         <a class="navbar-brand" href="/NKBlog">NKBlog</a>
     </div>
-    <%
-        String userID = null;
-        if (session.getAttribute("userID") != null) {
-            userID = (String) session.getAttribute("userID");
-        }
-    %>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
             <li class="active"><a href="/NKBlog/main">메인</a></li>
             <li><a href="/NKBlog/bbs?pageNumber=1">게시판</a></li>
         </ul>
-        <%
-            if(userID == null) {
-
-        %>
+        <c:set var="userID" value="${userID}" />
+        <c:if test= "${userID == null}">
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle"
@@ -46,9 +39,8 @@
                 </ul>
             </li>
         </ul>
-        <%
-            } else {
-        %>
+        </c:if>
+        <c:if test= "${userID != null}">
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle"
@@ -62,9 +54,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li>${userID}</li>
         </ul>
-        <%
-            }
-        %>
+        </c:if>
     </div>
     <div class="container">
         <div class="jumbotron">
@@ -76,9 +66,26 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <img src="${pageContext.request.contextPath}/resources/image/main1.png">
-    </div>
+    <center><div id="map" style="width:500px;height:400px;" ></div></center>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=685318fc5604f6208564f2b40c40c4ba"></script>
+    <script >
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+            mapOption = {
+                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
+        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+        // 마커가 표시될 위치입니다
+        var markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667);
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({
+            position: markerPosition
+        });
+        // 마커가 지도 위에 표시되도록 설정합니다
+        marker.setMap(map);
+        // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+        // marker.setMap(null);
+    </script>
 </nav>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>

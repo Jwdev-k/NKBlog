@@ -18,22 +18,21 @@ public class boardServiceimpl implements boardService {
     private static boardDAO bbs = new boardDAO();
 
     @Override
-    public void addboard(String title, String content, String uid, LocalDate create) {
-        try {
-            bbs.addboard(new boardDTO(0, title, uid, create, content, 1));
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void addboard(String title, String content, String uid, LocalDate create) throws Exception {
+        bbs.addboard(new boardDTO(0, title, uid, create, content, 1));
+    }
+
+    @Override
+    public ArrayList<boardDTO>boardList(int start) throws Exception {
+        if (start != 1) {
+            return bbs.boardList(start * 10);
         }
+        return bbs.boardList(start - 1);
     }
 
     @Override
-    public ArrayList<boardDTO>boardList(int pageNumber) throws Exception {
-        return bbs.boardList(pageNumber, 0);
-    }
-
-    @Override
-    public boolean nextpage(int pageNumber) throws Exception {
-        return bbs.nextpage(pageNumber).size() > 0;
+    public boolean nextpage(int start) throws Exception {
+        return bbs.nextpage(start).size() > 0;
     }
 
     @Override
@@ -44,5 +43,10 @@ public class boardServiceimpl implements boardService {
     @Override
     public void updateboard(boardDTO dto) throws Exception {
         bbs.updateboard(dto);
+    }
+
+    @Override
+    public int countBoardList() throws Exception {
+        return bbs.countBoardList();
     }
 }
