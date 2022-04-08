@@ -59,11 +59,16 @@
 </nav>
 
 <div class="container">
-    <form method="post" class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-        <div class="input-group pull-right">
-            <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" name="Search" />
+    <form method="post" class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 pull-right">
+        <select name="searchType">
+            <option value="title">제목</option>
+            <option value="content">내용</option>
+            <option value="uid">작성자</option>
+        </select>
+        <div class="input-group">
+            <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" name="keyword" />
         </div>
-        <input type="submit" class="btn btn-primary pull-right" value="검색">
+        <input type="submit" class="btn btn-primary" value="검색">
     </form>
     <div class="row">
         <table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">

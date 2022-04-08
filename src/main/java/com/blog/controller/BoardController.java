@@ -1,11 +1,11 @@
 package com.blog.controller;
 
+import com.blog.Enum.EsearchType;
 import com.blog.domain.boardDTO;
 import com.blog.domain.commentDTO;
 import com.blog.service.impl.boardServiceimpl;
 import com.blog.service.impl.commentServiceimpl;
 import com.blog.utils.PageMaker;
-import com.blog.utils.PagingCheck;
 import com.blog.utils.ScriptUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,40 +33,43 @@ public class BoardController {
     private boardServiceimpl bbs;
     @Autowired
     private commentServiceimpl cm;
-    private int bbsID = 0;
 
-    @RequestMapping(value = "/bbs", method = {RequestMethod.GET, RequestMethod.POST})
-    public String boardlist(HttpServletRequest request, Model model
-            , @RequestParam(value = "pageNumber", defaultValue = "1") int pn) throws Exception {
-        PagingCheck paging = new PagingCheck();
+    private int bbsID = 0;
+    private PageMaker pageMaker = new PageMaker(); // 페이징 목록
+
+    @RequestMapping(value = "/bbs", method = {RequestMethod.GET,RequestMethod.POST})
+    public String boardlist(HttpServletResponse response, Model model
+            , @RequestParam(value = "pageNumber", defaultValue = "1") int pn
+            ,@RequestParam(value = "searchType", defaultValue = "title")EsearchType type
+            ,@RequestParam(value = "keyword", required = false, defaultValue = "")String keyword) throws Exception {
         ArrayList<boardDTO> list = bbs.boardList(pn);
         if (!list.isEmpty()) {
             model.addAttribute("boardList", list);
         }
+        pageMaker.setPage(pn);
+        pageMaker.setTotalCount(bbs.countBoardList());
+
+        model.addAttribute("pageMaker", pageMaker);
         model.addAttribute("pageNumber", pn);
-        if (paging.nextPageCheck(list.get(0).getBno())) {
+
+        if (bbs.nextPageCheck(pn)) {
             model.addAttribute("nextPageNumber", pn + 1);
         }
 
-        PageMaker pageMaker = new PageMaker(); // 페이징 목록
-        pageMaker.setPage(pn);
-        pageMaker.setTotalCount(bbs.countBoardList());
-        model.addAttribute("pageMaker", pageMaker);
-
-        log.debug(request.getParameter("Search"));
+        if (!keyword.equals("")) {
+            ArrayList<boardDTO> list2 = bbs.searchBoard(type, keyword);
+            if (!list2.isEmpty()) {
+                model.addAttribute("boardList", list2);
+            }
+        }
         return "bbs";
     }
 
-    @RequestMapping(value = "/bbs/write", method = RequestMethod.GET)
-    public String boardWrite() {
-        return "write";
-    }
-
-    @RequestMapping(value = "/bbs/write", method = RequestMethod.POST)
+    @RequestMapping(value = "/bbs/write", method = {RequestMethod.GET,RequestMethod.POST})
     public String boardWrite(HttpServletRequest request, HttpSession session) throws Exception {
         request.setCharacterEncoding("utf-8");
         String title = request.getParameter("title");
-        String content = request.getParameter("content").replaceAll("\n", "<br>");
+        String content = request.getParameter("content");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         log.debug("Title: " + title + "\n" + "content: " + content + "add board.");
         String uid = (String) session.getAttribute("userID");
@@ -79,11 +82,12 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/bbs/view", method = RequestMethod.GET)
-    public String boardView(HttpServletResponse response, @RequestParam("bno") int bno) throws IOException {
+    public String boardView(HttpServletResponse response, Model model, @RequestParam("bno") int bno) throws Exception {
         bbsID = bno;
         if (bno == 0) {
             ScriptUtils.alertAndBackPage(response, "유효하지 않은 글입니다.");
         }
+        model.addAttribute("boardData", bbs.getBoard(bno));
         return "view";
     }
 
@@ -96,11 +100,12 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/bbs/view/update", method = RequestMethod.GET)
-    public String boardUpdate(HttpServletResponse response, @RequestParam("bno") int bno) throws IOException {
+    public String editBoard(HttpServletResponse response, Model model, @RequestParam("bno") int bno) throws Exception {
         bbsID = bno;
         if (bno == 0) {
             ScriptUtils.alertAndBackPage(response, "유효하지 않는 글입니다.");
         }
+        model.addAttribute("boardData", bbs.getBoard(bno));
         return "update";
     }
 

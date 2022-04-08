@@ -33,9 +33,7 @@ public class LoginController {
     private loginServiceimpl ls;
     @Autowired
     private NaverLoginBO NaverLoginBO;
-    private String apiResult = null;
-
-    SHA256 sha256 = new SHA256();
+    private SHA256 sha256 = new SHA256();
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, HttpSession session) {
@@ -70,7 +68,7 @@ public class LoginController {
     public String loginNaver(HttpSession session, @RequestParam("code") String code, @RequestParam("state") String state) throws IOException {
         OAuth2AccessToken oauthToken;
         oauthToken = NaverLoginBO.getAccessToken(session, code, state);
-        apiResult = NaverLoginBO.getUserProfile(oauthToken);
+        String apiResult = NaverLoginBO.getUserProfile(oauthToken);
         //String형식인 apiResult를 json형태로 바꿈
         JsonParser jp = new JsonParser();
         Object obj = jp.parse(apiResult);

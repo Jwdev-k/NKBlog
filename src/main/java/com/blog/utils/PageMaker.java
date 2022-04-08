@@ -1,11 +1,12 @@
 package com.blog.utils;
 
-
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 @Getter
 @Setter
+@Slf4j
 public class PageMaker {
 
     private int totalCount; // 총 게시글 수
@@ -13,8 +14,8 @@ public class PageMaker {
     private int endPage;
     private boolean prev;
     private boolean next;
-    private int displayPageNum = 5; //
-    private int page = 0; // 현재페이지
+    private int displayPageNum = 5; // 페이징번호 갯수
+    private int page = 1; // 현재페이지
     private int PerPageNum = 10; // 한 페이지 총 게시글 수
 
     public void setTotalCount(int totalCount) { // 총 게시글 수 설정
@@ -23,19 +24,18 @@ public class PageMaker {
     }
 
     private void calcData() {
-
         endPage = (int) (Math.ceil(getPage() / (double) displayPageNum) * displayPageNum);
-
         startPage = (endPage - displayPageNum) + 1;
-        if (startPage <= 0) startPage = 1;
-
-        int tempEndPage = (int) (Math.ceil(totalCount / (double) getPerPageNum()));
-        if (endPage > tempEndPage) {
-            endPage = tempEndPage;
+        if (startPage <= 0) {
+            startPage = 1;
         }
-
+        int tempEndPage = (int) (Math.ceil((totalCount / (double) getPerPageNum())));
+        if (endPage > tempEndPage) {
+            endPage = tempEndPage - 1;
+            next = (endPage + 1) * getPerPageNum() < totalCount;
+        } else {
+            next = endPage * getPerPageNum() < totalCount;
+        }
         prev = startPage != 1;
-        next = endPage * getPerPageNum() < totalCount;
-
     }
 }

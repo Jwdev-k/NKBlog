@@ -1,14 +1,13 @@
 package com.blog.service.impl;
 
+import com.blog.Enum.EsearchType;
 import com.blog.domain.boardDTO;
 import com.blog.domain.impl.boardDAO;
 import com.blog.service.boardService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 @Slf4j
@@ -31,11 +30,6 @@ public class boardServiceimpl implements boardService {
     }
 
     @Override
-    public boolean nextpage(int start) throws Exception {
-        return bbs.nextpage(start).size() > 0;
-    }
-
-    @Override
     public void delteboard(int bno) throws Exception {
         bbs.deleteboard(bno);
     }
@@ -46,7 +40,29 @@ public class boardServiceimpl implements boardService {
     }
 
     @Override
+    public ArrayList<boardDTO> searchBoard(EsearchType type, String keyword) throws Exception {
+        log.debug("검색 타입: " + type + "키워드: " + keyword);
+        if (EsearchType.content.equals(type)) {
+            return bbs.searchBoardContent("%" + keyword + "%");
+        } else if (EsearchType.uid.equals(type)) {
+            return bbs.searchBoardUid("%" + keyword + "%");
+        } else {
+            return bbs.searchBoardTitle("%" + keyword + "%");
+        }
+    }
+
+    @Override
     public int countBoardList() throws Exception {
         return bbs.countBoardList();
+    }
+
+    @Override
+    public boolean nextPageCheck(int start) throws Exception {
+        return bbs.nextPageCheck((start * 10) + 10);
+    }
+
+    @Override
+    public boardDTO getBoard(int bno) throws Exception {
+        return bbs.getBoard(bno);
     }
 }

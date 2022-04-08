@@ -25,13 +25,6 @@ public class boardDAO implements boardMapper {
         var mapper = getSqlSession().getMapper(boardMapper.class);
         return mapper.boardList(start);
     }
-
-    @Override
-    public ArrayList<boardDTO> nextpage(int start) throws Exception {
-        var mapper = getSqlSession().getMapper(boardMapper.class);
-        return mapper.nextpage(start);
-    }
-
     @Override
     public void addboard(boardDTO bbs) throws Exception {
         var mapper = getSqlSession().getMapper(boardMapper.class);
@@ -51,14 +44,39 @@ public class boardDAO implements boardMapper {
     }
 
     @Override
+    public int countBoardList() throws Exception {
+        var mapper = getSqlSession().getMapper(boardMapper.class);
+        return mapper.countBoardList();
+    }
+
+    @Override
+    public ArrayList<boardDTO> searchBoardTitle(String keyword) throws Exception {
+        var mapper = getSqlSession().getMapper(boardMapper.class);
+        return mapper.searchBoardTitle(keyword);
+    }
+
+    @Override
+    public ArrayList<boardDTO> searchBoardContent(String keyword) throws Exception {
+        var mapper = getSqlSession().getMapper(boardMapper.class);
+        return mapper.searchBoardContent(keyword);
+    }
+
+    @Override
+    public ArrayList<boardDTO> searchBoardUid(String keyword) throws Exception {
+        var mapper = getSqlSession().getMapper(boardMapper.class);
+        return mapper.searchBoardUid(keyword);
+    }
+
+    @Override
     public boardDTO getBoard(int bno) throws Exception {
         var mapper = getSqlSession().getMapper(boardMapper.class);
         return mapper.getBoard(bno);
     }
 
     @Override
-    public int countBoardList() throws Exception {
+    public boolean nextPageCheck(int start) throws Exception {
         var mapper = getSqlSession().getMapper(boardMapper.class);
-        return mapper.countBoardList();
+        return mapper.nextPageCheck(start);
     }
+
 }

@@ -56,6 +56,7 @@
         </c:if>
     </div>
 </nav>
+<c:set var="boardData" value="${boardData}" />
 <div class="container">
     <div class="row">
         <form method="post">
@@ -67,10 +68,10 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td><input type="text" class="form-control" placeholder="글 제목" name="title" maxlength="50" value="<%= bbs.getTitle() %>"> </td>
+                    <td><input type="text" class="form-control" placeholder="글 제목" name="title" maxlength="50" value="${boardData.title}"> </td>
                 </tr>
                 <tr>
-                    <td><textarea class="form-control" placeholder="글 내용" name="content"  maxlength="2048" style="height: 350px; resize: none;"><%= bbs.getContent().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>") %></textarea></td>
+                    <td><textarea class="form-control" placeholder="글 내용" name="content"  maxlength="2048" style="height: 350px; resize: none;">${boardData.content}</textarea></td>
                 </tr>
                 </tbody>
             </table>
