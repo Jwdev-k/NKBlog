@@ -24,11 +24,12 @@
     <context:component-scan base-package="com.blog">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
-    
+
     <interceptors>
         <interceptor>
-            <mapping path="/logincheck"/>
+            <mapping path="/login" />
             <beans:bean id="AuthLoginInterceptor" class="com.blog.interceptor.AuthLoginInterceptor"/>
         </interceptor>
     </interceptors>
+
 </beans:beans>

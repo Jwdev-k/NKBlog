@@ -15,11 +15,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
+import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -38,9 +39,8 @@ public class BoardController {
     private PageMaker pageMaker = new PageMaker(); // 페이징 목록
 
     @RequestMapping(value = "/bbs", method = {RequestMethod.GET,RequestMethod.POST})
-    public String boardlist(HttpServletResponse response, Model model
-            , @RequestParam(value = "pageNumber", defaultValue = "1") int pn
-            ,@RequestParam(value = "searchType", defaultValue = "title")EsearchType type
+    public String boardlist(Model model, @RequestParam(value = "pageNumber", defaultValue = "1") int pn
+            ,@RequestParam(value = "searchType", required = false, defaultValue = "title")EsearchType type
             ,@RequestParam(value = "keyword", required = false, defaultValue = "")String keyword) throws Exception {
         ArrayList<boardDTO> list = bbs.boardList(pn);
         if (!list.isEmpty()) {
@@ -65,16 +65,33 @@ public class BoardController {
         return "bbs";
     }
 
-    @RequestMapping(value = "/bbs/write", method = {RequestMethod.GET,RequestMethod.POST})
-    public String boardWrite(HttpServletRequest request, HttpSession session) throws Exception {
+    @RequestMapping(value = "/bbs/write", method = RequestMethod.GET)
+    public String boardWrite(){
+        return "write";
+    }
+
+    @RequestMapping(value = "/bbs/write", method = RequestMethod.POST)
+    public String boardWrite(HttpServletRequest request, HttpSession session
+            , @RequestParam(value = "image", required = false) MultipartFile image) throws Exception {
         request.setCharacterEncoding("utf-8");
         String title = request.getParameter("title");
-        String content = request.getParameter("content");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        log.debug("Title: " + title + "\n" + "content: " + content + "add board.");
         String uid = (String) session.getAttribute("userID");
-        if (title != null && content != null) {
-            bbs.addboard(title, content, uid, LocalDate.parse(formatter.format(LocalDate.now())));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String content = request.getParameter("content");
+
+        if (!title.equals("") && !content.equals("")) {
+            boardDTO board = new boardDTO(0, title, uid, LocalDate.parse(formatter.format(LocalDate.now())), content, 1);
+            bbs.addboard(board);
+            log.debug("Title: " + title + "\n" + "content: " + content + " add board.");
+
+            String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+            if (!image.isEmpty()) {
+                try {
+                    image.transferTo(new File(rootDirectory+"resources\\images\\" + image.getOriginalFilename()));
+                } catch (Exception e) {
+                    throw new RuntimeException("Image saving failed", e);
+                }
+            }
             return "redirect:/bbs";
         } else {
             return "write";

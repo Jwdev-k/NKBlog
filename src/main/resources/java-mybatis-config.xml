@@ -9,7 +9,7 @@
         <setting name="useColumnLabel" value="true" />
         <setting name="useGeneratedKeys" value="false" />
         <setting name="defaultExecutorType" value="SIMPLE" />
-        <setting name="defaultStatementTimeout" value="100" />
+        <setting name="defaultStatementTimeout" value="3000" />
     </settings>
 
     <environments default="development">

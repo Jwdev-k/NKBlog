@@ -1,11 +1,14 @@
 package com.blog.service.impl;
 
 import com.blog.Enum.EsearchType;
+import com.blog.config.AsyncService;
 import com.blog.domain.boardDTO;
 import com.blog.domain.impl.boardDAO;
 import com.blog.service.boardService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,11 +18,8 @@ import java.util.ArrayList;
 public class boardServiceimpl implements boardService {
 
     private static boardDAO bbs = new boardDAO();
-
-    @Override
-    public void addboard(String title, String content, String uid, LocalDate create) throws Exception {
-        bbs.addboard(new boardDTO(0, title, uid, create, content, 1));
-    }
+    @Autowired
+    private AsyncService async;
 
     @Override
     public ArrayList<boardDTO>boardList(int start) throws Exception {
@@ -27,6 +27,11 @@ public class boardServiceimpl implements boardService {
             return bbs.boardList(start * 10);
         }
         return bbs.boardList(start - 1);
+    }
+
+    @Override
+    public void addboard(boardDTO board) throws Exception {
+        bbs.addboard(board);
     }
 
     @Override

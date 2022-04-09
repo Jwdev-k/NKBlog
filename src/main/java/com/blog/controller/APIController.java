@@ -24,7 +24,7 @@ public class APIController {
 
     @GetMapping(value = "users/{id}", produces="text/plain;charset=UTF-8")
     public ResponseEntity<String> getUser(@PathVariable("id") String uid) throws Exception {
-        Headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        Headers.setContentType(MediaType.APPLICATION_JSON);
         if (uid.equals("all")) {
             return new ResponseEntity<>(gs.toJson(ld.getAllAccountData()), Headers, HttpStatus.OK);
         } else if (ld.getAccountData(uid) != null) {
@@ -38,7 +38,7 @@ public class APIController {
     @PutMapping(value= "users/{id}/{password}/{password2}", produces="text/plain;charset=UTF-8")
     public ResponseEntity<String> setPassword(@PathVariable("id") String id, @PathVariable("password") String password
             , @PathVariable("password2") String password2, HttpServletResponse response) throws Exception {
-        Headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        Headers.setContentType(MediaType.APPLICATION_JSON);
         StringBuilder sb = new StringBuilder();
         if (ld.setPassword(id, password, password2)) {
             sb.append(id + "님의 패스워드를 ");

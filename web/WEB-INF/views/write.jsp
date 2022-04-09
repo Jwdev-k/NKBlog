@@ -59,7 +59,7 @@
 </nav>
 <div class="container">
     <div class="row">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
                 <thead>
                 <tr>
@@ -75,8 +75,11 @@
                     </tr>
                 </tbody>
             </table>
-            <input type="submit" class="btn btn-primary pull-right" value="글쓰기">
-        </form>
+            <h1>파일 업로드</h1>
+                <label>파일:</label>
+                <input multiple="multiple" type="file" name="image">
+                <input type="submit" class="btn btn-primary pull-right" value="글쓰기">
+            </form>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
