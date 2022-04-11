@@ -11,10 +11,9 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
-public class commentDTO implements Serializable {
-    private static final long serialVersionUID = 6140055595084923363L;
+public class FileDTO implements Serializable {
+    private static final long serialVersionUID = 4001277246927139744L;
 
-    private int bno;
-    private String uid;
-    private String comment;
+    private String filename;
+    private byte[] data;
 }

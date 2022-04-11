@@ -1,8 +1,10 @@
 package com.blog.controller;
 
 import com.blog.Enum.EsearchType;
+import com.blog.domain.FileDTO;
 import com.blog.domain.boardDTO;
 import com.blog.domain.commentDTO;
+import com.blog.service.impl.FileServiceimpl;
 import com.blog.service.impl.boardServiceimpl;
 import com.blog.service.impl.commentServiceimpl;
 import com.blog.utils.PageMaker;
@@ -34,6 +36,8 @@ public class BoardController {
     private boardServiceimpl bbs;
     @Autowired
     private commentServiceimpl cm;
+    @Autowired
+    private FileServiceimpl fs;
 
     private int bbsID = 0;
     private PageMaker pageMaker = new PageMaker(); // 페이징 목록
@@ -72,7 +76,7 @@ public class BoardController {
 
     @RequestMapping(value = "/bbs/write", method = RequestMethod.POST)
     public String boardWrite(HttpServletRequest request, HttpSession session
-            , @RequestParam(value = "image", required = false) MultipartFile image) throws Exception {
+            , @RequestParam(value = "image", required = false) MultipartFile file) throws Exception {
         request.setCharacterEncoding("utf-8");
         String title = request.getParameter("title");
         String uid = (String) session.getAttribute("userID");
@@ -80,14 +84,14 @@ public class BoardController {
         String content = request.getParameter("content");
 
         if (!title.equals("") && !content.equals("")) {
-            boardDTO board = new boardDTO(0, title, uid, LocalDate.parse(formatter.format(LocalDate.now())), content, 1);
-            bbs.addboard(board);
+            bbs.addboard(new boardDTO(0, title, uid, LocalDate.parse(formatter.format(LocalDate.now())), content, 1));
             log.debug("Title: " + title + "\n" + "content: " + content + " add board.");
 
             String rootDirectory = request.getSession().getServletContext().getRealPath("/");
-            if (!image.isEmpty()) {
+            if (!file.isEmpty()) {
                 try {
-                    image.transferTo(new File(rootDirectory+"resources\\images\\" + image.getOriginalFilename()));
+                    fs.saveFile(new FileDTO(file.getOriginalFilename(), file.getBytes()));
+                    file.transferTo(new File(rootDirectory+"resources\\images\\" + file.getOriginalFilename() + "+" + title + "-" + uid));
                 } catch (Exception e) {
                     throw new RuntimeException("Image saving failed", e);
                 }
