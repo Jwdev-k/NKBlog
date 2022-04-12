@@ -4,6 +4,7 @@
 ### 1. 개발환경
 - JDK 11
 - Spring FrameWork
+- Spring Boot
 - Tomcat 9
 - Mybatis and Maria DB
 #
