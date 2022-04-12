@@ -1,5 +1,6 @@
 package com.blog.controller;
 
+import com.blog.api.KakaoLoginBO;
 import com.blog.api.NaverLoginBO;
 import com.blog.config.SessionConfig;
 import com.blog.service.impl.loginServiceimpl;
@@ -33,13 +34,18 @@ public class LoginController {
     private loginServiceimpl ls;
     @Autowired
     private NaverLoginBO NaverLoginBO;
+    @Autowired
+    private KakaoLoginBO KakaoLoginBO;
+
     private SHA256 sha256 = new SHA256();
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, HttpSession session) {
         /* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
         String naverAuthUrl = NaverLoginBO.getAuthorizationUrl(session);
-        model.addAttribute("url", naverAuthUrl);
+        model.addAttribute("naverURL", naverAuthUrl);
+        String kakaoAuthUrl = KakaoLoginBO.getAuthorizationUrl(session);
+        model.addAttribute("kakaoURL", kakaoAuthUrl);
         return "login";
     }
 
@@ -64,22 +70,38 @@ public class LoginController {
         return null;
     }
 
-    @RequestMapping(value="/loginchecknaver", method=RequestMethod.GET)
-    public String loginNaver(HttpSession session, @RequestParam("code") String code, @RequestParam("state") String state) throws IOException {
+    @RequestMapping(value="/naverlogin", method= RequestMethod.GET)
+    public String naverLogin(HttpSession session, @RequestParam("code") String code, @RequestParam("state") String state) throws IOException {
         OAuth2AccessToken oauthToken;
         oauthToken = NaverLoginBO.getAccessToken(session, code, state);
         String apiResult = NaverLoginBO.getUserProfile(oauthToken);
         //String형식인 apiResult를 json형태로 바꿈
         JsonParser jp = new JsonParser();
-        Object obj = jp.parse(apiResult);
-        JsonObject jsonobj = (JsonObject) obj;
-        //3. 데이터 파싱
+        JsonObject jsonobj = (JsonObject) jp.parse(apiResult);
+        // 데이터 파싱
         JsonObject response_obj = (JsonObject) jsonobj.get("response");
-        String userID = response_obj.get("nickname").toString().replaceAll("[^\\uAC00-\\uD7A30-9a-zA-Z]", "");
-
+        String userID = response_obj.get("nickname").toString().replaceAll("\"", ""); // 닉네임에 " 부분 삭제
         session.setAttribute("userID", userID);
 
         log.info("naver login callback");
+        return "redirect:main";
+    }
+
+    @RequestMapping(value="/kakaologin", method= RequestMethod.GET)
+    public String kakaoLogin(HttpSession session, @RequestParam String code, @RequestParam String state) throws IOException {
+        OAuth2AccessToken oauthToken;
+        oauthToken = KakaoLoginBO.getAccessToken(session, code, state);
+        String apiResult = KakaoLoginBO.getUserProfile(oauthToken);
+
+        JsonParser jp = new JsonParser();
+        JsonObject jsonobj = (JsonObject) jp.parse(apiResult);
+
+        JsonObject response_obj = (JsonObject) jsonobj.get("kakao_account"); // 카카오 어카운트 에서 프로필 항목에 요청한 데이터가 있음.
+        JsonObject profile = (JsonObject) response_obj.get("profile");
+        String userID = profile.get("nickname").toString().replaceAll("\"", "");
+        session.setAttribute("userID", userID);
+
+        log.info("kakao login callback");
         return "redirect:main";
     }
 

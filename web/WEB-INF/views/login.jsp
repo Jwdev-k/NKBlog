@@ -53,8 +53,11 @@
                 </div>
                 <input type="submit" class="btn btn-primary form-control" value="로그인">
 
-                <div id="naver_id_login"> <a href="${url}">
+                <div id="naver_id_login"> <a href="${naverURL}">
                     <img width="230" src="<c:url value="/resources/btnD_official.png"/>"/></a>
+                </div>
+                <div id="kakao_id_login"> <a href="${kakaoURL}">
+                    <img width="230" src="<c:url value="/resources/kakao_login_medium_narrow.png"/>"/></a>
                 </div>
             </form>
         </div>
