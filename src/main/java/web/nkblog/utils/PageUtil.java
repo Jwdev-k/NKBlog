@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @Setter
 @Slf4j
-public class PageMaker {
+public class PageUtil {
 
     private int totalCount; // 총 게시글 수
     private int startPage;
@@ -32,10 +32,8 @@ public class PageMaker {
         int tempEndPage = (int) (Math.ceil((totalCount / (double) getPerPageNum())));
         if (endPage >= tempEndPage) {
             endPage = tempEndPage - 1;
-            next = (endPage + 1) * getPerPageNum() < totalCount;
-        } else {
-            next = endPage * getPerPageNum() < totalCount;
         }
+        next = (endPage + 1) * getPerPageNum() < totalCount;
         prev = startPage != 1;
     }
 }

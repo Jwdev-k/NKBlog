@@ -16,7 +16,7 @@ import web.nkblog.domain.commentDTO;
 import web.nkblog.service.impl.FileServiceimpl;
 import web.nkblog.service.impl.boardServiceimpl;
 import web.nkblog.service.impl.commentServiceimpl;
-import web.nkblog.utils.PageMaker;
+import web.nkblog.utils.PageUtil;
 import web.nkblog.utils.ScriptUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +40,7 @@ public class BoardController {
     private FileServiceimpl fs;
 
     private int bbsID = 0;
-    private PageMaker pageMaker = new PageMaker(); // 페이징 목록
+    private PageUtil pageUtil = new PageUtil(); // 페이징 목록
 
     @RequestMapping(value = "/bbs", method = {RequestMethod.GET, RequestMethod.POST})
     public String boardlist(Model model, @RequestParam(value = "pageNumber", defaultValue = "1") int pn
@@ -50,10 +50,10 @@ public class BoardController {
         if (!list.isEmpty()) {
             model.addAttribute("boardList", list);
         }
-        pageMaker.setPage(pn);
-        pageMaker.setTotalCount(bbs.countBoardList());
+        pageUtil.setPage(pn);
+        pageUtil.setTotalCount(bbs.countBoardList());
 
-        model.addAttribute("pageMaker", pageMaker);
+        model.addAttribute("pageMaker", pageUtil);
         model.addAttribute("pageNumber", pn);
 
         if (bbs.nextPageCheck(pn)) {
