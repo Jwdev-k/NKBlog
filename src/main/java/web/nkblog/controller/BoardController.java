@@ -64,6 +64,8 @@ public class BoardController {
             ArrayList<boardDTO> list2 = bbs.searchBoard(type, keyword);
             if (!list2.isEmpty()) {
                 model.addAttribute("boardList", list2);
+            } else {
+                model.addAttribute("boardList", null);
             }
         }
         return "bbs";
