@@ -6,8 +6,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="content-type" content="text/html"; charset="UTF-8">
-    <meta name="viewport" content="width=device-width", initial-scale="1">
+    <meta http-equiv="content-type" content="text/html" ; charset="UTF-8">
+    <meta name="viewport" content="width=device-width" , initial-scale="1">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
     <title>NKBlog</title>
 </head>
@@ -40,7 +40,7 @@
             <li><a href="/NKBlog/bbs?pageNumber=1">게시판</a></li>
         </ul>
         <%
-            if(userID == null) {
+            if (userID == null) {
 
         %>
 
@@ -68,9 +68,9 @@
                 </ul>
             </li>
         </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>${userID}</li>
-            </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>${userID}</li>
+        </ul>
         <%
             }
         %>
@@ -85,44 +85,49 @@
             </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td style="width: 20%;">글 제목</td>
-                    <td colspan="2"><%= bbs.getTitle()%></td>
-                </tr>
-                <tr>
-                    <td>작성자</td>
-                    <td colspan="2"><%= bbs.getUid()%></td>
-                </tr>
-                <tr>
-                    <td>작성일자</td>
-                    <td colspan="2"><%= bbs.getCreated()%></td>
-                </tr>
-                <tr>
-                    <td>글 내용</td>
-                    <td colspan="2" style="min-height: 200px; text-align: left;"><%= bbs.getContent()%></td>
-                </tr>
+            <tr>
+                <td style="width: 20%;">글 제목</td>
+                <td colspan="2"><%= bbs.getTitle()%>
+                </td>
+            </tr>
+            <tr>
+                <td>작성자</td>
+                <td colspan="2"><%= bbs.getUid()%>
+                </td>
+            </tr>
+            <tr>
+                <td>작성일자</td>
+                <td colspan="2"><%= bbs.getCreated()%>
+                </td>
+            </tr>
+            <tr>
+                <td>글 내용</td>
+                <td colspan="2" style="min-height: 200px; text-align: left;"><%= bbs.getContent()%>
+                </td>
+            </tr>
             </tbody>
         </table>
         <%
-        if (userID != null && userID.equals(bbs.getUid())) {
+            if (userID != null && userID.equals(bbs.getUid())) {
         %>
-            <a href="/NKBlog/bbs/view/update?bno=<%= bbsID %>" class="btn btn-primary">수정</a>
-            <a href="/NKBlog/bbs/view/deleteAction?bno=<%= bbsID %>" class="btn btn-primary">삭제</a>
-       <%
-        }
+        <a href="/NKBlog/bbs/view/update?bno=<%= bbsID %>" class="btn btn-primary">수정</a>
+        <a href="/NKBlog/bbs/view/deleteAction?bno=<%= bbsID %>" class="btn btn-primary">삭제</a>
+        <%
+            }
         %>
     </div>
 </div>
 <div class="container">
     <div class="row">
         <form method="post" action="/NKBlog/comment/add?bno=<%= bbsID %>">
-            <table class= "table table-striped" style="text-align: center; border: 1px solid #dddddd">
+            <table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
                 <tbody>
                 <tr>
                     <td style="width: 20%;">댓글</td>
                 </tr>
                 <tr>
-                    <td><textarea class="form-control" placeholder="내용" name="comment" maxlength="100" style="height: 40px; resize: none;"> </textarea></td>
+                    <td><textarea class="form-control" placeholder="내용" name="comment" maxlength="100"
+                                  style="height: 40px; resize: none;"> </textarea></td>
                 </tr>
                 </tbody>
             </table>

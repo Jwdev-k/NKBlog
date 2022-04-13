@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="content-type" content="text/html"; charset="UTF-8">
-    <meta name="viewport" content="width=device-width", initial-scale="1">
+    <meta http-equiv="content-type" content="text/html" ; charset="UTF-8">
+    <meta name="viewport" content="width=device-width" , initial-scale="1">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
     <title>NKBlog</title>
 </head>
@@ -53,10 +53,10 @@
                 </div>
                 <input type="submit" class="btn btn-primary form-control" value="로그인">
 
-                <div id="naver_id_login"> <a href="${naverURL}">
+                <div id="naver_id_login"><a href="${naverURL}">
                     <img width="230" src="<c:url value="/resources/btnD_official.png"/>"/></a>
                 </div>
-                <div id="kakao_id_login"> <a href="${kakaoURL}">
+                <div id="kakao_id_login"><a href="${kakaoURL}">
                     <img width="230" src="<c:url value="/resources/kakao_login_medium_narrow.png"/>"/></a>
                 </div>
             </form>

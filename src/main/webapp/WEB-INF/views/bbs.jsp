@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="content-type" content="text/html"; charset="UTF-8">
-    <meta name="viewport" content="width=device-width", initial-scale="1">
+    <meta http-equiv="content-type" content="text/html" ; charset="UTF-8">
+    <meta name="viewport" content="width=device-width" , initial-scale="1">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
     <title>NKBlog</title>
 </head>
@@ -26,31 +26,31 @@
             <li><a href="/NKBlog/main">메인</a></li>
             <li class="active"><a href="/NKBlog/bbs?pageNumber=1">게시판</a></li>
         </ul>
-        <c:set var="userID" value="${userID}" />
-        <c:if test= "${userID == null}">
-        <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle"
-                   data-toggle="dropdown" role="button" aria-haspopup="true"
-                   aria-expanded="false">메뉴<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="/NKBlog/login">로그인</a></li>
-                    <li><a href="/NKBlog/register">회원가입</a></li>
-                </ul>
-            </li>
-        </ul>
+        <c:set var="userID" value="${userID}"/>
+        <c:if test="${userID == null}">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle"
+                       data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">메뉴<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/NKBlog/login">로그인</a></li>
+                        <li><a href="/NKBlog/register">회원가입</a></li>
+                    </ul>
+                </li>
+            </ul>
         </c:if>
-        <c:if test= "${userID != null}">
-        <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle"
-                   data-toggle="dropdown" role="button" aria-haspopup="true"
-                   aria-expanded="false">메뉴<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="/NKBlog/logout">로그아웃</a></li>
-                </ul>
-            </li>
-        </ul>
+        <c:if test="${userID != null}">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle"
+                       data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">메뉴<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/NKBlog/logout">로그아웃</a></li>
+                    </ul>
+                </li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>${userID}</li>
             </ul>
@@ -66,7 +66,8 @@
             <option value="uid">작성자</option>
         </select>
         <div class="input-group">
-            <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" name="keyword" />
+            <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."
+                   aria-describedby="btnNavbarSearch" name="keyword"/>
         </div>
         <input type="submit" class="btn btn-primary" value="검색">
     </form>
@@ -84,21 +85,22 @@
             <c:forEach items="${boardList}" var="list">
                 <tr>
                     <td>${list.bno}</td>
-                    <td><a href="/NKBlog/bbs/view?bno=${list.bno}"/>${list.title}</td></a>
+                    <td><a href="/NKBlog/bbs/view?bno=${list.bno}"/>${list.title}</td>
+                    </a>
                     <td>${list.uid}</td>
                     <td>${list.created}</td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
-        <c:set var="pageNumber" value="${pageNumber}" />
-        <c:set var="nextPageNumber" value="${nextPageNumber}" />
-        <c:set var="userID" value="${userID}" />
+        <c:set var="pageNumber" value="${pageNumber}"/>
+        <c:set var="nextPageNumber" value="${nextPageNumber}"/>
+        <c:set var="userID" value="${userID}"/>
 
-        <c:if test= "${pageNumber > 1}">
+        <c:if test="${pageNumber > 1}">
             <a href="/NKBlog/bbs?pageNumber=${pageNumber - 1}" class="btn btn-success btn-arraw-left">◀</a>
         </c:if>
-        <c:if test= "${nextPageNumber != null}">
+        <c:if test="${nextPageNumber != null}">
             <a href="/NKBlog/bbs?pageNumber=${nextPageNumber}" class="btn btn-success btn-arraw-left">▶</a>
         </c:if>
 
@@ -111,7 +113,7 @@
         <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
             <a href="/NKBlog/bbs?pageNumber=${pageMaker.endPage + 1}" class="btn btn-info-right">>></a>
         </c:if>
-        <c:if test= "${userID != null}">
+        <c:if test="${userID != null}">
             <a href="/NKBlog/bbs/write" class="btn btn-primary pull-right">글쓰기</a>
         </c:if>
     </div>

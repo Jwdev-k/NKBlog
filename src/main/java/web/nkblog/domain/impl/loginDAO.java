@@ -60,7 +60,7 @@ public class loginDAO implements loginMapper {
     @Override
     public void register(String uid, String password, String gender) throws Exception {
         var mapper = getSqlSession().getMapper(loginMapper.class);
-        mapper.register(uid,password,gender);
+        mapper.register(uid, password, gender);
         var user = new loginDTO(uid, password, gender);
         log.debug(user.toString());
     }
@@ -68,7 +68,7 @@ public class loginDAO implements loginMapper {
     @Override
     public boolean setPassword(String id, String password, String password2) throws Exception {
         var mapper = getSqlSession().getMapper(loginMapper.class);
-        return mapper.setPassword(id,password,password2);
+        return mapper.setPassword(id, password, password2);
     }
 
 

@@ -7,13 +7,7 @@ plugins {
 
 group = 'web'
 version = '1.0'
-sourceCompatibility = '11'
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
+sourceCompatibility = '17'
 
 repositories {
     mavenCentral()

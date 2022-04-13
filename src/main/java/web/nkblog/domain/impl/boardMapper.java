@@ -23,13 +23,13 @@ public interface boardMapper {
     int countBoardList() throws Exception;
 
     @Select("SELECT * FROM boardlist WHERE title LIKE #{keyword} AND Available = 1")
-    ArrayList<boardDTO> searchBoardTitle (String keyword) throws Exception;
+    ArrayList<boardDTO> searchBoardTitle(String keyword) throws Exception;
 
     @Select("SELECT * FROM boardlist WHERE content LIKE #{keyword} AND Available = 1")
-    ArrayList<boardDTO> searchBoardContent (String keyword) throws Exception;
+    ArrayList<boardDTO> searchBoardContent(String keyword) throws Exception;
 
     @Select("SELECT * FROM boardlist WHERE uid LIKE #{keyword} AND Available = 1")
-    ArrayList<boardDTO> searchBoardUid (String keyword) throws Exception;
+    ArrayList<boardDTO> searchBoardUid(String keyword) throws Exception;
 
     @Select("SELECT * FROM boardlist WHERE bno = #{bno} AND Available = 1")
     boardDTO getBoard(int bno) throws Exception;

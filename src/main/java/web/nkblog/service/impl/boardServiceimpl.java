@@ -21,7 +21,7 @@ public class boardServiceimpl implements boardService {
     private AsyncService async;
 
     @Override
-    public ArrayList<boardDTO>boardList(int start) throws Exception {
+    public ArrayList<boardDTO> boardList(int start) throws Exception {
         if (start != 1) {
             return bbs.boardList(start * 10);
         }

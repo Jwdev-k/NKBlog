@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 public class CustomErrorController implements ErrorController {
 
     @RequestMapping(value = "/error")
-    public String errorPage(HttpServletRequest request){
+    public String errorPage(HttpServletRequest request) {
         var status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         if (status != null) {
             int errorStatus = Integer.parseInt(status.toString());

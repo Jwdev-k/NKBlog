@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 .main-error-page {
     min-height: 600px;
     margin: 0px auto;
@@ -9,6 +10,7 @@
     justify-content: center;
     flex-direction: column;
 }
+
 .error-title {
     max-width: 529px;
     font-family: Roboto;
@@ -36,6 +38,7 @@
     color: #4b4b62;
     margin-bottom: 24px;
 }
+
 svg {
     margin-bottom: 16px;
 }
@@ -44,6 +47,7 @@ svg {
 .full-torradeira {
 
 }
+
 .torradeira {
 }
 
@@ -51,6 +55,7 @@ svg {
     animation: leftright 1s alternate infinite;
     transform-origin: center;
 }
+
 .pao-frente {
     animation: leftright 1s 0.3s alternate infinite;
     transform-origin: center;
@@ -67,23 +72,28 @@ svg {
     animation: sad 2s alternate infinite;
     transform-origin: center;
 }
+
 .boca {
     animation: sad 2s alternate infinite;
     transform-origin: center;
 }
+
 .raios {
     -webkit-animation: flicker-4 4s linear infinite both;
     animation: flicker-4 4s linear infinite both;
 }
+
 .tomada {
     -webkit-animation: vibrate-1 3s linear infinite both;
     animation: vibrate-1 3s linear infinite both;
 }
+
 .fio-500 {
     -webkit-animation: vibrate-1 3s linear infinite both;
     animation: vibrate-1 3s linear infinite both;
 }
-.fio{
+
+.fio {
     -webkit-animation: vibrate-1 3s linear infinite both;
     animation: vibrate-1 3s linear infinite both;
 }
@@ -187,6 +197,7 @@ svg {
         opacity: 1;
     }
 }
+
 @keyframes flicker-4 {
     0%,
     100% {
@@ -305,6 +316,7 @@ svg {
         transform: translate(0);
     }
 }
+
 @keyframes vibrate-1 {
     0% {
         -webkit-transform: translate(0);
@@ -331,7 +343,6 @@ svg {
         transform: translate(0);
     }
 }
-
 
 
 /* ----------------------------------------------
@@ -382,16 +393,16 @@ svg {
         transform: rotateX(0deg) rotateY(0deg);
     }
     100% {
-        transform: rotateX(10deg)  rotateY(5deg);
+        transform: rotateX(10deg) rotateY(5deg);
     }
 }
 
-@keyframes leftright{
+@keyframes leftright {
 
-    0%{
-        transform: rotateZ( 0deg)
+    0% {
+        transform: rotateZ(0deg)
     }
-    100%{
-        transform: rotateZ( -15deg)
+    100% {
+        transform: rotateZ(-15deg)
     }
 }

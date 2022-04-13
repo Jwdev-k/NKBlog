@@ -102,7 +102,7 @@
                         transform="translate(-448 -158) translate(448 157) translate(389.862 231.813)"
                 >
                     <mask id="prefix__n" fill="#fff">
-                        <use xlink:href="#prefix__m" />
+                        <use xlink:href="#prefix__m"/>
                     </mask>
                     <path
                             class="fio"
@@ -311,7 +311,7 @@
     </h2>
 </div>
 <!-- partial -->
-<script  src="${pageContext.request.contextPath}/resources/js/500error.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/500error.js"></script>
 
 </body>
 </html>

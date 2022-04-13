@@ -25,6 +25,7 @@ public class boardDAO implements boardMapper {
         var mapper = getSqlSession().getMapper(boardMapper.class);
         return mapper.boardList(start);
     }
+
     @Override
     public void addboard(boardDTO bbs) throws Exception {
         var mapper = getSqlSession().getMapper(boardMapper.class);

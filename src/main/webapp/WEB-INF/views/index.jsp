@@ -1,11 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"
-    pageEncoding="UTF-8" %>
+         pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="content-type" content="text/html"; charset="UTF-8">
-    <meta name="viewport" content="width=device-width", initial-scale="1">
+    <meta http-equiv="content-type" content="text/html" ; charset="UTF-8">
+    <meta name="viewport" content="width=device-width" , initial-scale="1">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
     <title>NKBlog</title>
 </head>
@@ -26,42 +26,42 @@
             <li><a href="/NKBlog/main">메인</a></li>
             <li><a href="/NKBlog/bbs?pageNumber=1">게시판</a></li>
         </ul>
-        <c:set var="userID" value="${userID}" />
-        <c:if test= "${userID == null}">
-        <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle"
-                   data-toggle="dropdown" role="button" aria-haspopup="true"
-                   aria-expanded="false">메뉴<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="/NKBlog/login">로그인</a></li>
-                    <li><a href="/NKBlog/register">회원가입</a></li>
-                </ul>
-            </li>
-        </ul>
+        <c:set var="userID" value="${userID}"/>
+        <c:if test="${userID == null}">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle"
+                       data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">메뉴<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/NKBlog/login">로그인</a></li>
+                        <li><a href="/NKBlog/register">회원가입</a></li>
+                    </ul>
+                </li>
+            </ul>
         </c:if>
-        <c:if test= "${userID != null}">
-        <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle"
-                   data-toggle="dropdown" role="button" aria-haspopup="true"
-                   aria-expanded="false">메뉴<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="/NKBlog/logout">로그아웃</a></li>
-                </ul>
-            </li>
-        </ul>
+        <c:if test="${userID != null}">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle"
+                       data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">메뉴<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/NKBlog/logout">로그아웃</a></li>
+                    </ul>
+                </li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>${userID}</li>
             </ul>
         </c:if>
     </div>
 </nav>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
-    <h1>현재 서버 시간${serverTime}</h1>
-    <p><a href="/NKBlog/main">메인 페이지 이동</a></p>
-    <p><a href="/NKBlog/404error">404 에러 페이지 이동</a></p>
-    <p><a href="/NKBlog/500error">500 에러 페이지 이동</a></p>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
+<h1>현재 서버 시간${serverTime}</h1>
+<p><a href="/NKBlog/main">메인 페이지 이동</a></p>
+<p><a href="/NKBlog/404error">404 에러 페이지 이동</a></p>
+<p><a href="/NKBlog/500error">500 에러 페이지 이동</a></p>
 </body>
 </html>

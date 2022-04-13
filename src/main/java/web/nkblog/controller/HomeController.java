@@ -15,7 +15,7 @@ import java.util.Locale;
 public class HomeController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String home (Locale locale, Model model) {
+    public String home(Locale locale, Model model) {
         Date date = new Date();
         DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 
@@ -24,20 +24,20 @@ public class HomeController {
         return "index";
     }
 
-    @RequestMapping(value = "/main", method = {RequestMethod.GET, RequestMethod.POST} )
-    public String main () {
+    @RequestMapping(value = "/main", method = {RequestMethod.GET, RequestMethod.POST})
+    public String main() {
         return "main";
     }
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     @RequestMapping(value = "/404error")
-    public String error () {
+    public String error() {
         return "/error/404error";
     }
 
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @RequestMapping(value = "/500error")
-    public String error2 () {
+    public String error2() {
         return "/error/500error";
     }
 }

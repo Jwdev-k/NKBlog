@@ -22,7 +22,7 @@ public class APIController {
     private HttpHeaders Headers = new HttpHeaders();
     private loginDAO ld = new loginDAO();
 
-    @GetMapping(value = "users/{id}", produces="text/plain;charset=UTF-8")
+    @GetMapping(value = "users/{id}", produces = "text/plain;charset=UTF-8")
     public ResponseEntity<String> getUser(@PathVariable("id") String uid) throws Exception {
         Headers.setContentType(MediaType.APPLICATION_JSON);
         if (uid.equals("all")) {
@@ -30,12 +30,12 @@ public class APIController {
         } else if (ld.getAccountData(uid) != null) {
             return new ResponseEntity<>(gs.toJson(ld.getAccountData(uid)), Headers, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(gs.toJson(new loginDTO("null","null","null")), Headers,
+            return new ResponseEntity<>(gs.toJson(new loginDTO("null", "null", "null")), Headers,
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PutMapping(value= "users/{id}/{password}/{password2}", produces="text/plain;charset=UTF-8")
+    @PutMapping(value = "users/{id}/{password}/{password2}", produces = "text/plain;charset=UTF-8")
     public ResponseEntity<String> setPassword(@PathVariable("id") String id, @PathVariable("password") String password
             , @PathVariable("password2") String password2, HttpServletResponse response) throws Exception {
         Headers.setContentType(MediaType.APPLICATION_JSON);

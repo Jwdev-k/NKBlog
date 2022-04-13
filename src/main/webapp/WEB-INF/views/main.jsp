@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="content-type" content="text/html"; charset="UTF-8">
-    <meta name="viewport" content="width=device-width", initial-scale="1">
+    <meta http-equiv="content-type" content="text/html" ; charset="UTF-8">
+    <meta name="viewport" content="width=device-width" , initial-scale="1">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
     <title>NKBlog</title>
 </head>
@@ -26,34 +26,34 @@
             <li class="active"><a href="/NKBlog/main">메인</a></li>
             <li><a href="/NKBlog/bbs?pageNumber=1">게시판</a></li>
         </ul>
-        <c:set var="userID" value="${userID}" />
-        <c:if test= "${userID == null}">
-        <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle"
-                   data-toggle="dropdown" role="button" aria-haspopup="true"
-                   aria-expanded="false">메뉴<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="/NKBlog/login">로그인</a></li>
-                    <li><a href="/NKBlog/register">회원가입</a></li>
-                </ul>
-            </li>
-        </ul>
+        <c:set var="userID" value="${userID}"/>
+        <c:if test="${userID == null}">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle"
+                       data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">메뉴<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/NKBlog/login">로그인</a></li>
+                        <li><a href="/NKBlog/register">회원가입</a></li>
+                    </ul>
+                </li>
+            </ul>
         </c:if>
-        <c:if test= "${userID != null}">
-        <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle"
-                   data-toggle="dropdown" role="button" aria-haspopup="true"
-                   aria-expanded="false">메뉴<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="/NKBlog/logout">로그아웃</a></li>
-                </ul>
-            </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li>${userID}</li>
-        </ul>
+        <c:if test="${userID != null}">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle"
+                       data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">메뉴<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/NKBlog/logout">로그아웃</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>${userID}</li>
+            </ul>
         </c:if>
     </div>
     <div class="container">
@@ -66,9 +66,12 @@
             </div>
         </div>
     </div>
-    <center><div id="map" style="width:500px;height:400px;" ></div></center>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=685318fc5604f6208564f2b40c40c4ba"></script>
-    <script >
+    <center>
+        <div id="map" style="width:500px;height:400px;"></div>
+    </center>
+    <script type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=685318fc5604f6208564f2b40c40c4ba"></script>
+    <script>
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
             mapOption = {
                 center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -76,7 +79,7 @@
             };
         var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
         // 마커가 표시될 위치입니다
-        var markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667);
+        var markerPosition = new kakao.maps.LatLng(33.450701, 126.570667);
         // 마커를 생성합니다
         var marker = new kakao.maps.Marker({
             position: markerPosition

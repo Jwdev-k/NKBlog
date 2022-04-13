@@ -70,7 +70,7 @@ public class LoginController {
         return null;
     }
 
-    @RequestMapping(value="/naverlogin", method= RequestMethod.GET)
+    @RequestMapping(value = "/naverlogin", method = RequestMethod.GET)
     public String naverLogin(HttpSession session, @RequestParam("code") String code, @RequestParam("state") String state) throws IOException {
         OAuth2AccessToken oauthToken;
         oauthToken = NaverLoginBO.getAccessToken(session, code, state);
@@ -87,7 +87,7 @@ public class LoginController {
         return "redirect:main";
     }
 
-    @RequestMapping(value="/kakaologin", method= RequestMethod.GET)
+    @RequestMapping(value = "/kakaologin", method = RequestMethod.GET)
     public String kakaoLogin(HttpSession session, @RequestParam String code, @RequestParam String state) throws IOException {
         OAuth2AccessToken oauthToken;
         oauthToken = KakaoLoginBO.getAccessToken(session, code, state);
@@ -128,7 +128,7 @@ public class LoginController {
         if (userID == null && userPassword == null && userGender == null) {
             log.debug("값이 없습니다.");
             return "redirect:join";
-        } else if(ls.register(userID, userPassword, userGender)) {
+        } else if (ls.register(userID, userPassword, userGender)) {
             ScriptUtils.alertAndMovePage(response, "회원가입 완료.", "/NKBlog/login");
             return null;
         } else {

@@ -42,10 +42,10 @@ public class BoardController {
     private int bbsID = 0;
     private PageMaker pageMaker = new PageMaker(); // 페이징 목록
 
-    @RequestMapping(value = "/bbs", method = {RequestMethod.GET,RequestMethod.POST})
+    @RequestMapping(value = "/bbs", method = {RequestMethod.GET, RequestMethod.POST})
     public String boardlist(Model model, @RequestParam(value = "pageNumber", defaultValue = "1") int pn
-            ,@RequestParam(value = "searchType", required = false, defaultValue = "title") EsearchType type
-            ,@RequestParam(value = "keyword", required = false, defaultValue = "")String keyword) throws Exception {
+            , @RequestParam(value = "searchType", required = false, defaultValue = "title") EsearchType type
+            , @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {
         ArrayList<boardDTO> list = bbs.boardList(pn);
         if (!list.isEmpty()) {
             model.addAttribute("boardList", list);
@@ -72,7 +72,7 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/bbs/write", method = RequestMethod.GET)
-    public String boardWrite(){
+    public String boardWrite() {
         return "write";
     }
 
@@ -93,7 +93,7 @@ public class BoardController {
             if (!file.isEmpty()) {
                 try {
                     fs.saveFile(new FileDTO(file.getOriginalFilename(), file.getBytes()));
-                    file.transferTo(new File(rootDirectory+"resources\\images\\" + file.getOriginalFilename() + "+" + title + "-" + uid));
+                    file.transferTo(new File(rootDirectory + "resources\\images\\" + file.getOriginalFilename() + "+" + title + "-" + uid));
                 } catch (Exception e) {
                     throw new RuntimeException("Image saving failed", e);
                 }
