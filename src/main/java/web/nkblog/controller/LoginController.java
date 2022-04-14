@@ -37,10 +37,10 @@ public class LoginController {
     @Autowired
     private KakaoLoginBO KakaoLoginBO;
 
-    private SHA256 sha256 = new SHA256();
+    private final SHA256 sha256 = new SHA256();
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(Model model, HttpSession session) {
+    public String Login(Model model, HttpSession session) {
         /* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
         String naverAuthUrl = NaverLoginBO.getAuthorizationUrl(session);
         model.addAttribute("naverURL", naverAuthUrl);
@@ -50,7 +50,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/logincheck", method = RequestMethod.POST)
-    public String login(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+    public String Login(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
         request.setCharacterEncoding("utf-8");
         String userID = request.getParameter("userID");
         String userPassword = sha256.encrypt(request.getParameter("userPassword"));
@@ -71,7 +71,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/naverlogin", method = RequestMethod.GET)
-    public String naverLogin(HttpSession session, @RequestParam("code") String code, @RequestParam("state") String state) throws IOException {
+    public String NaverLogin(HttpSession session, @RequestParam("code") String code, @RequestParam("state") String state) throws IOException {
         OAuth2AccessToken oauthToken;
         oauthToken = NaverLoginBO.getAccessToken(session, code, state);
         String apiResult = NaverLoginBO.getUserProfile(oauthToken);
@@ -88,7 +88,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/kakaologin", method = RequestMethod.GET)
-    public String kakaoLogin(HttpSession session, @RequestParam String code, @RequestParam String state) throws IOException {
+    public String KakaoLogin(HttpSession session, @RequestParam String code, @RequestParam String state) throws IOException {
         OAuth2AccessToken oauthToken;
         oauthToken = KakaoLoginBO.getAccessToken(session, code, state);
         String apiResult = KakaoLoginBO.getUserProfile(oauthToken);
@@ -108,18 +108,18 @@ public class LoginController {
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     @ResponseBody
-    public void logout(HttpServletResponse response, HttpSession session) throws Exception {
+    public void Logout(HttpServletResponse response, HttpSession session) throws Exception {
         session.invalidate();
         ScriptUtils.alertAndMovePage(response, "로그아웃 되었습니다.", "/NKBlog/main");
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String register() {
+    public String Register() {
         return "join";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(HttpServletResponse response, HttpServletRequest request) throws Exception {
+    public String Register(HttpServletResponse response, HttpServletRequest request) throws Exception {
         request.setCharacterEncoding("utf-8");
         String userID = request.getParameter("userID");
         String userPassword = sha256.encrypt(request.getParameter("userPassword"));

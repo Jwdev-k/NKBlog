@@ -16,7 +16,7 @@ import java.util.ArrayList;
 @Service
 public class boardServiceimpl implements boardService {
 
-    private static boardDAO bbs = new boardDAO();
+    private static final boardDAO bbs = new boardDAO();
     @Autowired
     private AsyncService async;
 
@@ -25,7 +25,7 @@ public class boardServiceimpl implements boardService {
         if (start != 1) {
             return bbs.boardList(start * 10);
         }
-        return bbs.boardList(start - 1);
+        return bbs.boardList(0);
     }
 
     @Override

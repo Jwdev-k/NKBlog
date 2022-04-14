@@ -23,4 +23,10 @@ public class FileDAO implements FileMapper {
         var mapper = getSqlSession().getMapper(FileMapper.class);
         mapper.saveFile(file);
     }
+
+    @Override
+    public FileDTO getFile(int bno) throws Exception {
+        var mapper = getSqlSession().getMapper(FileMapper.class);
+        return mapper.getFile(bno);
+    }
 }

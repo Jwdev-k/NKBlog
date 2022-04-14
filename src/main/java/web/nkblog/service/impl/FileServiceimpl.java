@@ -14,7 +14,7 @@ import java.io.File;
 @Slf4j
 public class FileServiceimpl implements FileService {
 
-    private static FileDAO fd = new FileDAO();
+    private static final FileDAO fd = new FileDAO();
     @Autowired
     boardServiceimpl bbs;
 
@@ -35,5 +35,10 @@ public class FileServiceimpl implements FileService {
             } catch (Exception e) {
                 throw new RuntimeException("Image saving failed", e);
             }
+    }
+
+    @Override
+    public FileDTO getFile(int bno) throws Exception {
+        return fd.getFile(bno);
     }
 }

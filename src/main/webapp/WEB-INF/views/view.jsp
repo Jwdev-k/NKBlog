@@ -23,27 +23,13 @@
         </button>
         <a class="navbar-brand" href="/NKBlog">NKBlog</a>
     </div>
-    <%
-        String userID = null;
-        if (session.getAttribute("userID") != null) {
-            userID = (String) session.getAttribute("userID");
-        }
-        int bbsID = 0;
-        if (request.getParameter("bno") != null) {
-            bbsID = Integer.parseInt(request.getParameter("bno"));
-        }
-        boardDTO bbs = new boardDAO().getBoard(bbsID);
-    %>
+    <c:set var="userID" value="${userID}"/>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
             <li class="active"><a href="/NKBlog/main">메인</a></li>
             <li><a href="/NKBlog/bbs?pageNumber=1">게시판</a></li>
         </ul>
-        <%
-            if (userID == null) {
-
-        %>
-
+        <c:if test="${userID == null}">
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle"
@@ -55,9 +41,8 @@
                 </ul>
             </li>
         </ul>
-        <%
-        } else {
-        %>
+        </c:if>
+        <c:if test="${userID != null}">
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle"
@@ -71,11 +56,11 @@
         <ul class="nav navbar-nav navbar-right">
             <li>${userID}</li>
         </ul>
-        <%
-            }
-        %>
+        </c:if>
     </div>
 </nav>
+<c:set var ="board" value="${boardData}"/>
+<c:set var="bno" value="${bbsID}"/>
 <div class="container">
     <div class="row">
         <table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
@@ -87,39 +72,42 @@
             <tbody>
             <tr>
                 <td style="width: 20%;">글 제목</td>
-                <td colspan="2"><%= bbs.getTitle()%>
+                <td colspan="2">${board.title}
                 </td>
             </tr>
             <tr>
                 <td>작성자</td>
-                <td colspan="2"><%= bbs.getUid()%>
+                <td colspan="2">${board.uid}
                 </td>
             </tr>
             <tr>
                 <td>작성일자</td>
-                <td colspan="2"><%= bbs.getCreated()%>
+                <td colspan="2">${board.created}
                 </td>
             </tr>
             <tr>
                 <td>글 내용</td>
-                <td colspan="2" style="min-height: 200px; text-align: left;"><%= bbs.getContent()%>
+                <td colspan="2" style="min-height: 200px; text-align: left;">${board.content}
                 </td>
             </tr>
+            <c:if test="${File != null}">
+            <tr>
+                <td>첨부파일</td>
+                <td colspan="2"><a href="/NKBlog/download?bno=${bno}">${File}</a> 파일크기: ${FileSize} byte
+                </td>
+            </tr>
+            </c:if>
             </tbody>
         </table>
-        <%
-            if (userID != null && userID.equals(bbs.getUid())) {
-        %>
-        <a href="/NKBlog/bbs/view/update?bno=<%= bbsID %>" class="btn btn-primary">수정</a>
-        <a href="/NKBlog/bbs/view/deleteAction?bno=<%= bbsID %>" class="btn btn-primary">삭제</a>
-        <%
-            }
-        %>
+        <c:if test="${userID == board.uid}">
+        <a href="/NKBlog/bbs/view/update?bno=${bno}" class="btn btn-primary">수정</a>
+        <a href="/NKBlog/bbs/view/deleteAction?bno=${bno}" class="btn btn-primary">삭제</a>
+        </c:if>
     </div>
 </div>
 <div class="container">
     <div class="row">
-        <form method="post" action="/NKBlog/comment/add?bno=<%= bbsID %>">
+        <form method="post" action="/NKBlog/comment/add?bno=${bno}">
             <table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
                 <tbody>
                 <tr>

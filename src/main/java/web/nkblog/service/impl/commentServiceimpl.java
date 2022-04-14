@@ -8,7 +8,7 @@ import web.nkblog.service.commentService;
 @Service
 public class commentServiceimpl implements commentService {
 
-    private static commentDAO comment = new commentDAO();
+    private static final commentDAO comment = new commentDAO();
 
     @Override
     public commentDTO getComment(commentDTO cm) throws Exception {

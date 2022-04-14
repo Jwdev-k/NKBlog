@@ -23,4 +23,5 @@ public interface boardService {
     boardDTO getBoard(int bno) throws Exception;
 
     int lastBno() throws Exception;
+
 }

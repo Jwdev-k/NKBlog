@@ -10,7 +10,7 @@ import web.nkblog.service.loginService;
 @Service
 public class loginServiceimpl implements loginService {
 
-    private static loginDAO lg = new loginDAO();
+    private static final loginDAO lg = new loginDAO();
 
     @Override
     public int login(String uid, String password) throws Exception {

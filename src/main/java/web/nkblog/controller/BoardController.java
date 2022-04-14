@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import web.nkblog.Enum.EsearchType;
-import web.nkblog.domain.FileDTO;
 import web.nkblog.domain.boardDTO;
 import web.nkblog.domain.commentDTO;
 import web.nkblog.service.impl.FileServiceimpl;
@@ -22,7 +21,6 @@ import web.nkblog.utils.ScriptUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -72,12 +70,12 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/bbs/write", method = RequestMethod.GET)
-    public String boardWrite() {
+    public String BoardWrite() {
         return "write";
     }
 
     @RequestMapping(value = "/bbs/write", method = RequestMethod.POST)
-    public String boardWrite(HttpServletRequest request, HttpSession session
+    public String BoardWrite(HttpServletRequest request, HttpSession session
             , @RequestParam(value = "image", required = false) MultipartFile file) throws Exception {
         request.setCharacterEncoding("utf-8");
         String title = request.getParameter("title");
@@ -99,17 +97,23 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/bbs/view", method = RequestMethod.GET)
-    public String boardView(HttpServletResponse response, Model model, @RequestParam("bno") int bno) throws Exception {
+    public String BoardView(HttpServletResponse response, Model model, @RequestParam("bno") int bno) throws Exception {
         bbsID = bno;
         if (bno == 0) {
             ScriptUtils.alertAndBackPage(response, "유효하지 않은 글입니다.");
         }
+        var getFile = fs.getFile(bno);
+        if (getFile != null) {
+            model.addAttribute("File", getFile.getFilename());
+            model.addAttribute("FileSize", getFile.getData().length);
+        }
         model.addAttribute("boardData", bbs.getBoard(bno));
+        model.addAttribute("bbsID", bno);
         return "view";
     }
 
     @RequestMapping(value = "/bbs/view/deleteAction", method = RequestMethod.GET)
-    public String deleteBoard(@RequestParam("bno") int param1) throws Exception {
+    public String DeleteBoard(@RequestParam("bno") int param1) throws Exception {
         if (param1 != 0) {
             bbs.delteboard(param1);
         }
@@ -117,7 +121,7 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/bbs/view/update", method = RequestMethod.GET)
-    public String editBoard(HttpServletResponse response, Model model, @RequestParam("bno") int bno) throws Exception {
+    public String EditBoard(HttpServletResponse response, Model model, @RequestParam("bno") int bno) throws Exception {
         bbsID = bno;
         if (bno == 0) {
             ScriptUtils.alertAndBackPage(response, "유효하지 않는 글입니다.");
@@ -127,7 +131,7 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/bbs/view/update", method = RequestMethod.POST)
-    public String editBoard(HttpServletRequest request, HttpSession session) throws Exception {
+    public String EditBoard(HttpServletRequest request, HttpSession session) throws Exception {
         String title = request.getParameter("title");
         String content = request.getParameter("content");
         String uid = (String) session.getAttribute("userID");
@@ -140,7 +144,7 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/comment/add", method = RequestMethod.POST)
-    public String addComment(HttpServletRequest request, HttpSession session, @RequestParam("bno") int param1) throws Exception {
+    public String AddComment(HttpServletRequest request, HttpSession session, @RequestParam("bno") int param1) throws Exception {
         commentDTO comment = new commentDTO(param1
                 , (String) session.getAttribute("userID")
                 , request.getParameter("comment"));
