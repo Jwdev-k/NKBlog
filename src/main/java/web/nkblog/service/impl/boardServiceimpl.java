@@ -46,13 +46,11 @@ public class boardServiceimpl implements boardService {
     @Override
     public ArrayList<boardDTO> searchBoard(EsearchType type, String keyword) throws Exception {
         log.debug("검색 타입: " + type + "키워드: " + keyword);
-        if (EsearchType.content.equals(type)) {
-            return bbs.searchBoardContent("%" + keyword + "%");
-        } else if (EsearchType.uid.equals(type)) {
-            return bbs.searchBoardUid("%" + keyword + "%");
-        } else {
-            return bbs.searchBoardTitle("%" + keyword + "%");
-        }
+        return switch (type) {
+            case content -> bbs.searchBoardContent("%" + keyword + "%");
+            case uid -> bbs.searchBoardUid("%" + keyword + "%");
+            case title -> bbs.searchBoardTitle("%" + keyword + "%");
+        };
     }
 
     @Override

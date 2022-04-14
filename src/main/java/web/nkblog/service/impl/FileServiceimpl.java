@@ -30,8 +30,8 @@ public class FileServiceimpl implements FileService {
             }
         }
             try {
-                fd.saveFile(new FileDTO(bbs.lastBno(), file.getOriginalFilename(), file.getBytes()));
-                file.transferTo(new File(rootDirectory + "resources\\images\\" + file.getOriginalFilename()));
+                fd.saveFile(new FileDTO(bbs.lastBno(), file.getOriginalFilename(), file.getBytes()));//데이터베이스에 저장
+                //file.transferTo(new File(rootDirectory + "resources\\images\\" + file.getOriginalFilename())); //디스크에 저장
             } catch (Exception e) {
                 throw new RuntimeException("Image saving failed", e);
             }
