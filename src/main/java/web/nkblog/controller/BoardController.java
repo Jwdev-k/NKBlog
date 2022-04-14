@@ -88,15 +88,9 @@ public class BoardController {
         if (!title.equals("") && !content.equals("")) {
             bbs.addboard(new boardDTO(0, title, uid, LocalDate.parse(formatter.format(LocalDate.now())), content, 1));
             log.debug("Title: " + title + "\n" + "content: " + content + " add board.");
-
             String rootDirectory = request.getSession().getServletContext().getRealPath("/");
             if (!file.isEmpty()) {
-                try {
-                    fs.saveFile(new FileDTO(file.getOriginalFilename(), file.getBytes()));
-                    file.transferTo(new File(rootDirectory + "resources\\images\\" + file.getOriginalFilename() + "+" + title + "-" + uid));
-                } catch (Exception e) {
-                    throw new RuntimeException("Image saving failed", e);
-                }
+                fs.saveFile(rootDirectory, file);
             }
             return "redirect:/bbs";
         } else {

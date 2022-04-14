@@ -14,6 +14,7 @@ import java.io.Serializable;
 public class FileDTO implements Serializable {
     private static final long serialVersionUID = 4001277246927139744L;
 
+    private int bno;
     private String filename;
     private byte[] data;
 }

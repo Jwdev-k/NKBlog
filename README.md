@@ -9,7 +9,7 @@
 - Mybatis and Maria DB
 #
 ### 2. 프로젝트 주요 기능
-- 사용자 - 회원가입 및 로그인, OAuth2.0 네이버 로그인, 정보수정, 중복검사
+- 사용자 - 회원가입 및 로그인, OAuth2.0 소셜 로그인, 정보수정, 중복검사
 - 게시판 - CRUD, 페이징 및 검색처리, 파일 업로드
 - 댓글 - CRUD
 #
@@ -34,4 +34,4 @@ Clone 받은 소스를 실행하기 전에 `/sql/NKBlogDDL.sql` 파일을 Import
 ### [DataBase] SQL
 * 데이터 베이스 관계도
 
-![db 관계도](https://user-images.githubusercontent.com/82058641/161379847-0cf41510-96f9-4b14-959f-f59859af5504.png)
+![DB관계도](https://user-images.githubusercontent.com/82058641/163245617-99d440c4-1c04-4196-936a-196b66c7caa6.png)

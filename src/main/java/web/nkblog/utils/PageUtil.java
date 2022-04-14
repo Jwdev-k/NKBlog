@@ -29,9 +29,9 @@ public class PageUtil {
         if (startPage <= 0) {
             startPage = 1;
         }
-        int tempEndPage = (int) (Math.ceil((totalCount / (double) getPerPageNum())));
+        int tempEndPage = (int) (Math.ceil((double) getTotalCount() / getPerPageNum())) - 1;
         if (endPage >= tempEndPage) {
-            endPage = tempEndPage - 1;
+            endPage = tempEndPage;
         }
         next = (endPage + 1) * getPerPageNum() < totalCount;
         prev = startPage != 1;

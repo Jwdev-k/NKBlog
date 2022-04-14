@@ -69,4 +69,9 @@ public class boardServiceimpl implements boardService {
     public boardDTO getBoard(int bno) throws Exception {
         return bbs.getBoard(bno);
     }
+
+    @Override
+    public int lastBno() throws Exception {
+        return bbs.lastBno();
+    }
 }

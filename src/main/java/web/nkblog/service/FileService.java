@@ -1,7 +1,7 @@
 package web.nkblog.service;
 
-import web.nkblog.domain.FileDTO;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface FileService {
-    void saveFile(FileDTO file) throws Exception;
+    void saveFile(String rootDirectory, MultipartFile file) throws Exception;
 }

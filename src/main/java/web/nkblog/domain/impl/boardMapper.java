@@ -36,4 +36,7 @@ public interface boardMapper {
 
     @Select("SELECT EXISTS (SELECT * FROM boardlist WHERE Available = 1 LIMIT #{start}, 10) as success")
     boolean nextPageCheck(int start) throws Exception;
+
+    @Select("SELECT bno FROM boardlist ORDER BY bno DESC LIMIT 1")
+    int lastBno() throws Exception;
 }

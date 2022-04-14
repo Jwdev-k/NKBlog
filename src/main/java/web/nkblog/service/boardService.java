@@ -21,4 +21,6 @@ public interface boardService {
     boolean nextPageCheck(int start) throws Exception;
 
     boardDTO getBoard(int bno) throws Exception;
+
+    int lastBno() throws Exception;
 }

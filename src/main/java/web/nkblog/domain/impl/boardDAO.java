@@ -80,4 +80,10 @@ public class boardDAO implements boardMapper {
         return mapper.nextPageCheck(start);
     }
 
+    @Override
+    public int lastBno() throws Exception {
+        var mapper = getSqlSession().getMapper(boardMapper.class);
+        return mapper.lastBno();
+    }
+
 }
