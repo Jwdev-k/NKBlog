@@ -1,11 +1,5 @@
-package com.blog.controller;
+package web.nkblog.controller;
 
-import com.blog.api.KakaoLoginBO;
-import com.blog.api.NaverLoginBO;
-import com.blog.config.SessionConfig;
-import com.blog.service.impl.loginServiceimpl;
-import com.blog.utils.SHA256;
-import com.blog.utils.ScriptUtils;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -18,6 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import web.nkblog.api.KakaoLoginBO;
+import web.nkblog.api.NaverLoginBO;
+import web.nkblog.config.SessionConfig;
+import web.nkblog.service.impl.loginServiceimpl;
+import web.nkblog.utils.SHA256;
+import web.nkblog.utils.ScriptUtils;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,18 +33,18 @@ public class LoginController {
     @Autowired
     private loginServiceimpl ls;
     @Autowired
-    private NaverLoginBO NaverLoginBO;
+    private NaverLoginBO naverLoginBO;
     @Autowired
-    private KakaoLoginBO KakaoLoginBO;
+    private KakaoLoginBO kakaoLoginBO;
 
     private final SHA256 sha256 = new SHA256();
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String Login(Model model, HttpSession session) {
         /* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
-        String naverAuthUrl = NaverLoginBO.getAuthorizationUrl(session);
+        String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
         model.addAttribute("naverURL", naverAuthUrl);
-        String kakaoAuthUrl = KakaoLoginBO.getAuthorizationUrl(session);
+        String kakaoAuthUrl = kakaoLoginBO.getAuthorizationUrl(session);
         model.addAttribute("kakaoURL", kakaoAuthUrl);
         return "login";
     }
@@ -73,8 +73,8 @@ public class LoginController {
     @RequestMapping(value = "/naverlogin", method = RequestMethod.GET)
     public String NaverLogin(HttpSession session, @RequestParam("code") String code, @RequestParam("state") String state) throws IOException {
         OAuth2AccessToken oauthToken;
-        oauthToken = NaverLoginBO.getAccessToken(session, code, state);
-        String apiResult = NaverLoginBO.getUserProfile(oauthToken);
+        oauthToken = naverLoginBO.getAccessToken(session, code, state);
+        String apiResult = naverLoginBO.getUserProfile(oauthToken);
         //String형식인 apiResult를 json형태로 바꿈
         JsonParser jp = new JsonParser();
         JsonObject jsonobj = (JsonObject) jp.parse(apiResult);
@@ -90,8 +90,8 @@ public class LoginController {
     @RequestMapping(value = "/kakaologin", method = RequestMethod.GET)
     public String KakaoLogin(HttpSession session, @RequestParam String code, @RequestParam String state) throws IOException {
         OAuth2AccessToken oauthToken;
-        oauthToken = KakaoLoginBO.getAccessToken(session, code, state);
-        String apiResult = KakaoLoginBO.getUserProfile(oauthToken);
+        oauthToken = kakaoLoginBO.getAccessToken(session, code, state);
+        String apiResult = kakaoLoginBO.getUserProfile(oauthToken);
 
         JsonParser jp = new JsonParser();
         JsonObject jsonobj = (JsonObject) jp.parse(apiResult);

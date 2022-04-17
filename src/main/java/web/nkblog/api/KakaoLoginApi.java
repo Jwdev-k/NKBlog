@@ -1,4 +1,4 @@
-package com.blog.api;
+package web.nkblog.api;
 
 import com.github.scribejava.core.builder.api.DefaultApi20;
 import org.springframework.stereotype.Component;

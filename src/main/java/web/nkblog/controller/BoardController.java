@@ -33,7 +33,7 @@ public class BoardController {
     @Autowired
     private boardServiceimpl bbs;
     @Autowired
-    private commentServiceimpl cm;
+    private commentServiceimpl cs;
     @Autowired
     private FileServiceimpl fs;
 
@@ -97,7 +97,8 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/bbs/view", method = RequestMethod.GET)
-    public String BoardView(HttpServletResponse response, Model model, @RequestParam("bno") int bno) throws Exception {
+    public String BoardView(HttpServletResponse response, Model model, @RequestParam("bno") int bno
+            , @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int start) throws Exception {
         bbsID = bno;
         if (bno == 0) {
             ScriptUtils.alertAndBackPage(response, "유효하지 않은 글입니다.");
@@ -109,6 +110,11 @@ public class BoardController {
         }
         model.addAttribute("boardData", bbs.getBoard(bno));
         model.addAttribute("bbsID", bno);
+        ArrayList<commentDTO> commentList = cs.commentList(bno, start);
+        if (!commentList.isEmpty()) {
+            model.addAttribute("commentList", commentList);
+        }
+
         return "view";
     }
 
@@ -149,7 +155,7 @@ public class BoardController {
                 , (String) session.getAttribute("userID")
                 , request.getParameter("comment"));
         log.debug("댓글등록: " + comment.toString());
-        cm.addComment(comment);
+        cs.addComment(comment);
         return "redirect:" + request.getHeader("Referer");
     }
 

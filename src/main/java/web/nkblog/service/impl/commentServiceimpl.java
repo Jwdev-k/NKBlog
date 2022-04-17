@@ -5,6 +5,8 @@ import web.nkblog.domain.commentDTO;
 import web.nkblog.domain.impl.commentDAO;
 import web.nkblog.service.commentService;
 
+import java.util.ArrayList;
+
 @Service
 public class commentServiceimpl implements commentService {
 
@@ -13,6 +15,15 @@ public class commentServiceimpl implements commentService {
     @Override
     public commentDTO getComment(commentDTO cm) throws Exception {
         return comment.getComment(cm);
+    }
+
+    @Override
+    public ArrayList<commentDTO> commentList(int bno, int start) throws Exception {
+        if (start != 1) {
+          return comment.commentList(bno,start);
+        } else {
+            return comment.commentList(bno, 0);
+        }
     }
 
     @Override

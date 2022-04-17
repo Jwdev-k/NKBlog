@@ -1,4 +1,4 @@
-package com.blog.api;
+package web.nkblog.api;
 
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuth2AccessToken;

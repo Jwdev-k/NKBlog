@@ -124,6 +124,26 @@
     </div>
     <a href="/NKBlog/bbs" class="btn btn-primary">목록</a>
 </div>
+<div class="container">
+    <div class="row">
+        <table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+            <thead>
+            <tr>
+                <th style="background-color: #eeeeee; text-align: center;">작성자</th>
+                <th style="background-color: #eeeeee; text-align: center;">내용</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${commentList}" var="list2">
+                <tr>
+                    <td>${list2.uid}</td>
+                    <td>${list2.comment}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</div>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
 </body>

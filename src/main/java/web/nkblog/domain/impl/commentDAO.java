@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class commentDAO implements commentMapper {
 
@@ -22,6 +23,12 @@ public class commentDAO implements commentMapper {
     public commentDTO getComment(commentDTO comment) throws Exception {
         var mapper = getSqlSession().getMapper(commentMapper.class);
         return mapper.getComment(comment);
+    }
+
+    @Override
+    public ArrayList<commentDTO> commentList(int bno, int start) throws Exception {
+        var mapper = getSqlSession().getMapper(commentMapper.class);
+        return mapper.commentList(bno, start);
     }
 
     @Override
