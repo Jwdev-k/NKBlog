@@ -2,7 +2,7 @@
 ### Bootstrap 블로그 프로젝트
 
 ### 1. 개발환경
-- JDK 11
+- JDK 17
 - Spring FrameWork
 - Spring Boot
 - Tomcat 9
