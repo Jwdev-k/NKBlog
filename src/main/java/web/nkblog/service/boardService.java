@@ -1,6 +1,6 @@
 package web.nkblog.service;
 
-import web.nkblog.Enum.EsearchType;
+import web.nkblog.enums.EsearchType;
 import web.nkblog.domain.boardDTO;
 
 import java.util.ArrayList;

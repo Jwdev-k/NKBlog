@@ -29,7 +29,7 @@ public class loginDAO implements loginMapper {
         try {
             var mapper = getSqlSession().getMapper(loginMapper.class);
             dto = mapper.getAllAccountData();
-            getSqlSession().getConnection().close();
+            getSqlSession().close();
         } catch (Exception e) {
             log.debug("데이터를 찾을수없음");
             e.printStackTrace();
@@ -40,6 +40,7 @@ public class loginDAO implements loginMapper {
     @Override
     public loginDTO getAccountData(String uid) throws Exception {
         var mapper = getSqlSession().getMapper(loginMapper.class);
+        getSqlSession().close();
         return mapper.getAccountData(uid);
     }
 
@@ -48,7 +49,7 @@ public class loginDAO implements loginMapper {
         try {
             var mapper = getSqlSession().getMapper(loginMapper.class);
             loginDTO dto = mapper.login(userID, password);
-            getSqlSession().getConnection().close();
+            getSqlSession().close();
             return dto;
         } catch (Exception e) {
             log.debug("데이터를 찾을수없음");
@@ -60,6 +61,7 @@ public class loginDAO implements loginMapper {
     @Override
     public void register(String uid, String password, String gender) throws Exception {
         var mapper = getSqlSession().getMapper(loginMapper.class);
+        getSqlSession().close();
         mapper.register(uid, password, gender);
         var user = new loginDTO(uid, password, gender);
         log.debug(user.toString());

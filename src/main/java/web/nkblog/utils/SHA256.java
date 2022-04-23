@@ -1,8 +1,11 @@
 package web.nkblog.utils;
 
+import org.springframework.stereotype.Component;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+@Component
 public class SHA256 {
 
     public String encrypt(String text) throws NoSuchAlgorithmException {

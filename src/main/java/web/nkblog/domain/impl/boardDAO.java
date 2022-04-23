@@ -23,66 +23,77 @@ public class boardDAO implements boardMapper {
     @Override
     public ArrayList<boardDTO> boardList(int start) throws Exception {
         var mapper = getSqlSession().getMapper(boardMapper.class);
+        getSqlSession().close();
         return mapper.boardList(start);
     }
 
     @Override
     public void addboard(boardDTO bbs) throws Exception {
         var mapper = getSqlSession().getMapper(boardMapper.class);
+        getSqlSession().close();
         mapper.addboard(bbs);
     }
 
     @Override
     public void deleteboard(int bno) throws Exception {
         var mapper = getSqlSession().getMapper(boardMapper.class);
+        getSqlSession().close();
         mapper.deleteboard(bno);
     }
 
     @Override
     public void updateboard(boardDTO bbs) throws Exception {
         var mapper = getSqlSession().getMapper(boardMapper.class);
+        getSqlSession().close();
         mapper.updateboard(bbs);
     }
 
     @Override
     public int countBoardList() throws Exception {
         var mapper = getSqlSession().getMapper(boardMapper.class);
+        getSqlSession().close();
         return mapper.countBoardList();
     }
 
     @Override
     public ArrayList<boardDTO> searchBoardTitle(String keyword) throws Exception {
         var mapper = getSqlSession().getMapper(boardMapper.class);
+        getSqlSession().close();
         return mapper.searchBoardTitle(keyword);
     }
 
     @Override
     public ArrayList<boardDTO> searchBoardContent(String keyword) throws Exception {
         var mapper = getSqlSession().getMapper(boardMapper.class);
+        getSqlSession().close();
         return mapper.searchBoardContent(keyword);
     }
 
     @Override
     public ArrayList<boardDTO> searchBoardUid(String keyword) throws Exception {
         var mapper = getSqlSession().getMapper(boardMapper.class);
+        getSqlSession().close();
         return mapper.searchBoardUid(keyword);
     }
 
     @Override
     public boardDTO getBoard(int bno) throws Exception {
         var mapper = getSqlSession().getMapper(boardMapper.class);
+        getSqlSession().close();
         return mapper.getBoard(bno);
     }
 
     @Override
     public boolean nextPageCheck(int start) throws Exception {
         var mapper = getSqlSession().getMapper(boardMapper.class);
+        getSqlSession().close();
         return mapper.nextPageCheck(start);
     }
 
     @Override
     public int lastBno() throws Exception {
         var mapper = getSqlSession().getMapper(boardMapper.class);
+        getSqlSession().close();
         return mapper.lastBno();
     }
 

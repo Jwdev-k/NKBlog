@@ -1,4 +1,4 @@
-package web.nkblog.Enum;
+package web.nkblog.enums;
 
 public enum EsearchType {
     title,

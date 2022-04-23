@@ -4,7 +4,7 @@ package web.nkblog.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import web.nkblog.Enum.EsearchType;
+import web.nkblog.enums.EsearchType;
 import web.nkblog.config.AsyncService;
 import web.nkblog.domain.boardDTO;
 import web.nkblog.domain.impl.boardDAO;

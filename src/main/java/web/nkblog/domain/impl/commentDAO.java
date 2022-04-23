@@ -22,30 +22,35 @@ public class commentDAO implements commentMapper {
     @Override
     public commentDTO getComment(commentDTO comment) throws Exception {
         var mapper = getSqlSession().getMapper(commentMapper.class);
+        getSqlSession().close();
         return mapper.getComment(comment);
     }
 
     @Override
     public ArrayList<commentDTO> commentList(int bno, int start) throws Exception {
         var mapper = getSqlSession().getMapper(commentMapper.class);
+        getSqlSession().close();
         return mapper.commentList(bno, start);
     }
 
     @Override
     public void addComment(commentDTO comment) throws Exception {
         var mapper = getSqlSession().getMapper(commentMapper.class);
+        getSqlSession().close();
         mapper.addComment(comment);
     }
 
     @Override
     public void setComment(commentDTO comment) throws Exception {
         var mapper = getSqlSession().getMapper(commentMapper.class);
+        getSqlSession().close();
         mapper.setComment(comment);
     }
 
     @Override
     public void deleteComment(int bno) throws Exception {
         var mapper = getSqlSession().getMapper(commentMapper.class);
+        getSqlSession().close();
         mapper.deleteComment(bno);
     }
 }

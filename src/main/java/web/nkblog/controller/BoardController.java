@@ -1,7 +1,6 @@
 package web.nkblog.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import web.nkblog.Enum.EsearchType;
+import web.nkblog.enums.EsearchType;
 import web.nkblog.domain.boardDTO;
 import web.nkblog.domain.commentDTO;
 import web.nkblog.service.impl.FileServiceimpl;
@@ -26,10 +25,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 @Controller
+@Slf4j
 public class BoardController {
-
-    private static final Logger log = LoggerFactory.getLogger(BoardController.class);
-
     @Autowired
     private boardServiceimpl bbs;
     @Autowired
@@ -38,7 +35,8 @@ public class BoardController {
     private FileServiceimpl fs;
 
     private int bbsID = 0;
-    private PageUtil pageUtil = new PageUtil(); // 페이징 목록
+    @Autowired
+    private PageUtil pageUtil; // 페이징 목록
 
     @RequestMapping(value = "/bbs", method = {RequestMethod.GET, RequestMethod.POST})
     public String boardlist(Model model, @RequestParam(value = "pageNumber", defaultValue = "1") int pn
@@ -65,6 +63,7 @@ public class BoardController {
             } else {
                 model.addAttribute("boardList", null);
             }
+            return "redirect:/bbs";
         }
         return "bbs";
     }

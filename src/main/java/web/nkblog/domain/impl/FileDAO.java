@@ -21,12 +21,14 @@ public class FileDAO implements FileMapper {
     @Override
     public void saveFile(FileDTO file) throws Exception {
         var mapper = getSqlSession().getMapper(FileMapper.class);
+        getSqlSession().close();
         mapper.saveFile(file);
     }
 
     @Override
     public FileDTO getFile(int bno) throws Exception {
         var mapper = getSqlSession().getMapper(FileMapper.class);
+        getSqlSession().close();
         return mapper.getFile(bno);
     }
 }
