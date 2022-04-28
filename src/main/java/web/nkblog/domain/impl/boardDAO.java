@@ -1,5 +1,6 @@
 package web.nkblog.domain.impl;
 
+import org.springframework.stereotype.Repository;
 import web.nkblog.domain.boardDTO;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -10,6 +11,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+@Repository
 public class boardDAO implements boardMapper {
 
     private static SqlSession getSqlSession() throws Exception {

@@ -14,9 +14,10 @@ import java.io.File;
 @Slf4j
 public class FileServiceimpl implements FileService {
 
-    private static final FileDAO fd = new FileDAO();
     @Autowired
-    boardServiceimpl bbs;
+    private FileDAO fd;
+    @Autowired
+    private boardServiceimpl bbs;
 
     @Override
     public void saveFile(String rootDirectory, MultipartFile file) {

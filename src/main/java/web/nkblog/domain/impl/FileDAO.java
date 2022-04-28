@@ -4,10 +4,12 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.springframework.stereotype.Repository;
 import web.nkblog.domain.FileDTO;
 
 import java.io.InputStream;
 
+@Repository
 public class FileDAO implements FileMapper {
 
     private static SqlSession getSqlSession() throws Exception {

@@ -3,6 +3,7 @@ package web.nkblog.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,9 +19,10 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping(value = "/api", method = RequestMethod.GET)
 public class APIController {
 
-    private static final Gson gs = new GsonBuilder().setPrettyPrinting().create();
-    private HttpHeaders Headers = new HttpHeaders();
-    private loginDAO ld = new loginDAO();
+    private final Gson gs = new GsonBuilder().setPrettyPrinting().create();
+    private final HttpHeaders Headers = new HttpHeaders();
+    @Autowired
+    private loginDAO ld;
 
     @GetMapping(value = "users/{id}", produces = "text/plain;charset=UTF-8")
     public ResponseEntity<String> getUser(@PathVariable("id") String uid) throws Exception {

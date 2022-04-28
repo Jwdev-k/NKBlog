@@ -119,7 +119,7 @@ public class LoginController {
     public String Register(HttpServletResponse response, HttpServletRequest request) throws Exception {
         request.setCharacterEncoding("utf-8");
         String userID = request.getParameter("userID");
-        String userPassword = sha256.encrypt(request.getParameter("userPassword"));
+        String userPassword = request.getParameter("userPassword");
         String userGender = request.getParameter("userGender");
         log.debug("user register request....");
         if (userID == null && userPassword == null && userGender == null) {

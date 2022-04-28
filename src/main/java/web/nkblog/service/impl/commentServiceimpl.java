@@ -1,5 +1,6 @@
 package web.nkblog.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import web.nkblog.domain.commentDTO;
 import web.nkblog.domain.impl.commentDAO;
@@ -10,7 +11,8 @@ import java.util.ArrayList;
 @Service
 public class commentServiceimpl implements commentService {
 
-    private static final commentDAO comment = new commentDAO();
+    @Autowired
+    private commentDAO comment;
 
     @Override
     public commentDTO getComment(commentDTO cm) throws Exception {

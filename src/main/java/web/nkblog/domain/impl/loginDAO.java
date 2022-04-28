@@ -1,5 +1,6 @@
 package web.nkblog.domain.impl;
 
+import org.springframework.stereotype.Repository;
 import web.nkblog.domain.loginDTO;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+@Repository
 public class loginDAO implements loginMapper {
 
     private static final Logger log = LoggerFactory.getLogger(loginDAO.class);

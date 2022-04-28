@@ -16,7 +16,8 @@ import java.util.ArrayList;
 @Service
 public class boardServiceimpl implements boardService {
 
-    private static final boardDAO bbs = new boardDAO();
+    @Autowired
+    private boardDAO bbs;
     @Autowired
     private AsyncService async;
 

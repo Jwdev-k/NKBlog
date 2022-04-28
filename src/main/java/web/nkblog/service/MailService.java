@@ -39,7 +39,7 @@ public class MailService {
             getSession().setDebug(true); //기본값 false
             MimeMessage msg = new MimeMessage(getSession());
             msg.setFrom(new InternetAddress(from, fromName));
-            msg.setRecipient(Message.RecipientType.TO, new InternetAddress("jungwu07@naver.com"));
+            msg.setRecipient(Message.RecipientType.TO, new InternetAddress("jungwu07@naver.com")); //test email
             msg.setSubject(subJect);
             msg.setText("Your Password = " + body);
             msg.setSentDate(new Date());

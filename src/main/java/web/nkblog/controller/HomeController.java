@@ -17,7 +17,7 @@ import java.util.Locale;
 @Controller
 public class HomeController {
     @Autowired
-    MailService ms;
+    private MailService ms;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(Locale locale, Model model) throws IOException {

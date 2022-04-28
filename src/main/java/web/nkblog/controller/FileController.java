@@ -14,7 +14,7 @@ import java.net.URLEncoder;
 public class FileController {
 
     @Autowired
-    FileServiceimpl fs;
+    private FileServiceimpl fs;
 
     @RequestMapping(value = "/download")
     public void fileDown(HttpServletResponse response, @RequestParam(value = "bno") int bno) throws Exception {

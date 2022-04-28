@@ -46,9 +46,11 @@
                 <h3 style="text-align: center;">회원가입</h3>
                 <div class="form-group">
                     <input type="id" class="form-control" placeholder="아이디" name="userID" maxlength="20">
+                    영문 숫자만 가능
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" placeholder="비밀번호" name="userPassword" maxlength="20">
+                    <input type="password" class="form-control" placeholder="비밀번호" name="userPassword" maxlength="16">
+                    8자이상 16자이내 대문자 하나 이상,소문자 하나 이상,숫자 1개 및 특수 문자 1개 이상
                 </div>
                 <div class="form-group" style="text-align: center">
                     <div class="btn-group" data-toggle="buttons">
