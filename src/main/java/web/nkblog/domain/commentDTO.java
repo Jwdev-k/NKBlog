@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 @AllArgsConstructor
@@ -12,6 +13,7 @@ import java.io.Serializable;
 @Setter
 @ToString
 public class commentDTO implements Serializable {
+    @Serial
     private static final long serialVersionUID = 6140055595084923363L;
 
     private int bno;

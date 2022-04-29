@@ -105,18 +105,14 @@
         </c:if>
     </div>
 </div>
+<c:if test="${userID != null}">
 <div class="container">
     <div class="row">
         <form method="post" action="/NKBlog/comment/add?bno=${bno}">
             <table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
                 <tbody>
-                <tr>
-                    <td style="width: 20%;">댓글</td>
-                </tr>
-                <tr>
-                    <td><textarea class="form-control" placeholder="내용" name="comment" maxlength="100"
-                                  style="height: 40px; resize: none;"> </textarea></td>
-                </tr>
+                <tr><td style="width: 20%;">댓글</td></tr>
+                <tr><td><textarea class="form-control" placeholder="내용" name="comment" maxlength="100" style="height: 40px; resize: none;"> </textarea></td></tr>
                 </tbody>
             </table>
             <input type="submit" class="btn btn-primary pull-right" value="댓글 등록">
@@ -124,6 +120,7 @@
     </div>
     <a href="/NKBlog/bbs" class="btn btn-primary">목록</a>
 </div>
+</c:if>
 <div class="container">
     <div class="row">
         <table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">

@@ -5,6 +5,8 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+
 @Component
 @Getter
 @Setter
@@ -19,6 +21,7 @@ public class PageUtil {
     private int displayPageNum = 5; // 페이징번호 갯수
     private int page = 1; // 현재페이지
     private int PerPageNum = 10; // 한 페이지 총 게시글 수
+    private ArrayList<Integer> pageNumList = new ArrayList<>();
 
     public void setTotalCount(int totalCount) { // 총 게시글 수 설정
         this.totalCount = totalCount;
@@ -37,5 +40,9 @@ public class PageUtil {
         }
         next = (endPage + 1) * getPerPageNum() < totalCount;
         prev = startPage != 1;
+        pageNumList.clear();
+        for (int i = endPage; i >= startPage; i--) {
+            pageNumList.add(i);
+        }
     }
 }

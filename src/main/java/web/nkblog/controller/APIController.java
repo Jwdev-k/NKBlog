@@ -45,8 +45,8 @@ public class APIController {
         if (ld.setPassword(id, password, password2)) {
             sb.append(id + "님의 패스워드를 ");
             sb.append(password2 + "으로 변경 하였습니다.");
-            log.debug(sb.toString());
-            return new ResponseEntity<>(sb.toString(), HttpStatus.ACCEPTED);
+            log.info(sb.toString());
+            return new ResponseEntity<>(gs.toJson( "body: " + sb), Headers, HttpStatus.ACCEPTED);
         } else {
             return new ResponseEntity<>("", Headers, HttpStatus.INTERNAL_SERVER_ERROR);
         }
