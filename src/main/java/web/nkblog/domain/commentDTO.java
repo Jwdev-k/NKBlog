@@ -7,6 +7,9 @@ import lombok.ToString;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @AllArgsConstructor
 @Getter
@@ -19,4 +22,5 @@ public class commentDTO implements Serializable {
     private int bno;
     private String uid;
     private String comment;
+    private String created;
 }

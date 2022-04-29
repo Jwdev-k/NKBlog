@@ -20,7 +20,7 @@ import web.nkblog.utils.ScriptUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -33,13 +33,15 @@ public class BoardController {
     private commentServiceimpl cs;
     @Autowired
     private FileServiceimpl fs;
-
-    private int bbsID = 0;
     @Autowired
     private PageUtil pageUtil; // 페이징 목록
 
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private int bbsID = 0;
+
     @RequestMapping(value = "/bbs", method = {RequestMethod.GET, RequestMethod.POST})
-    public String boardlist(Model model, @RequestParam(value = "pageNumber", defaultValue = "1") int pn
+    public String boardlist(Model model
+            , @RequestParam(value = "pageNumber", defaultValue = "1") int pn
             , @RequestParam(value = "searchType", required = false, defaultValue = "title") EsearchType type
             , @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {
         ArrayList<boardDTO> list = bbs.boardList(pn);
@@ -63,7 +65,6 @@ public class BoardController {
             } else {
                 model.addAttribute("boardList", null);
             }
-            return "redirect:/bbs";
         }
         return "bbs";
     }
@@ -79,11 +80,10 @@ public class BoardController {
         request.setCharacterEncoding("utf-8");
         String title = request.getParameter("title");
         String uid = (String) session.getAttribute("userID");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String content = request.getParameter("content");
 
         if (!title.equals("") && !content.equals("")) {
-            bbs.addboard(new boardDTO(0, title, uid, LocalDate.parse(formatter.format(LocalDate.now())), content, 1));
+            bbs.addboard(new boardDTO(0, title, uid, LocalDateTime.now().format(formatter), content, 1));
             log.debug("Title: " + title + "\n" + "content: " + content + " add board.");
             String rootDirectory = request.getSession().getServletContext().getRealPath("/");
             if (!file.isEmpty()) {
@@ -109,11 +109,11 @@ public class BoardController {
         }
         model.addAttribute("boardData", bbs.getBoard(bno));
         model.addAttribute("bbsID", bno);
+
         ArrayList<commentDTO> commentList = cs.commentList(bno, start);
         if (!commentList.isEmpty()) {
             model.addAttribute("commentList", commentList);
         }
-
         return "view";
     }
 
@@ -140,8 +140,7 @@ public class BoardController {
         String title = request.getParameter("title");
         String content = request.getParameter("content");
         String uid = (String) session.getAttribute("userID");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        boardDTO dto = new boardDTO(bbsID, title, uid, LocalDate.parse(formatter.format(LocalDate.now())), content, 1);
+        boardDTO dto = new boardDTO(bbsID, title, uid, LocalDateTime.now().format(formatter), content, 1);
         if (bbsID != 0) {
             bbs.updateboard(dto);
         }
@@ -152,7 +151,8 @@ public class BoardController {
     public String AddComment(HttpServletRequest request, HttpSession session, @RequestParam("bno") int param1) throws Exception {
         commentDTO comment = new commentDTO(param1
                 , (String) session.getAttribute("userID")
-                , request.getParameter("comment"));
+                , request.getParameter("comment")
+                , LocalDateTime.now().format(formatter));
         log.debug("댓글등록: " + comment.toString());
         cs.addComment(comment);
         return "redirect:" + request.getHeader("Referer");

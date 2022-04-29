@@ -18,10 +18,10 @@ public class PageUtil {
     private int endPage;
     private boolean prev;
     private boolean next;
-    private int displayPageNum = 5; // 페이징번호 갯수
+    private int displayPageNum = 5; // 한페이지당 페이징번호 갯수
     private int page = 1; // 현재페이지
     private int PerPageNum = 10; // 한 페이지 총 게시글 수
-    private ArrayList<Integer> pageNumList = new ArrayList<>();
+    private ArrayList<Integer> pageNumList = new ArrayList<>(); //페이징 버튼 리스트
 
     public void setTotalCount(int totalCount) { // 총 게시글 수 설정
         this.totalCount = totalCount;

@@ -120,6 +120,7 @@
     </div>
     <a href="/NKBlog/bbs" class="btn btn-primary">목록</a>
 </div>
+
 </c:if>
 <div class="container">
     <div class="row">
@@ -128,6 +129,7 @@
             <tr>
                 <th style="background-color: #eeeeee; text-align: center;">작성자</th>
                 <th style="background-color: #eeeeee; text-align: center;">내용</th>
+                <th style="background-color: #eeeeee; text-align: center;">작성일</th>
             </tr>
             </thead>
             <tbody>
@@ -135,6 +137,7 @@
                 <tr>
                     <td>${list2.uid}</td>
                     <td>${list2.comment}</td>
+                    <td>${list2.created}</td>
                 </tr>
             </c:forEach>
             </tbody>

@@ -4,7 +4,7 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -17,7 +17,7 @@ public class boardDTO implements Serializable {
     private int bno;
     private String title;
     private String uid;
-    private LocalDate created;
+    private String created;
     private String content;
     private int available;
 }
