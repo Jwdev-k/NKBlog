@@ -41,8 +41,10 @@ public class PageUtil {
         next = (endPage + 1) * getPerPageNum() < totalCount;
         prev = startPage != 1;
         pageNumList.clear();
-        for (int i = endPage; i >= startPage; i--) {
-            pageNumList.add(i);
+        for (int i = endPage; i >= endPage - displayPageNum; i--) {
+            if (i > 0) {
+                pageNumList.add(i);
+            }
         }
     }
 }

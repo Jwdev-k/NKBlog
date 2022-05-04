@@ -15,7 +15,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class commentDTO implements Serializable {
+public class CommentDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 6140055595084923363L;
 

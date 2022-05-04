@@ -1,7 +1,7 @@
 package web.nkblog.domain.impl;
 
 import org.springframework.stereotype.Repository;
-import web.nkblog.domain.commentDTO;
+import web.nkblog.domain.CommentDTO;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -22,28 +22,28 @@ public class commentDAO implements commentMapper {
     }
 
     @Override
-    public commentDTO getComment(commentDTO comment) throws Exception {
+    public CommentDTO getComment(CommentDTO comment) throws Exception {
         var mapper = getSqlSession().getMapper(commentMapper.class);
         getSqlSession().close();
         return mapper.getComment(comment);
     }
 
     @Override
-    public ArrayList<commentDTO> commentList(int bno, int start) throws Exception {
+    public ArrayList<CommentDTO> commentList(int bno, int start) throws Exception {
         var mapper = getSqlSession().getMapper(commentMapper.class);
         getSqlSession().close();
         return mapper.commentList(bno, start);
     }
 
     @Override
-    public void addComment(commentDTO comment) throws Exception {
+    public void addComment(CommentDTO comment) throws Exception {
         var mapper = getSqlSession().getMapper(commentMapper.class);
         getSqlSession().close();
         mapper.addComment(comment);
     }
 
     @Override
-    public void setComment(commentDTO comment) throws Exception {
+    public void setComment(CommentDTO comment) throws Exception {
         var mapper = getSqlSession().getMapper(commentMapper.class);
         getSqlSession().close();
         mapper.setComment(comment);

@@ -2,7 +2,7 @@ package web.nkblog.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import web.nkblog.domain.commentDTO;
+import web.nkblog.domain.CommentDTO;
 import web.nkblog.domain.impl.commentDAO;
 import web.nkblog.service.commentService;
 
@@ -15,12 +15,12 @@ public class commentServiceimpl implements commentService {
     private commentDAO comment;
 
     @Override
-    public commentDTO getComment(commentDTO cm) throws Exception {
+    public CommentDTO getComment(CommentDTO cm) throws Exception {
         return comment.getComment(cm);
     }
 
     @Override
-    public ArrayList<commentDTO> commentList(int bno, int start) throws Exception {
+    public ArrayList<CommentDTO> commentList(int bno, int start) throws Exception {
         if (start != 1) {
           return comment.commentList(bno,start);
         } else {
@@ -29,12 +29,12 @@ public class commentServiceimpl implements commentService {
     }
 
     @Override
-    public void addComment(commentDTO cm) throws Exception {
+    public void addComment(CommentDTO cm) throws Exception {
         comment.addComment(cm);
     }
 
     @Override
-    public void setComment(commentDTO cm) throws Exception {
+    public void setComment(CommentDTO cm) throws Exception {
         comment.setComment(cm);
     }
 

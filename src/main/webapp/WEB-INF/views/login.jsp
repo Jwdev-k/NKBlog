@@ -59,6 +59,7 @@
                 <div id="kakao_id_login"><a href="${kakaoURL}">
                     <img width="230" src="<c:url value="/resources/kakao_login_medium_narrow.png"/>"/></a>
                 </div>
+                <li><a href="/NKBlog/find-password">비밀번호 찾기</a></li>
             </form>
         </div>
     </div>

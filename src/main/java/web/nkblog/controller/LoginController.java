@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import web.nkblog.api.KakaoLoginBO;
 import web.nkblog.api.NaverLoginBO;
 import web.nkblog.config.SessionConfig;
+import web.nkblog.service.MailService;
 import web.nkblog.service.impl.loginServiceimpl;
 import web.nkblog.utils.SHA256;
 import web.nkblog.utils.ScriptUtils;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 @Controller
 @Slf4j
@@ -35,6 +37,8 @@ public class LoginController {
     private KakaoLoginBO kakaoLoginBO;
     @Autowired
     private SHA256 sha256;
+    @Autowired
+    private MailService mailService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String Login(Model model, HttpSession session) {
@@ -132,5 +136,18 @@ public class LoginController {
             ScriptUtils.alertAndBackPage(response, "이미 등록된 아이디 입니다.");
             return null;
         }
+    }
+
+    @RequestMapping(value = "/find-password", method = {RequestMethod.GET, RequestMethod.POST})
+    public String FindPassword(HttpServletResponse response, @RequestParam(value = "email", required = false) String email) throws Exception {
+        if (email != null && Pattern.matches("^[A-Za-z0-9+_.-]+@(.+)$", email)) {
+            mailService.sendMail("test", email);
+            ScriptUtils.alertAndMovePage(response, "요청한 이메일로 메일을 보냈습니다.", "/NKBlog/login");
+            return null;
+        } else if (email != null) {
+            ScriptUtils.alertAndBackPage(response, "이메일 형식이 아닙니다.");
+            return null;
+        }
+        return "findPassword";
     }
 }

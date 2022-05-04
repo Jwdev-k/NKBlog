@@ -31,15 +31,15 @@ public class MailService {
         });
     }
 
-    public void sendMail(String body) throws IOException {
+    public void sendMail(String body, String email) throws IOException {
         try {
-            final String from = "nkblog.co.kr";
+            final String from = "nkblog@web.com";
             final String fromName = "NKBlog";
             final String subJect = "Reqeust Your Password";
             getSession().setDebug(true); //기본값 false
             MimeMessage msg = new MimeMessage(getSession());
-            msg.setFrom(new InternetAddress(from, fromName));
-            msg.setRecipient(Message.RecipientType.TO, new InternetAddress("jungwu07@naver.com")); //test email
+            msg.setFrom(new InternetAddress(from,fromName));
+            msg.setRecipient(Message.RecipientType.TO, new InternetAddress(email)); //test email
             msg.setSubject(subJect);
             msg.setText("Your Password = " + body);
             msg.setSentDate(new Date());

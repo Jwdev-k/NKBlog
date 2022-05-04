@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import web.nkblog.domain.CommentDTO;
 import web.nkblog.enums.EsearchType;
 import web.nkblog.domain.boardDTO;
-import web.nkblog.domain.commentDTO;
 import web.nkblog.service.impl.FileServiceimpl;
 import web.nkblog.service.impl.boardServiceimpl;
 import web.nkblog.service.impl.commentServiceimpl;
@@ -110,7 +110,7 @@ public class BoardController {
         model.addAttribute("boardData", bbs.getBoard(bno));
         model.addAttribute("bbsID", bno);
 
-        ArrayList<commentDTO> commentList = cs.commentList(bno, start);
+        ArrayList<CommentDTO> commentList = cs.commentList(bno, start);
         if (!commentList.isEmpty()) {
             model.addAttribute("commentList", commentList);
         }
@@ -149,12 +149,13 @@ public class BoardController {
 
     @RequestMapping(value = "/comment/add", method = RequestMethod.POST)
     public String AddComment(HttpServletRequest request, HttpSession session, @RequestParam("bno") int param1) throws Exception {
-        commentDTO comment = new commentDTO(param1
+        String comment = request.getParameter("comment");
+        CommentDTO commentDTO = new CommentDTO(param1
                 , (String) session.getAttribute("userID")
-                , request.getParameter("comment")
+                , comment
                 , LocalDateTime.now().format(formatter));
-        log.debug("댓글등록: " + comment.toString());
-        cs.addComment(comment);
+        log.debug("댓글등록: " + commentDTO);
+        cs.addComment(commentDTO);
         return "redirect:" + request.getHeader("Referer");
     }
 
