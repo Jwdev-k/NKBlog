@@ -6,6 +6,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import web.nkblog.interceptor.AuthLoginInterceptor;
+import web.nkblog.interceptor.GlobalBoardInterceptor;
 
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
@@ -13,6 +14,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AuthLoginInterceptor()).addPathPatterns("/login");
+        registry.addInterceptor(new GlobalBoardInterceptor()).addPathPatterns("/**").excludePathPatterns("/bbs");
     }
 
     @Bean

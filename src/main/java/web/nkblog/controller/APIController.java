@@ -18,37 +18,32 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @RequestMapping(value = "/api", method = RequestMethod.GET)
 public class APIController {
-
-    private final Gson gs = new GsonBuilder().setPrettyPrinting().create();
-    private final HttpHeaders Headers = new HttpHeaders();
     @Autowired
     private loginDAO ld;
+    private final Gson gs = new GsonBuilder().setPrettyPrinting().create();
 
-    @GetMapping(value = "users/{id}", produces = "text/plain;charset=UTF-8")
+    @GetMapping(value = "users/{id}", produces = "application/json;charset=UTF-8")
     public ResponseEntity<String> getUser(@PathVariable("id") String uid) throws Exception {
-        Headers.setContentType(MediaType.APPLICATION_JSON);
         if (uid.equals("all")) {
-            return new ResponseEntity<>(gs.toJson(ld.getAllAccountData()), Headers, HttpStatus.OK);
+            return new ResponseEntity<>(gs.toJson(ld.getAllAccountData()), HttpStatus.OK);
         } else if (ld.getAccountData(uid) != null) {
-            return new ResponseEntity<>(gs.toJson(ld.getAccountData(uid)), Headers, HttpStatus.OK);
+            return new ResponseEntity<>(gs.toJson(ld.getAccountData(uid)), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(gs.toJson(new loginDTO("null", "null", "null")), Headers,
-                    HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(gs.toJson(new loginDTO("null", "null", "null")), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PutMapping(value = "users/{id}/{password}/{password2}", produces = "text/plain;charset=UTF-8")
+    @PutMapping(value = "users/{id}/{password}/{password2}", produces = "application/json;charset=UTF-8")
     public ResponseEntity<String> setPassword(@PathVariable("id") String id, @PathVariable("password") String password
             , @PathVariable("password2") String password2, HttpServletResponse response) throws Exception {
-        Headers.setContentType(MediaType.APPLICATION_JSON);
         StringBuilder sb = new StringBuilder();
         if (ld.setPassword(id, password, password2)) {
-            sb.append(id + "님의 패스워드를 ");
-            sb.append(password2 + "으로 변경 하였습니다.");
+            sb.append(id).append("님의 패스워드를 ");
+            sb.append(password2).append("으로 변경 하였습니다.");
             log.info(sb.toString());
-            return new ResponseEntity<>(gs.toJson( "body: " + sb), Headers, HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(gs.toJson(sb), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("", Headers, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(gs.toJson("failed"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

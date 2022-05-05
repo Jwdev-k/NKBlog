@@ -12,7 +12,6 @@ import java.util.ArrayList;
 @Setter
 @Slf4j
 public class PageUtil {
-
     private int totalCount; // 총 게시글 수
     private int startPage;
     private int endPage;
@@ -20,10 +19,10 @@ public class PageUtil {
     private boolean next;
     private int displayPageNum = 5; // 한페이지당 페이징번호 갯수
     private int page = 1; // 현재페이지
-    private int PerPageNum = 10; // 한 페이지 총 게시글 수
+    private int perPageNum = 10; // 한 페이지 총 게시글 수
     private ArrayList<Integer> pageNumList = new ArrayList<>(); //페이징 버튼 리스트
 
-    public void setTotalCount(int totalCount) { // 총 게시글 수 설정
+    public void setTotalCount(int totalCount){ // 총 게시글 수 설정
         this.totalCount = totalCount;
         calcData();
     }

@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="content-type" content="text/html" ; charset="UTF-8">
-    <meta name="viewport" content="width=device-width" , initial-scale="1">
+    <meta http-equiv="content-type" content="text/html"; charset="UTF-8">
+    <meta name="viewport" content="width=device-width", initial-scale="1">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
     <title>NKBlog</title>
 </head>
@@ -24,7 +24,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
             <li><a href="/NKBlog/main">메인</a></li>
-            <li class="active"><a href="/NKBlog/bbs?pageNumber=1">게시판</a></li>
+            <li class="active"><a href="/NKBlog/bbs?pageNumber=${pageNumber}">게시판</a></li>
         </ul>
         <c:set var="userID" value="${userID}"/>
         <c:if test="${userID == null}">

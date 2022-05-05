@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import web.nkblog.domain.CommentDTO;
 import web.nkblog.domain.impl.commentDAO;
-import web.nkblog.service.commentService;
+import web.nkblog.service.CommentService;
 
 import java.util.ArrayList;
 
 @Service
-public class commentServiceimpl implements commentService {
+public class CommentServiceimpl implements CommentService {
 
     @Autowired
     private commentDAO comment;

@@ -24,13 +24,9 @@ public class SessionConfig implements HttpSessionListener {
             }
         }
         if (result != null) {
-            removeSessionDoubleLogin(result); // 조건문으로 값이 없을경우만 등록되게 구현했기 때문에 단순 로그.
+            log.info("already exists session userID: " + result);
         }
         return result;
-    }
-
-    private static void removeSessionDoubleLogin(String userID) { //
-        log.debug("remove session userID: " + userID);
     }
 
     @Override

@@ -25,15 +25,13 @@ public class AuthLoginInterceptor implements HandlerInterceptor {
         }
         return true;
     }
-
     // 컨트롤러가 수행되고 화면이 보여지기 직전에 수행되는 메서드
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-                           ModelAndView modelAndView) {
-
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView){
     }
 
+    // 화면이 보여진후 수행되는 메서드
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object o, Exception e) {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex){
     }
 }

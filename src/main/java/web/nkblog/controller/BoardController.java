@@ -8,12 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import web.nkblog.domain.CommentDTO;
 import web.nkblog.enums.EsearchType;
 import web.nkblog.domain.boardDTO;
+import web.nkblog.service.impl.CommentServiceimpl;
 import web.nkblog.service.impl.FileServiceimpl;
 import web.nkblog.service.impl.boardServiceimpl;
-import web.nkblog.service.impl.commentServiceimpl;
 import web.nkblog.utils.PageUtil;
 import web.nkblog.utils.ScriptUtils;
 
@@ -30,7 +31,7 @@ public class BoardController {
     @Autowired
     private boardServiceimpl bbs;
     @Autowired
-    private commentServiceimpl cs;
+    private CommentServiceimpl cs;
     @Autowired
     private FileServiceimpl fs;
     @Autowired
@@ -41,23 +42,21 @@ public class BoardController {
 
     @RequestMapping(value = "/bbs", method = {RequestMethod.GET, RequestMethod.POST})
     public String boardlist(Model model
-            , @RequestParam(value = "pageNumber", defaultValue = "1") int pn
+            , @RequestParam(value = "pageNumber", defaultValue = "1") int pageNumber
             , @RequestParam(value = "searchType", required = false, defaultValue = "title") EsearchType type
             , @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {
-        ArrayList<boardDTO> list = bbs.boardList(pn);
+        ArrayList<boardDTO> list = bbs.boardList(pageNumber);
         if (!list.isEmpty()) {
             model.addAttribute("boardList", list);
         }
-        pageUtil.setPage(pn);
+        pageUtil.setPage(pageNumber);
         pageUtil.setTotalCount(bbs.countBoardList());
 
         model.addAttribute("pageMaker", pageUtil);
-        model.addAttribute("pageNumber", pn);
-
-        if (bbs.nextPageCheck(pn)) {
-            model.addAttribute("nextPageNumber", pn + 1);
+        model.addAttribute("pageNumber", pageNumber);
+        if (bbs.nextPageCheck(pageNumber)) {
+            model.addAttribute("nextPageNumber", pageNumber + 1);
         }
-
         if (!keyword.equals("")) {
             ArrayList<boardDTO> list2 = bbs.searchBoard(type, keyword);
             if (!list2.isEmpty()) {

@@ -16,7 +16,7 @@ public class CustomErrorController implements ErrorController {
         var status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         if (status != null) {
             int errorStatus = Integer.parseInt(status.toString());
-            if (errorStatus == HttpStatus.NOT_FOUND.value()) {
+            if (errorStatus == HttpStatus.NOT_FOUND.value() || errorStatus == HttpStatus.BAD_REQUEST.value()) {
                 return "error/404error";
             }
             if (errorStatus == HttpStatus.INTERNAL_SERVER_ERROR.value()) {

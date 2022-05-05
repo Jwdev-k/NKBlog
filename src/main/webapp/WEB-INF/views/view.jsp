@@ -27,7 +27,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
             <li class="active"><a href="/NKBlog/main">메인</a></li>
-            <li><a href="/NKBlog/bbs?pageNumber=1">게시판</a></li>
+            <li><a href="/NKBlog/bbs?pageNumber=${pageNumber}">게시판</a></li>
         </ul>
         <c:if test="${userID == null}">
         <ul class="nav navbar-nav navbar-right">

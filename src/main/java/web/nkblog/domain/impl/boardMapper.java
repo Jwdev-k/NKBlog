@@ -38,5 +38,5 @@ public interface boardMapper {
     boolean nextPageCheck(int start) throws Exception;
 
     @Select("SELECT bno FROM boardlist ORDER BY bno DESC LIMIT 1")
-    int lastBno() throws Exception;
+    int LastBno() throws Exception;
 }

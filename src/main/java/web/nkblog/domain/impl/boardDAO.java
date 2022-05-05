@@ -93,10 +93,10 @@ public class boardDAO implements boardMapper {
     }
 
     @Override
-    public int lastBno() throws Exception {
+    public int LastBno() throws Exception {
         var mapper = getSqlSession().getMapper(boardMapper.class);
         getSqlSession().close();
-        return mapper.lastBno();
+        return mapper.LastBno();
     }
 
 }

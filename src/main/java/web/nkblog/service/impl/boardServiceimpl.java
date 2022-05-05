@@ -12,8 +12,8 @@ import web.nkblog.service.boardService;
 
 import java.util.ArrayList;
 
-@Slf4j
 @Service
+@Slf4j
 public class boardServiceimpl implements boardService {
 
     @Autowired
@@ -71,6 +71,6 @@ public class boardServiceimpl implements boardService {
 
     @Override
     public int lastBno() throws Exception {
-        return bbs.lastBno();
+        return bbs.LastBno();
     }
 }

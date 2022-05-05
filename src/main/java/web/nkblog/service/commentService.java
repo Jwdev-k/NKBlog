@@ -4,7 +4,7 @@ import web.nkblog.domain.CommentDTO;
 
 import java.util.ArrayList;
 
-public interface commentService {
+public interface CommentService {
     CommentDTO getComment(CommentDTO comment) throws Exception;
 
     ArrayList<CommentDTO> commentList(int bno, int start) throws Exception;
