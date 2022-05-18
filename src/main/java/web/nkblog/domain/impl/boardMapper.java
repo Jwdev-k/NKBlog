@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public interface boardMapper {
 
-    @Select("SELECT * FROM ( SELECT * FROM boardlist WHERE Available = 1 LIMIT #{start}, 10 ) sub ORDER BY bno DESC")
+    @Select("SELECT * FROM boardlist WHERE Available = 1 ORDER BY bno DESC LIMIT #{start}, 10")
     ArrayList<boardDTO> boardList(int start) throws Exception;
 
     @Insert("INSERT INTO boardlist VALUES(null, #{title}, #{uid}, #{created}, #{content}, #{available})")
@@ -34,7 +34,7 @@ public interface boardMapper {
     @Select("SELECT * FROM boardlist WHERE bno = #{bno} AND Available = 1")
     boardDTO getBoard(int bno) throws Exception;
 
-    @Select("SELECT EXISTS (SELECT * FROM boardlist WHERE Available = 1 LIMIT #{start}, 10) as success")
+    @Select("SELECT EXISTS (SELECT * FROM boardlist WHERE Available = 1 ORDER BY bno DESC LIMIT #{start}, 10) as success")
     boolean nextPageCheck(int start) throws Exception;
 
     @Select("SELECT bno FROM boardlist ORDER BY bno DESC LIMIT 1")

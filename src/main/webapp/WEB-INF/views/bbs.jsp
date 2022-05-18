@@ -99,15 +99,34 @@
         <c:set var="nextPageNumber" value="${nextPageNumber}"/>
         <c:set var="userID" value="${userID}"/>
 
+        <c:if test="${pageMaker.prev}">
+            <a href="/NKBlog/bbs?pageNumber=${pageMaker.startPage - 1}" class="btn btn-info">◀◀</a>
+        </c:if>
+        <c:if test="${pageNumber > 1}">
+            <a href="/NKBlog/bbs?pageNumber=${pageNumber - 1}" class="btn btn-info">◀</a>
+        </c:if>
+        <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="pageNum">
+            <c:choose>
+                <c:when test="${pageNumber == pageNum}">
+                    <a href="/NKBlog/bbs?pageNumber=${pageNum}" class="btn btn-success">${pageNum}</a>
+                </c:when>
+                <c:otherwise>
+                    <a href="/NKBlog/bbs?pageNumber=${pageNum}" class="btn btn">${pageNum}</a>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+        <c:if test="${nextPageNumber != null}">
+            <a href="/NKBlog/bbs?pageNumber=${nextPageNumber}" class="btn btn-info">▶</a>
+        </c:if>
         <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+            <a href="/NKBlog/bbs?pageNumber=${pageMaker.endPage + 1}" class="btn btn-info">▶▶</a>
+        </c:if>
+<%--        <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
             <a href="/NKBlog/bbs?pageNumber=${pageMaker.endPage + 1}" class="btn btn-info">◀◀</a>
         </c:if>
         <c:if test="${nextPageNumber != null}">
             <a href="/NKBlog/bbs?pageNumber=${nextPageNumber}" class="btn btn-info">◀</a>
         </c:if>
-       <%-- <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="pageNum">
-            <a href="/NKBlog/bbs?pageNumber=${pageNum}" class="btn">${pageNum}</a>
-        </c:forEach>--%>
         <c:forEach items="${pageMaker.pageNumList}" var="pageNum">
             <c:choose>
                 <c:when test="${pageNumber == pageNum}">
@@ -118,13 +137,12 @@
                 </c:otherwise>
             </c:choose>
         </c:forEach>
-
         <c:if test="${pageNumber > 1}">
             <a href="/NKBlog/bbs?pageNumber=${pageNumber - 1}" class="btn btn-info">▶</a>
         </c:if>
         <c:if test="${pageMaker.prev}">
             <a href="/NKBlog/bbs?pageNumber=${pageMaker.startPage - 1}" class="btn btn-info">▶▶</a>
-        </c:if>
+        </c:if>--%>
 
         <c:if test="${userID != null}">
             <a href="/NKBlog/bbs/write" class="btn btn-primary pull-right">글쓰기</a>

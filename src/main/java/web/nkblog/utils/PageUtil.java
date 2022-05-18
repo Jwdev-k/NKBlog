@@ -20,6 +20,7 @@ public class PageUtil {
     private int displayPageNum = 5; // 한페이지당 페이징번호 갯수
     private int page = 1; // 현재페이지
     private int perPageNum = 10; // 한 페이지 총 게시글 수
+    private int lastEndPage;
     private ArrayList<Integer> pageNumList = new ArrayList<>(); //페이징 버튼 리스트
 
     public void setTotalCount(int totalCount){ // 총 게시글 수 설정
@@ -33,9 +34,9 @@ public class PageUtil {
         if (startPage <= 0) {
             startPage = 1;
         }
-        int tempEndPage = (int) (Math.ceil((double) getTotalCount() / getPerPageNum())) - 1;
-        if (endPage >= tempEndPage) {
-            endPage = tempEndPage;
+        lastEndPage = (int) (Math.ceil((double) getTotalCount() / getPerPageNum())) - 1;
+        if (endPage >= lastEndPage) {
+            endPage = lastEndPage;
         }
         next = (endPage + 1) * getPerPageNum() < totalCount;
         prev = startPage != 1;

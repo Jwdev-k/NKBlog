@@ -24,7 +24,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
             <li><a href="/NKBlog/main">메인</a></li>
-            <li><a href="/NKBlog/bbs?pageNumber=${pageNumber}">게시판</a></li>
+            <li><a href="/NKBlog/bbs">게시판</a></li>
         </ul>
         <c:set var="userID" value="${userID}"/>
         <c:if test="${userID == null}">
@@ -57,7 +57,6 @@
         </c:if>
     </div>
 </nav>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
 <h1>현재 서버 시간${serverTime}</h1>
 <p><a href="/NKBlog/main">메인 페이지 이동</a></p>

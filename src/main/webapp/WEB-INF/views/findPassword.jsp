@@ -24,7 +24,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
             <li><a href="/NKBlog/main">메인</a></li>
-            <li><a href="/NKBlog/bbs?pageNumber=${pageNumber}">게시판</a></li>
+            <li><a href="/NKBlog/bbs">게시판</a></li>
         </ul>
         <c:set var="userID" value="${userID}"/>
         <c:if test="${userID == null}">
