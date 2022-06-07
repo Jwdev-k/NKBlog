@@ -3,6 +3,7 @@ package web.nkblog.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import web.nkblog.domain.FileDTO;
 import web.nkblog.domain.impl.FileDAO;
@@ -20,6 +21,7 @@ public class FileServiceimpl implements FileService {
     private boardServiceimpl bbs;
 
     @Override
+    @Transactional
     public void saveFile(String rootDirectory, MultipartFile file) {
         File Folder = new File(rootDirectory + "resources\\images");
         if (!Folder.exists()) {

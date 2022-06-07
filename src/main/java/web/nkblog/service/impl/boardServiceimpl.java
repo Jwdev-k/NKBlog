@@ -4,6 +4,7 @@ package web.nkblog.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import web.nkblog.enums.EsearchType;
 import web.nkblog.config.AsyncService;
 import web.nkblog.domain.boardDTO;
@@ -30,16 +31,19 @@ public class boardServiceimpl implements boardService {
     }
 
     @Override
+    @Transactional
     public void addboard(boardDTO board) throws Exception {
         bbs.addboard(board);
     }
 
     @Override
+    @Transactional
     public void delteboard(int bno) throws Exception {
         bbs.deleteboard(bno);
     }
 
     @Override
+    @Transactional
     public void updateboard(boardDTO dto) throws Exception {
         bbs.updateboard(dto);
     }

@@ -3,6 +3,7 @@ package web.nkblog.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import web.nkblog.domain.impl.loginDAO;
 import web.nkblog.domain.loginDTO;
 import web.nkblog.service.loginService;
@@ -20,6 +21,7 @@ public class loginServiceimpl implements loginService {
     private SHA256 sha256;
 
     @Override
+    @Transactional
     public int login(String uid, String password) throws Exception {
         loginDTO user = lg.login(uid, password);
         if (lg.getAccountData(uid) == null) {
@@ -33,6 +35,7 @@ public class loginServiceimpl implements loginService {
     }
 
     @Override
+    @Transactional
     public boolean register(String userID, String userPassword, String gender) throws Exception {
         if (lg.getAccountData(userID) == null && Pattern.matches("^[a-zA-Z0-9]*$", userID) //영문 숫자만 가능
                 && Pattern.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&]{8,16}", userPassword)) {
