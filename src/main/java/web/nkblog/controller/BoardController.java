@@ -41,7 +41,7 @@ public class BoardController {
     private int bbsID = 0;
 
     @RequestMapping(value = "/bbs", method = {RequestMethod.GET, RequestMethod.POST})
-    public String boardlist(Model model
+    public String boardList(Model model
             , @RequestParam(value = "pageNumber", defaultValue = "1") int pageNumber
             , @RequestParam(value = "searchType", required = false, defaultValue = "title") EsearchType type
             , @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {

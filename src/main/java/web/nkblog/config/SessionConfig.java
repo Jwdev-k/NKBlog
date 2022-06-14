@@ -29,6 +29,10 @@ public class SessionConfig implements HttpSessionListener {
         return result;
     }
 
+    public static ConcurrentHashMap<String, HttpSession> sessionList() {
+        return (ConcurrentHashMap<String, HttpSession>) sessions;
+    }
+
     @Override
     public void sessionCreated(HttpSessionEvent httpSessionEvent) { // 맵에 세션 저장
         sessions.put(httpSessionEvent.getSession().getId(), httpSessionEvent.getSession());

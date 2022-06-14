@@ -37,6 +37,6 @@
 
 ![DB관계도](https://user-images.githubusercontent.com/82058641/163245617-99d440c4-1c04-4196-936a-196b66c7caa6.png)
 
-###게시판 화면
+### 게시판 화면
 
 ![image](https://user-images.githubusercontent.com/82058641/172414548-87822c6e-5a09-456d-993a-16fcc495cdd0.png)

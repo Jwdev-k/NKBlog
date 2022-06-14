@@ -66,7 +66,7 @@ public class LoginController {
                 ScriptUtils.alertAndBackPage(response, "존재하지 않는 아이디 입니다.");
             }
         } else {
-            ScriptUtils.alertAndBackPage(response, "이미 로그인중 입니다.(중복로그인 감지)");
+            ScriptUtils.alertAndBackPage(response, "로그인 중인 기기를 로그아웃처리 하였습니다.");
         }
         return null;
     }
