@@ -66,7 +66,14 @@ public class LoginController {
                 ScriptUtils.alertAndBackPage(response, "존재하지 않는 아이디 입니다.");
             }
         } else {
-            ScriptUtils.alertAndBackPage(response, "로그인 중인 기기를 로그아웃처리 하였습니다.");
+            if (u == 1) {
+                session.setAttribute("userID", userID);
+                ScriptUtils.alertAndMovePage(response, "로그인 중인 기기를 로그아웃처리 하였습니다.", "/NKBlog/main");
+            } else if (u == 0) {
+                ScriptUtils.alertAndBackPage(response, "패스워드가 틀렸습니다.");
+            } else {
+                ScriptUtils.alertAndBackPage(response, "존재하지 않는 아이디 입니다.");
+            }
         }
         return null;
     }

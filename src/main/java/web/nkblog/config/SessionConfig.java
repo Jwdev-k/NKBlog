@@ -18,13 +18,17 @@ public class SessionConfig implements HttpSessionListener {
     public synchronized static String getSessionCheck(String type, String compareID) { //type = 세션이름, compareID = 세션값
         String result = null;
         for (String key : sessions.keySet()) { // 세션에 값이 있는지 확인
-            HttpSession hs = sessions.get(key);
-            if (hs != null && hs.getAttribute(type) != null && hs.getAttribute(type).toString().equals(compareID)) {
-                result = key;
+            if (key != null) {
+                HttpSession hs = sessions.get(key);
+                if (hs != null && hs.getAttribute(type) != null && hs.getAttribute(type).toString().equals(compareID)) {
+                    result = key;
+                }
             }
         }
         if (result != null) {
-            log.info("already exists session userID: " + result);
+            log.info("already exists session userID: " + compareID);
+            sessions.get(result).invalidate();
+            sessions.remove(result);
         }
         return result;
     }
@@ -35,11 +39,13 @@ public class SessionConfig implements HttpSessionListener {
 
     @Override
     public void sessionCreated(HttpSessionEvent httpSessionEvent) { // 맵에 세션 저장
+        log.info("세션 추가");
         sessions.put(httpSessionEvent.getSession().getId(), httpSessionEvent.getSession());
     }
 
     @Override
     public void sessionDestroyed(HttpSessionEvent httpSessionEvent) { //세션 삭제시 맵 에 있는지 확인후
+        log.info("세션 삭제");
         if (sessions.get(httpSessionEvent.getSession().getId()) != null) {
             sessions.get(httpSessionEvent.getSession().getId()).invalidate();
             sessions.remove(httpSessionEvent.getSession().getId());
