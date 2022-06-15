@@ -57,10 +57,10 @@
         </c:if>
     </div>
 </nav>
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
 <h1>현재 서버 시간${serverTime}</h1>
 <p><a href="/NKBlog/main">메인 페이지 이동</a></p>
 <p><a href="/NKBlog/404error">404 에러 페이지 이동</a></p>
 <p><a href="/NKBlog/500error">500 에러 페이지 이동</a></p>
 </body>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
 </html>

@@ -17,10 +17,19 @@
 - Clone 받은 소스를 실행하기 전에 `/sql/NKBlogDDL.sql` 파일을 Import 하여 테이블을 생성
 #
 ## 4. REST API
-- TEST 유저 정보 조회 JSON
-    <img src = "https://user-images.githubusercontent.com/82058641/161824005-1e633889-0a72-42c9-8dc3-33da23585301.PNG" width="700px">
-    <img src = "https://user-images.githubusercontent.com/82058641/161824422-7a378648-16db-43fa-b946-c1b981daaf8c.PNG" width="700px">
-    유저 아이디 기반으로 해당 계정의 DB에 저장된 정보를 조회하는 기능입니다.
+### TEST 유저 정보 조회 JSON
+유저 아이디 기반으로 해당 계정의 DB에 저장된 정보를 조회하는 기능입니다.
+
+![image](https://user-images.githubusercontent.com/82058641/173864483-a4f75873-5218-4727-978e-582f47fbaa42.png)
+
+![image](https://user-images.githubusercontent.com/82058641/173864583-de8e9f2c-6aae-46a7-81a2-ddf00d0b16e6.png)
+
+### Active User
+SessionListener 를 이용해 각각의 세션정보를 담아둔 Map 에서 현재 로그인중인 세션을 JSON 으로 가져옵니다.
+
+![image](https://user-images.githubusercontent.com/82058641/173863996-9e79edbd-b6e4-45ae-9084-c152afe8644b.png)
+
+![image](https://user-images.githubusercontent.com/82058641/173864108-26bc48e2-d973-4f6a-b0f0-f35d57602679.png)
 #
 ## 5. Simple Security Guide
 #### 5-1. 유저 정보 패스워드 저장방식
