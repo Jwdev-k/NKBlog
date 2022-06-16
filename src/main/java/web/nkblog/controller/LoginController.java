@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import web.nkblog.api.KakaoLoginBO;
 import web.nkblog.api.NaverLoginBO;
 import web.nkblog.config.SessionConfig;
+import web.nkblog.domain.loginDTO;
 import web.nkblog.service.MailService;
 import web.nkblog.service.impl.loginServiceimpl;
 import web.nkblog.utils.SHA256;
@@ -136,7 +137,7 @@ public class LoginController {
         if (userID == null && userPassword == null && userGender == null) {
             log.debug("값이 없습니다.");
             return "redirect:join";
-        } else if (ls.register(userID, userPassword, userGender)) {
+        } else if (ls.register(new loginDTO(userID, userPassword, null, userGender))) {
             ScriptUtils.alertAndMovePage(response, "회원가입 완료.", "/NKBlog/login");
             return null;
         } else {
@@ -148,7 +149,9 @@ public class LoginController {
     @RequestMapping(value = "/find-password", method = {RequestMethod.GET, RequestMethod.POST})
     public String FindPassword(HttpServletResponse response, @RequestParam(value = "email", required = false) String email) throws Exception {
         if (email != null && Pattern.matches("^[A-Za-z0-9+_.-]+@(.+)$", email)) {
-            mailService.sendMail("test", email);
+            if (ls.getAccountData(email) != null) {
+                mailService.sendMail("test", email);
+            }
             ScriptUtils.alertAndMovePage(response, "요청한 이메일로 메일을 보냈습니다.", "/NKBlog/login");
             return null;
         } else if (email != null) {

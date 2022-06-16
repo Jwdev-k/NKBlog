@@ -2,6 +2,7 @@ package web.nkblog.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.io.Resources;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -16,6 +17,8 @@ import java.util.Properties;
 @Slf4j
 public class MailService {
     private final Properties prop = new Properties();
+    @Autowired
+    private loginService ls;
 
     private Session getSession() throws IOException {
         InputStream in = Resources.getResourceAsStream("mail.properties");
@@ -31,26 +34,28 @@ public class MailService {
         });
     }
 
-    public void sendMail(String body, String email) throws IOException {
-        try {
-            final String from = "nkblog@web.com";
-            final String fromName = "NKBlog";
-            final String subJect = "Reqeust Your Password";
-            getSession().setDebug(true); //기본값 false
-            MimeMessage msg = new MimeMessage(getSession());
-            msg.setFrom(new InternetAddress(from,fromName));
-            msg.setRecipient(Message.RecipientType.TO, new InternetAddress(email)); //test email
-            msg.setSubject(subJect);
-            msg.setText("Your Password = " + body);
-            msg.setSentDate(new Date());
+    public void sendMail(String body, String email) throws Exception {
+        if (ls.getUserEmail(email) != null) {
+            try {
+                final String from = "nkblog@web.com";
+                final String fromName = "NKBlog";
+                final String subJect = "Reqeust Your Password";
+                getSession().setDebug(true); //기본값 false
+                MimeMessage msg = new MimeMessage(getSession());
+                msg.setFrom(new InternetAddress(from, fromName));
+                msg.setRecipient(Message.RecipientType.TO, new InternetAddress(email)); //test email
+                msg.setSubject(subJect);
+                msg.setText("Your Password = " + body);
+                msg.setSentDate(new Date());
 
-            Transport tr = getSession().getTransport();
-            tr.connect();
-            tr.sendMessage(msg, msg.getAllRecipients());
-            tr.close();
-            log.info("Find Password Mail Sent");
-        } catch (MessagingException | UnsupportedEncodingException e) {
-            e.printStackTrace();
+                Transport tr = getSession().getTransport();
+                tr.connect();
+                tr.sendMessage(msg, msg.getAllRecipients());
+                tr.close();
+                log.info("Find Password Mail Sent");
+            } catch (MessagingException | UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

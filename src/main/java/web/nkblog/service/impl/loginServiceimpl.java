@@ -36,13 +36,23 @@ public class loginServiceimpl implements loginService {
 
     @Override
     @Transactional
-    public boolean register(String userID, String userPassword, String gender) throws Exception {
-        if (lg.getAccountData(userID) == null && Pattern.matches("^[a-zA-Z0-9]*$", userID) //영문 숫자만 가능
-                && Pattern.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&]{8,16}", userPassword)) {
+    public boolean register(loginDTO user) throws Exception {
+        if (lg.getAccountData(user.getUid()) == null && Pattern.matches("^[a-zA-Z0-9]*$", user.getUid()) //영문 숫자만 가능
+                && Pattern.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&]{8,16}", user.getPassword())) {
             // 8자이상 16자이내 대문자 하나 이상,소문자 하나 이상,숫자 1개 및 특수 문자 1개 이상
-            lg.register(userID, sha256.encrypt(userPassword), gender); // 패스워드 단방향 암호화 후 DB로 넘겨줌
+            lg.register(user); // 패스워드 단방향 암호화 후 DB로 넘겨줌
             return true;
         }
         return false;
+    }
+
+    @Override
+    public loginDTO getAccountData(String uid) throws Exception {
+        return lg.getAccountData(uid);
+    }
+
+    @Override
+    public String getUserEmail(String email) throws Exception {
+        return lg.getUserEmail(email);
     }
 }

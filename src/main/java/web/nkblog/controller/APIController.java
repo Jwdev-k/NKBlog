@@ -32,7 +32,7 @@ public class APIController {
         } else if (ld.getAccountData(uid) != null) {
             return new ResponseEntity<>(gs.toJson(ld.getAccountData(uid)), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(gs.toJson(new loginDTO("null", "null", "null")), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(gs.toJson(new loginDTO("null", "null", "null", "null")), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
