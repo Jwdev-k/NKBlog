@@ -7,17 +7,24 @@
 - Spring Boot
 - Tomcat 9
 - Mybatis and Maria DB
-#
-## 2. 프로젝트 주요 기능
-- 사용자 회원가입 및 로그인, OAuth2.0 소셜 로그인(카카오 및 네이버 api를 활용),
 
-    정보수정, 중복검사, 패스워드 찾기(Gmail SMTP 서버를 사용한 이메일전송 방식)
-- 게시판 : CRUD, 페이징 및 검색처리, 파일 업로드
-- 댓글 : CRUD
-#
+## 2. 프로젝트 주요 기능
+### 1. 로그인
+
+- 사용자 회원가입 및 로그인, OAuth2.0 소셜 로그인(카카오 및 네이버 api를 활용),
+- 정보수정, 중복검사
+- 패스워드 찾기(Gmail SMTP 서버를 사용한 이메일전송 방식),
+- 아이디 및 패스워드 정규표현식을 사용하여 유효성 검사
+### 2. 게시판
+- CRUD, 페이징 및 검색처리, 파일 업로드 
+- 로그인한 사용자만 등록 및 수정가능
+### 3. 댓글
+- CRUD, 등록 및 수정 
+- 로그인한 사용자만 등록 및 수정가능
+
 ## 3. 기본설정
 - Clone 받은 소스를 실행하기 전에 `/sql/NKBlogDDL.sql` 파일을 Import 하여 테이블을 생성
-#
+
 ## 4. REST API
 ### TEST 유저 정보 조회 JSON
 유저 아이디 기반으로 해당 계정의 DB에 저장된 정보를 조회하는 기능입니다.
@@ -32,7 +39,7 @@ SessionListener 를 이용해 각각의 세션정보를 담아둔 Map 에서 현
 ![image](https://user-images.githubusercontent.com/82058641/173863996-9e79edbd-b6e4-45ae-9084-c152afe8644b.png)
 
 ![image](https://user-images.githubusercontent.com/82058641/173864108-26bc48e2-d973-4f6a-b0f0-f35d57602679.png)
-#
+
 ## 5. Simple Security Guide
 #### 5-1. 유저 정보 패스워드 저장방식
 
@@ -42,7 +49,7 @@ SessionListener 를 이용해 각각의 세션정보를 담아둔 Map 에서 현
 - 만약 암호를 잃어버렸을 경우에는 본인확인후 패스워드를 새로 설정할 필요가 있습니다.
 
 5-X 추후 업데이트 예정
-#
+
 ### [DataBase] SQL
 * 데이터 베이스 관계도
 

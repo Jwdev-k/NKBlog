@@ -9,6 +9,7 @@ import web.nkblog.service.impl.FileServiceimpl;
 
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @Controller
 public class FileController {
@@ -21,7 +22,7 @@ public class FileController {
        FileDTO getFile = fs.getFile(bno);
        response.setContentType("application/octet-stream");
        response.setContentLength(getFile.getData().length);
-       response.setHeader("Content-Disposition",  "attachment; fileName=\""+ URLEncoder.encode(getFile.getFilename(), "UTF-8")+"\";");
+       response.setHeader("Content-Disposition",  "attachment; fileName=\""+ URLEncoder.encode(getFile.getFilename(), StandardCharsets.UTF_8)+"\";");
        response.getOutputStream().write(getFile.getData());
        response.getOutputStream().flush();
        response.getOutputStream().close();

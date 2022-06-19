@@ -6,14 +6,13 @@ import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @WebListener
 @Slf4j
 public class SessionConfig implements HttpSessionListener {
 
-    private static final Map<String, HttpSession> sessions = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, HttpSession> sessions = new ConcurrentHashMap<>();
 
     public synchronized static String getSessionCheck(String type, String compareID) { //type = 세션이름, compareID = 세션값
         String result = null;
@@ -34,7 +33,7 @@ public class SessionConfig implements HttpSessionListener {
     }
 
     public static ConcurrentHashMap<String, HttpSession> sessionList() {
-        return (ConcurrentHashMap<String, HttpSession>) sessions;
+        return sessions;
     }
 
     @Override
