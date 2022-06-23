@@ -24,12 +24,15 @@ public class SessionConfig implements HttpSessionListener {
                 }
             }
         }
+        return result;
+    }
+
+    public static void sessionRemove(String result) {
         if (result != null) {
-            log.info("already exists session userID: " + compareID);
+            log.info("remove session userID: " + result);
             sessions.get(result).invalidate();
             sessions.remove(result);
         }
-        return result;
     }
 
     public static ConcurrentHashMap<String, HttpSession> sessionList() {

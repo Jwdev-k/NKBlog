@@ -57,7 +57,8 @@ public class LoginController {
         String userID = request.getParameter("userID");
         String userPassword = sha256.encrypt(request.getParameter("userPassword"));
         var u = ls.login(userID, userPassword);
-        if (SessionConfig.getSessionCheck("userID", userID) == null) {
+        String sessionCheck = SessionConfig.getSessionCheck("userID", userID);
+        if (sessionCheck == null) {
             if (u == 1) {
                 session.setAttribute("userID", userID);
                 return "redirect:main";
@@ -68,6 +69,7 @@ public class LoginController {
             }
         } else {
             if (u == 1) {
+                SessionConfig.sessionRemove(sessionCheck);
                 session.setAttribute("userID", userID);
                 ScriptUtils.alertAndMovePage(response, "로그인 중인 기기를 로그아웃처리 하였습니다.", "/NKBlog/main");
             } else if (u == 0) {
